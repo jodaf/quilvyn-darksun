@@ -77,10 +77,10 @@ function DarkSunv3(baseRules) {
   DarkSunv3.GOODIES = Object.assign({}, rules.basePlugin.GOODIES);
   DarkSunv3.LANGUAGES =
     Object.assign({}, rules.basePlugin.LANGUAGES, DarkSunv3.LANGUAGES_ADDED);
+  DarkSunv3.DEITIES['None'] =
+    'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS_ADDED).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"';
   DarkSunv3.PATHS =
     Object.assign({}, rules.basePlugin.PATHS, DarkSunv3.PATHS_ADDED);
-  DarkSunv3.DEITIES['None'] =
-    'Domain=' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join(',');
   DarkSunv3.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
   DarkSunv3.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
   DarkSunv3.SKILLS = Object.assign({}, rules.basePlugin.SKILLS);
@@ -129,8 +129,22 @@ DarkSunv3.RANDOMIZABLE_ATTRIBUTES =
 DarkSunv3.ALIGNMENTS = Object.assign({}, SRD35.ALIGNMENTS);
 DarkSunv3.ANIMAL_COMPANIONS = Object.assign({}, SRD35.ANIMAL_COMPANIONS);
 DarkSunv3.ARMORS = Object.assign({}, SRD35.ARMORS);
+DarkSunv3.MONARCHS = {
+  'Abalach-Re':'Domain=Chaos,Charm',
+  'Andropinis':'Domain=Law,Nobility',
+  'Borys':'Domain=Destruction,Protection',
+  'Daskinor':'Domain=Chaos,Madness',
+  'Dregoth':'Domain=Death,Destruction',
+  'Hamanu':'Domain=Strength,War',
+  'Kalak':'Domain=Magic,Trickery',
+  'Lalali-Puy':'Domain=Animal,Plant',
+  'Nibenay':'Domain=Magic,Mind',
+  'Oronis':'Domain=Knowledge,Protection',
+  'Tectuktitlay':'Domain=Glory,Strength'
+};
 DarkSunv3.CLASSES = {
-  'Barbarian':SRD35.CLASSES['Barbarian'],
+  'Barbarian':
+    SRD35.CLASSES['Barbarian'],
   'Bard':
     'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/2 Reflex=1/2 Will=1/2 ' +
     'Features=' +
@@ -145,11 +159,14 @@ DarkSunv3.CLASSES = {
       '"Alchemy Dealer",Accurate,"Agile (Bard)",Coolheaded,' +
       '"Improvised Materials","Poison Dealer",Poisonbane,"Poison Resistance",' +
       '"Scorpion\'s Touch",Skilled,"Smokestick Application",Versatile',
-  'Cleric':SRD35.CLASSES['Cleric'] + ' ' +
+  'Cleric':
+    SRD35.CLASSES['Cleric'] + ' ' +
     'Selectables=' +
-      QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
-  'Druid':SRD35.CLASSES['Druid'],
-  'Fighter':SRD35.CLASSES['Fighter'],
+      QuilvynUtils.getKeys(DarkSunv3.PATHS_ADDED).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
+  'Druid':
+    SRD35.CLASSES['Druid'],
+  'Fighter':
+    SRD35.CLASSES['Fighter'],
   'Gladiator':
     'HitDie=d12 Attack=1 SkillPoints=4 Fortitude=1/2 Reflex=1/2 Will=1/3 ' +
     'Features=' +
@@ -171,7 +188,45 @@ DarkSunv3.CLASSES = {
       '"Sum \'^skills.Perform\' >= 21 ? 18:Dragon\'s Fury" ' +
     'Selectables=' +
       '"AC Optimization","Armor Check Optimization",' +
-      '"Armor Dexterity Optimization","Armor Weight Optimization"'
+      '"Armor Dexterity Optimization","Armor Weight Optimization"',
+  //'Psion': as Expanded Psionic Handbook
+  //'Psychic Warrior': as Expanded Psionic Handbook
+  'Ranger':
+    SRD35.CLASSES['Ranger'],
+  'Rogue':
+    SRD35.CLASSES['Rogue']
+    .replace('Features=', 'Features="Weapon Proficiency (Bard\'s Friend/Blowgun/Garrote/Small Macahuitl/Tonfa/Widow\'s Knife/Wrist Razor)",')
+    .replace('Selectables=', 'Selectables="10:Dune Trader","10:False Vulnerability","10:Looter\'s Luck",10:Notoriety,"10:Silver Tongue"'),
+  'Templar':
+    'HitDie=d10 Attack=3/4 SkillPoints=4 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
+    'Features=' +
+      '"1:Armor Proficiency (Medium)","1:Shield Proficiency",' +
+      '"1:Weapon Proficiency (Simple)","1:Martial Weapons",' +
+      '"1:Secular Aptitude","1:Assume Domain",1:Sigil,"4:Turn Undead" ' +
+    'Selectables=' +
+      QuilvynUtils.getKeys(DarkSunv3.Monarchs).map(x => '"1:' + x + '"').join(',') + ' ' +
+    'CasterLevelArcane=levels.Templar ' +
+    'SpellAbility=charisma ' +
+    'SpellSlots=' +
+      'T0:1=5;2=6,' +
+      'T1:1=3;2=4;3=5;4=6,' +
+      'T2:4=3;5=4;6=5;7=6,' +
+      'T3:6=3;7=4;8=5;9=6,' +
+      'T4:8=3;9=4;10=5;11=6,' +
+      'T5:10=3;11=4;12=5;13=6,' +
+      'T6:12=3;13=4;14=5;15=6,' +
+      'T7:14=3;15=4;16=5;17=6,' +
+      'T8:16=3;17=4;18=5;19=6,' +
+      'T9:18=3;19=4;20=6,' +
+      'Domain1:1=1,' +
+      'Domain2:4=1,' +
+      'Domain3:6=1,' +
+      'Domain4:8=1,' +
+      'Domain5:10=1,' +
+      'Domain6:12=1,' +
+      'Domain7:14=1,' +
+      'Domain8:16=1,' +
+      'Domain9:18=1'
 };
 DarkSunv3.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
 DarkSunv3.PRESTIGE_CLASSES = {
@@ -195,6 +250,7 @@ DarkSunv3.FEATURES_ADDED = {
     'Section=combat Note="+1 maximum Dexterity bonus"',
   'Armor Weight Optimization':
     'Section=combat Note="Armor treated as one category lighter"',
+  'Assume Domain':'Section=magic Note="Access to monarch domains"',
   'Awareness':
     'Section=combat Note="Never flat-footed; may always act in surprise round"',
   'Chance':'Section=feature Note="Reroll d20 %{levels.Bard<14?1:2}/dy"',
@@ -206,8 +262,14 @@ DarkSunv3.FEATURES_ADDED = {
   "Dragon's Fury":
     'Section=combat ' +
     'Note="+4 attack and damage, extra attack, and +%{levels.Gladiator*2} temporary HP for 10 rd"',
+  'Dune Trader':
+    'Section=skill ' +
+    'Note="+4 Diplomacy (buying and selling)/Speak Language is a class skill"',
   'Exotic Weapon':
     'Section=feature Note="+%V Feat Count (Exotic Weapon Proficiency)"',
+  'False Vulnerability':
+    'Section=combat ' +
+    'Note="No foe bonus when prone/May stand as a free action w/out foe AOO"',
   'Gladitorial Performance':
     'Section=combat Note="Talent effect %{levels.Gladiator}/dy"',
   'Improved Parry':'Section=combat Note="Increased Parry effects"',
@@ -215,14 +277,21 @@ DarkSunv3.FEATURES_ADDED = {
     'Section=combat Note="Apply poison as a free action w/out AOO"',
   'Improvised Materials':
     'Section=skill Note="DC +5 to craft poison from materials at hand"',
+  "Looter's Luck":
+    'Section=skill ' +
+    'Note="May use appraise to identify most valuable item in a pile"',
   'Martial Display':
     'Section=combat ' +
     'Note="+2 first attack after making dispay as %1 action"',
+  'Martial Weapons':
+    'Section=feature Note="+2 Feat Count (Martial Weapon Proficiency)"',
   'Mercy':'Section=combat Note="No nonlethal attack penalty"',
   'Mindblank':'Section=save Note="Immune to divination and mental effects"',
   'Mental Resistance':'Section=save Note="+2 vs. telepathy and charm"',
   'No Mercy':
     'Section=combat Note="Performs coup de grace as a standard action"',
+  'Notoriety':
+    'Section=feature,skill Note="+4 Leadership","+4 Bluff/+4 Intimidate"',
   'Parry':'Section=combat Note="Cancel foe attack w/%1opposed attack"',
   'Poison Dealer':
     'Section=feature Note="May buy poison ingredients for half price"',
@@ -230,9 +299,16 @@ DarkSunv3.FEATURES_ADDED = {
   'Poisonbane':'Section=skill Note="+4 Craft (Alchemy) (poison antidote)"',
   'Quick Thinking':'Section=combat Note="+%V Initiative"',
   'Scorpion\'s Touch':'Section=combat Note="+%V DC for poisons"',
+  'Secular Aptitude':
+    'Section=feature,skill ' +
+    'Note="Secular Authority feat","+%{levels.Templar//2} Secular Authority"',
   'Shake Off':
     'Section=feature ' +
     'Note="Self or touched ally gains extra save to end mind-affecting effect"',
+  'Sigil':
+    'Section=magic ' +
+    'Note="Cast <i>Arcane Mark</i>, <i>Purify Food And Drink</i>, and <i>Slave Scent</i> %{3+charismaModifier}/dy"',
+  'Silver Tongue':'Section=skill Note="+2 Disguise/May retry Bluff at -5"',
   'Skilled':
     'Section=skill ' +
     'Note="+%{levels.Bard//2} on %V choices of Appraise, Bluff, Craft, Diplomacy, Heal, Perform, Profession, Sense Motive, Sleight of Hand"',
@@ -370,7 +446,7 @@ DarkSunv3.PATHS_ADDED = {
   'Sky Blitz Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric',
-  'Smouldering Spirit Domain':
+  'Smoldering Spirit Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric',
   'Soul Slayer Domain':
@@ -383,9 +459,8 @@ DarkSunv3.PATHS_ADDED = {
     'Group=Cleric ' +
     'Level=levels.Cleric'
 };
-DarkSunv3.PATHS = Object.assign({}, SRD35.PATHS, DarkSunv3.PATHS_ADDED);
 DarkSunv3.DEITIES = {
-  'None':'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"',
+  'None':'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS_ADDED).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"',
   'Air':
     'Alignment=N ' +
     'Domain=' +
@@ -422,7 +497,6 @@ DarkSunv3.DEITIES = {
     'Domain=' +
       '"Desert Mirage","Drowning Despair","Sky Blitz","Living Waters"'
 };
-console.log(DarkSunv3.DEITIES.None);
 DarkSunv3.RACES = {
   'Aarakocra':
     'Features=' +
@@ -864,6 +938,12 @@ DarkSunv3.classRulesExtra = function(rules, name) {
     );
     rules.defineRule
       ('uncannyDodgeSources', 'gladiatorFeatures.Uncanny Dodge', '+=', '1');
+  } else if(name == 'Templar') {
+    rules.defineRule
+      ('featCount.General', 'featureNotes.martialWeapons', '+', '2');
+    rules.defineRule
+      ('features.Secular Authority', 'featureNotes.secularAptitude', '=', '1');
+    rules.defineRule('turningLevel', classLevel, '+=', null);
   }
 
   SRD35.classRulesExtra(rules, name);
@@ -988,7 +1068,7 @@ DarkSunv3.pathRules = function(
   // Add new domains to Cleric selections
   if(name.match(/Domain$/))
     QuilvynRules.featureListRules
-      (rules, ["deityDomains =~ '" + name.replace(' Domain', '') + "' ? 1:" + name], 'Cleric', 'levels.Cleric', true);
+      (rules, ["deityDomains =~ '" + name.replace(' Domain', '').replaceAll("'", "\\'") + "' ? 1:" + name], 'Cleric', 'levels.Cleric', true);
 };
 
 /*
