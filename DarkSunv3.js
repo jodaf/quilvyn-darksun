@@ -68,7 +68,6 @@ function DarkSunv3(baseRules) {
   DarkSunv3.ANIMAL_COMPANIONS =
     Object.assign( {}, rules.basePlugin.ANIMAL_COMPANIONS);
   DarkSunv3.ARMORS = Object.assign({}, rules.basePlugin.ARMORS);
-  DarkSunv3.CLASSES = Object.assign({}, rules.basePlugin.CLASSES);
   DarkSunv3.NPC_CLASSES = Object.assign({}, rules.basePlugin.NPC_CLASSES);
   DarkSunv3.FAMILIARS = Object.assign({}, rules.basePlugin.FAMILIARS);
   DarkSunv3.FEATS =
@@ -130,7 +129,50 @@ DarkSunv3.RANDOMIZABLE_ATTRIBUTES =
 DarkSunv3.ALIGNMENTS = Object.assign({}, SRD35.ALIGNMENTS);
 DarkSunv3.ANIMAL_COMPANIONS = Object.assign({}, SRD35.ANIMAL_COMPANIONS);
 DarkSunv3.ARMORS = Object.assign({}, SRD35.ARMORS);
-DarkSunv3.CLASSES = Object.assign({}, SRD35.CLASSES);
+DarkSunv3.CLASSES = {
+  'Barbarian':SRD35.CLASSES['Barbarian'],
+  'Bard':
+    'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/2 Reflex=1/2 Will=1/2 ' +
+    'Features=' +
+      '"1:Armor Proficiency (Light)",' +
+      '"1:Weapon Proficiency (Simple/Bard\'s Friend/Hand Crossbow/Heavy Crossbow/Light Crossbow/Garrote/Greater Blowgun/Whip/Widow\'s Knife)",' +
+      '"1:Bardic Knowledge","1:Bardic Music",Smuggler,"2:Poison Use",' +
+      '2:Streetsmart,"3:Quick Draw","5:Mental Resistance",' +
+      '"6:Improved Poison Use","6:Quick Thinking",7:Chance,' +
+      '"9:Speed Reactions","10:Slippery Mind","15:Defensive Roll",' +
+      '17:Awareness,18:Mindblank ' +
+    'Selectables=' +
+      '"Alchemy Dealer",Accurate,"Agile (Bard)",Coolheaded,' +
+      '"Improvised Materials","Poison Dealer",Poisonbane,"Poison Resistance",' +
+      '"Scorpion\'s Touch",Skilled,"Smokestick Application",Versatile',
+  'Cleric':SRD35.CLASSES['Cleric'] + ' ' +
+    'Selectables=' +
+      QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
+  'Druid':SRD35.CLASSES['Druid'],
+  'Fighter':SRD35.CLASSES['Fighter'],
+  'Gladiator':
+    'HitDie=d12 Attack=1 SkillPoints=4 Fortitude=1/2 Reflex=1/2 Will=1/3 ' +
+    'Features=' +
+      '"1:Armor Proficiency (Medium)","1:Shield Proficiency",' +
+      '"1:Weapon Proficiency (Martial)",' +
+      '"1:Gladitorial Performance",1:Mercy,"1:Exotic Weapon",' +
+      '"2:Improved Unarmed Strike","2:Arena Guile","3:Improved Feint",' +
+      '"4:Uncanny Dodge","5:Armor Optimization","6:No Mercy",' +
+      '"8:Improved Uncanny Dodge",14:Parry,"15:Superior Feint",' +
+      '"19:Improved Parry",' +
+      '"Sum \'^skills.Perform\' >= 3 ? 1:Combat Stance",' +
+      '"Sum \'^skills.Perform\' >= 3 ? 1:Martial Display",' +
+      '"Sum \'^skills.Perform\' >= 3 ? 1:Team Strike",' +
+      '"Sum \'^skills.Perform\' >= 6 ? 3:Taunt",' +
+      '"Sum \'^skills.Perform\' >= 9 ? 6:Shake Off",' +
+      '"Sum \'^skills.Perform\' >= 12 ? 9:Trick",' +
+      '"Sum \'^skills.Perform\' >= 15 ? 12:Chant",' +
+      '"Sum \'^skills.Perform\' >= 18 ? 15:Threatening Glare",' +
+      '"Sum \'^skills.Perform\' >= 21 ? 18:Dragon\'s Fury" ' +
+    'Selectables=' +
+      '"AC Optimization","Armor Check Optimization",' +
+      '"Armor Dexterity Optimization","Armor Weight Optimization"'
+};
 DarkSunv3.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
 DarkSunv3.PRESTIGE_CLASSES = {
 };
@@ -139,6 +181,79 @@ DarkSunv3.FEATS_ADDED = {
 };
 DarkSunv3.FEATS = Object.assign({}, SRD35.FEATS, DarkSunv3.FEATS_ADDED);
 DarkSunv3.FEATURES_ADDED = {
+  // Class
+  'Accurate':'Section=combat Note="Ignore %V points of AC"',
+  'Agile (Bard)':'Section=combat Note="+%V AC"',
+  'Alchemy Dealer':
+    'Section=feature Note="May buy alchemical ingredients for half price"',
+  'Arena Guile':
+    'Section=skill ' +
+    'Note="+%{levels.Gladiator//2} Bluff (melee)/+%{levels.Gladiator//2} Sense Motive (melee)"',
+  'Armor Class Optimization':'Section=combat Note="+1 AC"',
+  'Armor Check Optimization':'Section=combat Note="-1 Armor check penalty"',
+  'Armor Dexterity Optimization':
+    'Section=combat Note="+1 maximum Dexterity bonus"',
+  'Armor Weight Optimization':
+    'Section=combat Note="Armor treated as one category lighter"',
+  'Awareness':
+    'Section=combat Note="Never flat-footed; may always act in surprise round"',
+  'Chance':'Section=feature Note="Reroll d20 %{levels.Bard<14?1:2}/dy"',
+  'Chant':'Section=feature Note="R30\' %{levels.Gladiator//3-3} targets gain +2 AC, skill checks, and saves while chanting + 5 rd"',
+  'Combat Stance':
+    'Section=combat ' +
+    'Note="+2 AC vs. first attack after taking stance as %1 action"',
+  'Coolheaded':'Section=skill Note="May take 10 on Bluff and Diplomacy"',
+  "Dragon's Fury":
+    'Section=combat ' +
+    'Note="+4 attack and damage, extra attack, and +%{levels.Gladiator*2} temporary HP for 10 rd"',
+  'Exotic Weapon':
+    'Section=feature Note="+%V Feat Count (Exotic Weapon Proficiency)"',
+  'Gladitorial Performance':
+    'Section=combat Note="Talent effect %{levels.Gladiator}/dy"',
+  'Improved Parry':'Section=combat Note="Increased Parry effects"',
+  'Improved Poison Use':
+    'Section=combat Note="Apply poison as a free action w/out AOO"',
+  'Improvised Materials':
+    'Section=skill Note="DC +5 to craft poison from materials at hand"',
+  'Martial Display':
+    'Section=combat ' +
+    'Note="+2 first attack after making dispay as %1 action"',
+  'Mercy':'Section=combat Note="No nonlethal attack penalty"',
+  'Mindblank':'Section=save Note="Immune to divination and mental effects"',
+  'Mental Resistance':'Section=save Note="+2 vs. telepathy and charm"',
+  'No Mercy':
+    'Section=combat Note="Performs coup de grace as a standard action"',
+  'Parry':'Section=combat Note="Cancel foe attack w/%1opposed attack"',
+  'Poison Dealer':
+    'Section=feature Note="May buy poison ingredients for half price"',
+  'Poison Resistance':'Section=save Note="+4 vs. poison"',
+  'Poisonbane':'Section=skill Note="+4 Craft (Alchemy) (poison antidote)"',
+  'Quick Thinking':'Section=combat Note="+%V Initiative"',
+  'Scorpion\'s Touch':'Section=combat Note="+%V DC for poisons"',
+  'Shake Off':
+    'Section=feature ' +
+    'Note="Self or touched ally gains extra save to end mind-affecting effect"',
+  'Skilled':
+    'Section=skill ' +
+    'Note="+%{levels.Bard//2} on %V choices of Appraise, Bluff, Craft, Diplomacy, Heal, Perform, Profession, Sense Motive, Sleight of Hand"',
+  'Smokestick Application':
+    'Section=combat Note="Apply poison to 10\' cu via smokestick"',
+  'Smuggler':'Section=skill Note="+%V Bluff/+%V Sleight Of Hand"',
+  'Speed Reactions':
+    'Section=combat ' +
+    'Note="Trade up to -%{baseAttack} attack in current round for equal Initiative bonus for remainder of combat"',
+  'Streetsmart':'Section=skill Note="+2 Gather Information/+2 Intimidate"',
+  'Superior Feint':'Section=combat Note="Free action feint 1/rd"',
+  'Taunt':
+    'Section=combat ' +
+    'Note="R30\' Inflicts -%{(source+4)//6>?1)} attack, damage, and saves vs. fear and charm on foes for 5 rd"',
+  'Team Strike':
+    'Section=combat ' +
+    'Note="May distract foe to give ally +%V attack and +%Vd4 damage"',
+  'Threatening Glare':'Section=combat Note="R30\' Gaze causes fear in creatures w/fewer HD (DC %{10+levels.Gladiator//2+charismaBonus} neg)"',
+  'Trick':'Section=skill Note="R30\' Opposed bluff dazes %{levels.Gladiator//3-2} targets for 1 rd"',
+  'Versatile':'Section=skill Note="Two chosen skills are class skills"',
+
   // Race
   'Aarakocra Ability Adjustment':
     'Section=ability Note="-2 Strength/+4 Dexterity/-2 Charisma"',
@@ -176,6 +291,7 @@ DarkSunv3.FEATURES_ADDED = {
     'Note="May use Multiweapon Fighting and Multiattck feats with all four arms"',
   'Poison':'Section=combat Note="Bite for 1d6 Dex + paralysis (DC %{constitutionModifier+11} neg) 1/dy"',
   'Poor Hearing':'Section=skill Note="-2 Listen"',
+  'Precise':'Section=combat Note="+1 attack with slings and thrown"',
   'Psi-Like Ability':'Section=magic Note="<i>Missive</i> at will"',
   'Pterran Ability Adjustment':
     'Section=ability Note="-2 Dexterity/+2 Wisdom/+2 Charisma"',
@@ -197,11 +313,116 @@ DarkSunv3.LANGUAGES_ADDED = {
   'Sauran':''
 };
 DarkSunv3.PATHS_ADDED = {
+  'Broken Sands Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Burning Eyes Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Cold Malice Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Dead Heart Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Decaying Touch Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Desert Mirage Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Drowning Despair Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Earthen Embrace Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Fiery Wrath Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Forged Stone Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Furious Storm Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Ill Wind Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  "Light's Revelation Domain":
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Living Waters Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  "Mountain's Fury Domain":
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Refreshing Storm Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Rolling Thunder Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Ruinous Swarm Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Sky Blitz Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Smouldering Spirit Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Soul Slayer Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Soaring Spirit Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric',
+  'Sun Flare Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric'
 };
 DarkSunv3.PATHS = Object.assign({}, SRD35.PATHS, DarkSunv3.PATHS_ADDED);
 DarkSunv3.DEITIES = {
-  'None':'Domain=' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join(',')
+  'None':'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"',
+  'Air':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Sun Flare","Furious Storm","Ill Wind","Rolling Thunder",' +
+      '"Soaring Spirit"',
+  'Earth':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Decaying Touch","Earthen Embrace","Forged Stone","Ruinous Swarm",' +
+      '"Mountain\'s Fury"',
+  'Fire':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Burning Eyes","Sky Blitz","Mountain\'s Fury","Smoldering Spirit",' +
+      '"Fiery Wrath"',
+  'Magma':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Broken Sands","Dead Heart","Ill Wind","Mountain\'s Fury"',
+  'Rain':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Cold Malice","Decaying Touch","Furious Storm","Refreshing Storm"',
+  'Silt':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Broken Sands","Decaying Touch","Dead Heart","Soul Slayer"',
+  'Sun':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Sun Flare","Light\'s Revelation","Desert Mirage","Fiery Wrath"',
+  'Water':
+    'Alignment=N ' +
+    'Domain=' +
+      '"Desert Mirage","Drowning Despair","Sky Blitz","Living Waters"'
 };
+console.log(DarkSunv3.DEITIES.None);
 DarkSunv3.RACES = {
   'Aarakocra':
     'Features=' +
@@ -238,7 +459,7 @@ DarkSunv3.RACES = {
   'Halfling':
     'Features=' +
       '"Halfling Ability Adjustment",' +
-      'Accurate,"Resist Spells","Sharp Senses",Slow,Small,Spry,Suspect ' +
+      'Precise,"Resist Spells","Sharp Senses",Slow,Small,Spry,Suspect ' +
     'Languages=Halfling',
   'Mul':
     'Features=' +
@@ -259,7 +480,7 @@ DarkSunv3.RACES = {
       '"Bite Attack","Claw Attack",Darkvision,"Deflect Arrows",' +
       '"Desert Camouflage",Fast,Leap,"Monstrous Humanoid","Multiple Limbs",' +
       '"Natural Armor",Poison,"Race Level Adjustment","Sleep Immunity" ' +
-    'Languages=Kreen',
+    'Languages=Kreen'
 };
 DarkSunv3.SCHOOLS = Object.assign({}, SRD35.SCHOOLS);
 DarkSunv3.SHIELDS = Object.assign({}, SRD35.SHIELDS);
@@ -596,352 +817,56 @@ DarkSunv3.classRulesExtra = function(rules, name) {
   var classLevel = 'levels.' + name;
   var feats = null;
 
-  if(name == 'Arcane Devotee') {
-
-    if(allFeats == null)
-      console.log('No feats defined for class "' + name + '"');
-    else
-      feats = [
-        'Greater Spell Penetration', 'Improved Counterspell', 'Magical Artisan',
-        'Shadow Weave Magic', 'Spell Penetration'
-      ].concat(
-        QuilvynUtils.getKeys(allFeats).filter(x => x.match(/Spell\s+Focus/))
-      );
-
-    rules.defineRule('featureNotes.arcaneDevoteeBonusFeats',
-      classLevel, '=', 'Math.floor(source / 3)'
+  if(name == 'Bard') {
+    rules.defineRule
+      ('combatNotes.accurate', 'bardFeatures.Accurate', '=', null);
+    rules.defineRule
+      ('combatNotes.agile(Bard)', 'bardFeatures.Agile (Bard)', '=', null);
+    rules.defineRule('combatNotes.quickThinking',
+      classLevel, '+=', 'Math.floor((source - 2) / 5)'
     );
-    rules.defineRule('featCount.Arcane Devotee',
-      'featureNotes.arcaneDevoteeBonusFeats', '=', null
+    rules.defineRule("combatNotes.scorpion'sTouch",
+      "bardFeatures.Scorpion's Touch", '=', null
     );
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule('magicNotes.devoteeEnlargeSpell',
-      'charismaModifier', '+=', 'source > 0 ? source + 1 : 1'
+    rules.defineRule('selectableFeatureCount.Bard',
+      classLevel, '=', 'source<4 ? null : Math.floor(source / 4)'
+    );
+    rules.defineRule('skillNotes.skilled', 'bardFeatures.Skilled', '=', null);
+    rules.defineRule
+      ('skillNotes.smuggler', classLevel, '+=', 'Math.floor(source / 2)');
+  } else if(name == 'Gladiator') {
+    rules.defineRule('combatNotes.combatStance.1',
+      'features.Combat Stance', '?', null,
+      classLevel, '=', 'source<6 ? "standard" : source<12 ? "move" : "swift"'
+    );
+    rules.defineRule('combatNotes.martialDisplay.1',
+      'features.Combat Stance', '?', null,
+      classLevel, '=', 'source<6 ? "standard" : source<12 ? "move" : "swift"'
+    );
+    rules.defineRule('combatNotes.parry.1',
+      'features.Parry', '=', '"-5 "',
+      'combatNotes.improvedParry', '=', '""'
+    );
+    rules.defineRule('combatNotes.teamStrike',
+      classLevel, '=', 'Math.floor((source + 5) / 6)'
+    );
+    rules.defineRule('gladiatorFeatures.Improved Uncanny Dodge',
+      'gladiatorFeatures.Uncanny Dodge', '?', null,
+      'uncannyDodgeSources', '=', 'source >= 2 ? 1 : null'
     );
     rules.defineRule
-      ('saveNotes.divineShroud', 'casterLevelArcane', '+=', '12 + source');
-    rules.defineRule
-      ('saveNotes.divineShroud.1', 'charismaModifier', '+=', '5 + source');
-    rules.defineRule
-      ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
-
-  } else if(name == 'Archmage') {
-
-    var allSpells = rules.getChoices('spells');
-    var matchInfo;
-    for(var spell in allSpells) {
-      if((matchInfo = spell.match(/\(\w+5 (\w+)\)/)) != null) {
-        var school = matchInfo[1];
-        rules.defineRule
-          ('level5' + school + 'Spells', 'spells.' + spell, '+=', '1');
-        rules.defineRule
-          ('level5SpellSchools', 'level5' + school + 'Spells', '+=', '1');
-      }
-    }
-    rules.defineRule('features.Spell Power',
-      'features.Spell Power +1', '=', '1',
-      'features.Spell Power +2', '=', '1',
-      'features.Spell Power +3', '=', '1'
+      ('featCount.General', 'featureNotes.exoticWeapon', '+', null);
+    rules.defineRule('featureNote.exoticWeapon',
+      classLevel, '=', 'Math.floor((source + 3) / 4)'
     );
-    rules.defineRule('featureNotes.highArcana', classLevel, '=', null);
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule('magicNotes.spellPower',
-      'features.Spell Power +1', '+=', '1',
-      'features.Spell Power +2', '+=', '2',
-      'features.Spell Power +3', '+=', '3'
-    );
-    rules.defineRule('magicNotes.arcaneFire', 'levels.Archmage', '=', null);
-    rules.defineRule('magicNotes.arcaneFire.1',
-      'features.Arcane Fire', '?', null,
-      'levels.Archmage', '=', '400 + 40 * source'
+    rules.defineRule('selectableFeatureCount.Gladiator',
+      classLevel, '=', 'source<5 ? null : Math.floor(source / 5)'
     );
     rules.defineRule
-      ('selectableFeatureCount.Archmage', 'featureNotes.highArcana', '+=', null);
-    rules.defineRule('spellSlots.S5',
-      'archmageFeatures.Spell Power +1', '+', '-1',
-      'archmageFeatures.Spell-Like Ability', '+', '-1'
-    );
-    rules.defineRule('spellSlots.W5',
-      'archmageFeatures.Spell Power +1', '+', '-1',
-      'archmageFeatures.Spell-Like Ability', '+', '-1'
-    );
-    rules.defineRule
-      ('spellSlots.S6', 'archmageFeatures.Mastery Of Shaping', '+', '-1');
-    rules.defineRule
-      ('spellSlots.W6', 'archmageFeatures.Mastery Of Shaping', '+', '-1');
-    rules.defineRule('spellSlots.S7',
-      'archmageFeatures.Arcane Reach', '+', '-1',
-      'archmageFeatures.Improved Arcane Reach', '+', '-1',
-      'archmageFeatures.Mastery Of Counterspelling', '+', '-1',
-      'archmageFeatures.Spell Power +2', '+', '-1'
-    );
-    rules.defineRule('spellSlots.W7',
-      'archmageFeatures.Arcane Reach', '+', '-1',
-      'archmageFeatures.Improved Arcane Reach', '+', '-1',
-      'archmageFeatures.Mastery Of Counterspelling', '+', '-1',
-      'archmageFeatures.Spell Power +2', '+', '-1'
-    );
-    rules.defineRule
-      ('spellSlots.S8', 'archmageFeatures.Mastery Of Elements', '+', '-1');
-    rules.defineRule
-      ('spellSlots.W8', 'archmageFeatures.Mastery Of Elements', '+', '-1');
-    rules.defineRule('spellSlots.S9',
-      'archmageFeatures.Arcane Fire', '+', '-1',
-      'archmageFeatures.Spell Power +3', '+', '-1'
-    );
-    rules.defineRule('spellSlots.W9',
-      'archmageFeatures.Arcane Fire', '+', '-1',
-      'archmageFeatures.Spell Power +3', '+', '-1'
-    );
-
-  } else if(name == 'Divine Champion') {
-
-    rules.defineRule('combatNotes.divineWrath', 'charismaModifier', '=', null);
-    rules.defineRule('combatNotes.smiteInfidel',
-      'charismaModifier', '=', 'source > 0 ? source : 0'
-    );
-    rules.defineRule('combatNotes.smiteInfidel.1', classLevel, '=', null);
-    rules.defineRule('featureNotes.divineChampionBonusFeats',
-      classLevel, '=', 'Math.floor(source / 2)'
-    );
-    rules.defineRule('featCount.Fighter',
-      'featureNotes.divineChampionBonusFeats', '+=', null
-    );
-    rules.defineRule('magicNotes.championLayOnHands',
-      classLevel, '=', null,
-      'charismaModifier', '*', null,
-      'charisma', '?', 'source >= 12'
-    );
-    rules.defineRule('magicNotes.championLayOnHands.1',
-      'features.Champion Lay On Hands', '?', null,
-      'deity', '=', null
-    );
-    rules.defineRule('saveNotes.divineWrath', 'charismaModifier', '=', null);
-    rules.defineRule
-      ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
-
-  } else if(name == 'Divine Disciple') {
-
-    rules.defineRule
-      ('selectableFeatureCount.Cleric', 'featureNotes.newDomain', '+=', '1');
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule
-      ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
-    rules.defineRule('skillNotes.transcendence',
-      'deity', '=', 'source.replace(/\\s*\\(.*\\)/, "")'
-    );
-
-  } else if(name == 'Divine Seeker') {
-
-    rules.defineRule
-      ('combatNotes.sneakAttack', classLevel, '+=', 'Math.floor(source / 2)');
-    rules.defineRule('magicNotes.locateCreature', classLevel, '=', null);
-    rules.defineRule
-      ('magicNotes.locateCreature.1', classLevel, '=', 'source * 40 + 400');
-    rules.defineRule('magicNotes.locateObject', classLevel, '=', null);
-    rules.defineRule
-      ('magicNotes.locateObject.1', classLevel, '=', 'source * 40 + 400');
-    // Unsure of the spell level for Obscure Object
-    rules.defineRule
-      ('magicNotes.obscureObject', 'charismaModifier', '=', '12 + source');
-    rules.defineRule('magicNotes.sanctuary', classLevel, '=', null);
-    rules.defineRule('magicNotes.sanctuary.1',
-      classLevel, '?', null,
-      'charismaModifier', '=', '11 + source'
-    );
-    rules.defineRule
-      ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
-
-  } else if(name == 'Guild Thief') {
-
-    if(allFeats == null)
-      console.log('No feats defined for class "' + name + '"');
-    else
-      feats = [
-        'Alertness', 'Blind-Fight', 'Cosmopolitan', 'Education', 'Leadership',
-        'Lightning Reflexes', 'Still Spell', 'Street Smart', 'Weapon Finesse',
-        'Weapon Proficiency (Hand Crossbow)'
-      ].concat(
-        QuilvynUtils.getKeys(allFeats).filter(x => x.match(/Skill\s+Focus|Weapon\s+Focus|Track/))
-      );
-
-    rules.defineRule('combatNotes.improvedUncannyDodge',
-      classLevel, '+=', null,
-      '', '+', '4'
-    );
-    rules.defineRule('combatNotes.sneakAttack',
-      classLevel, '+=', 'Math.floor((source + 1) / 2)'
-    );
-    rules.defineRule('featureNotes.guildThiefBonusFeats',
-      classLevel, '=', 'Math.floor(source / 2)'
-    );
-    rules.defineRule('featCount.Guild Thief',
-      'featureNotes.guildThiefBonusFeats', '=', null
-    );
-    rules.defineRule('featureNotes.reputation',
-      classLevel, '=', 'source >= 3 ? source - 2 : null'
-    );
-
-  } else if(name == 'Harper Scout') {
-
-    rules.defineRule('combatNotes.favoredEnemy',
-      classLevel, '+=', '1 + Math.floor(source / 4)'
-    );
-    rules.defineRule
-      ('featCount.General', classLevel, '+=', 'source >= 2 ? 2 : null');
-    rules.defineRule('skillNotes.bardicKnowledge', classLevel, '+=', null);
-    rules.defineRule('skillNotes.favoredEnemy',
-      classLevel, '+=', '1 + Math.floor(source / 4)'
-    );
-    QuilvynRules.prerequisiteRules(
-      rules, 'validation', 'harperSkillFocus', 'features.Harper Skill Focus',
-      'Sum \'features.Skill Focus\' >= 1'
-    );
-    QuilvynRules.prerequisiteRules(
-      rules, 'validation', 'harperPerformFocus','features.Harper Perform Focus',
-      'Sum \'features.Skill Focus .Perform\' >= 1'
-    );
-
-  } else if(name == 'Hathran') {
-
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule
-      ('magicNotes.fear', classLevel, '=', 'source>=8 ? 3 : source>=6 ? 2 : 1');
-    rules.defineRule('magicNotes.fear.1',
-      'features.Fear', '?', null,
-      'charismaModifier', '=', '13 + source'
-    );
-    rules.defineRule('magicNotes.fear.2',
-      'features.Fear', '?', null,
-      'casterLevels.C', '^=', null,
-      'casterLevels.D', '^=', null,
-      'casterLevels.S', '^=', null,
-      'casterLevels.W', '^=', null
-    );
-    rules.defineRule('magicNotes.greaterCommand', classLevel, '=', null);
-    rules.defineRule('magicNotes.greaterCommand.1',
-      classLevel, '=', 'source>=3 ? Math.floor(source / 2) * 5 + 25 : null'
-    );
-    rules.defineRule('magicNotes.greaterCommand.2',
-      classLevel, '?', 'source >= 10',
-      'charismaModifier', '=', '15 + source'
-    );
-
-  } else if(name == 'Hierophant') {
-
-    rules.defineRule
-      ('featureNotes.hierophantSpecialAbilities', classLevel, '=', null);
-    rules.defineRule('selectableFeatureCount.Hierophant',
-      'featureNotes.hierophantSpecialAbilities', '+=', null
-    );
-    rules.defineRule('combatNotes.turnUndead.1',
-      'combatNotes.masteryOfEnergy', '+', '4'
-    );
-    rules.defineRule('combatNotes.turnUndead.2',
-      'combatNotes.masteryOfEnergy', '+', '4'
-    );
-    rules.defineRule('magicNotes.faithHealing.1',
-      'features.Faith Healing', '?', null,
-      'deity', '=', null
-    );
-    rules.defineRule
-      ('features.Spell Power', 'features.Spell Power +2', '=', '1');
-    rules.defineRule
-      ('magicNotes.spellPower', 'features.Spell Power +2', '+=', '2');
-
-  } else if(name == 'Purple Dragon Knight') {
-
-    rules.defineRule('combatNotes.finalStand',
-      classLevel, '=', null,
-      'charismaModifier', '+', null
-    );
-    rules.defineRule('magicNotes.fear', classLevel, '=', '1');
-    rules.defineRule('magicNotes.fear.1',
-      'features.Fear', '?', null,
-      'charismaModifier', '=', '13 + source'
-    );
-    rules.defineRule('magicNotes.fear.2', classLevel, '=', null);
-    rules.defineRule("magicNotes.inspireKnight'sCourage",
-      classLevel, '=', 'Math.floor(source / 2)'
-    );
-
-  } else if(name == 'Red Wizard') {
-
-    rules.defineRule('sumItemCreationAndMetamagicFeats',
-      'sumItemCreationFeats', '=', null,
-      'sumMetamagicFeats', '+', null
-    );
-    rules.defineRule('featureNotes.redWizardBonusFeats', classLevel, '=', '1');
-    rules.defineRule
-      ('featCount.Wizard', 'featureNotes.redWizardBonusFeats', '+=', null);
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule
-      ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 2)');
-    rules.defineRule('saveNotes.specialistDefense',
-      classLevel, '+=', 'Math.floor((source + 1) / 2) - (source >= 5 ? 1 : 0)'
-    );
-    rules.defineRule('selectableFeatureCount.Wizard',
-      'magicNotes.enhancedSpecialization', '+', '1'
-    );
-
-  } else if(name == 'Runecaster') {
-
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule('magicNotes.runePower',
-      classLevel, '=', 'source >= 9 ? 3 : source >= 5 ? 2 : 1'
-    );
-    rules.defineRule('skillNotes.runeCraft',
-      classLevel, '=', 'source>=7 ? 3 : Math.floor((source + 2) / 3)'
-    );
-
-  } else if(name == 'Shadow Adept') {
-
-    rules.defineRule
-      ('features.Insidious Magic', 'featureNotes.shadowFeats', '=', null);
-    rules.defineRule
-      ('features.Pernicious Magic', 'featureNotes.shadowFeats', '=', null);
-    rules.defineRule
-      ('features.Tenacious Magic', 'featureNotes.shadowFeats', '=', null);
-    rules.defineRule
-      ('featureNotes.shadowAdeptBonusFeats', classLevel, '=', '1');
-    rules.defineRule
-      ('featCount.Metamagic', 'featureNotes.shadowAdeptBonusFeats', '+=', null);
-    rules.defineRule
-      ('magicNotes.insidiousMagic', 'casterLevel', '=', 'source + 11');
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule
-      ('magicNotes.perniciousMagic', 'casterLevel', '=', 'source + 11');
-    rules.defineRule
-      ('magicNotes.shieldOfShadows', 'casterLevel', '=', null);
-    rules.defineRule
-      ('magicNotes.shadowDouble', 'casterLevel', '=', null);
-    rules.defineRule('magicNotes.shadowWalk', classLevel, '=', null);
-    rules.defineRule
-      ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 3)');
-    rules.defineRule
-      ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
-    rules.defineRule
-      ('saveNotes.greaterShieldOfShadows', classLevel, '=', 'source + 12');
-    rules.defineRule('saveNotes.shadowDefense',
-      classLevel, '=', 'Math.floor((source + 1) / 3)'
-    );
-
-  } else if(rules.basePlugin.classRulesExtra) {
-
-    rules.basePlugin.classRulesExtra(rules, name);
-
+      ('uncannyDodgeSources', 'gladiatorFeatures.Uncanny Dodge', '+=', '1');
   }
 
-  if(feats != null && allFeats != null) {
-    for(var j = 0; j < feats.length; j++) {
-      var feat = feats[j];
-      if(!(feat in allFeats)) {
-        console.log('Feat "' + feat + '" undefined for class "' + name + '"');
-        continue;
-      }
-      allFeats[feat] = allFeats[feat].replace('Type=', 'Type="' + name + '",');
-    }
-  }
+  SRD35.classRulesExtra(rules, name);
 
 };
 
@@ -1071,36 +996,6 @@ DarkSunv3.pathRules = function(
  * derived directly from the abilities passed to pathRules.
  */
 DarkSunv3.pathRulesExtra = function(rules, name) {
-  if(name == 'Family Domain') {
-    rules.defineRule('magicNotes.familialProtection',
-      'charismaModifier', '=', 'source > 1 ? source : 1'
-    );
-    rules.defineRule('magicNotes.familialProtection.1', 'level', '=', null);
-  } else if(name == 'Halfling Domain') {
-    rules.defineRule('skillNotes.sprightly', 'charismaModifier', '=', null);
-  } else if(name == 'Mentalism Domain') {
-    rules.defineRule('magicNotes.mentalWard', 'level', '=', 'source + 2');
-  } else if(name == 'Nobility Domain') {
-    rules.defineRule('magicNotes.inspireAllies',
-      'charismaModifier', '=', 'source >= 1 ? source : null'
-    );
-  } else if(name == 'Ocean Domain') {
-    rules.defineRule('magicNotes.waterBreathing', 'level', '=', '10 * source');
-  } else if(name == 'Orc Domain') {
-    rules.defineRule('combatNotes.smitePower', 'levels.Cleric', '=', null);
-  } else if(name == 'Renewal Domain') {
-    rules.defineRule('combatNotes.renewSelf', 'charismaModifier', '=', null);
-  } else if(name == 'Storm Domain') {
-    rules.defineRule
-      ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
-  } else if(name == 'Trade Domain') {
-    rules.defineRule('magicNotes.tradeSecrets', 'charismaModifier', '=', null);
-  } else if(name == 'Undeath Domain') {
-    rules.defineRule
-      ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
-  } else if(rules.basePlugin.pathRulesExtra) {
-    rules.basePlugin.pathRulesExtra(rules, name);
-  }
 };
 
 /*
@@ -1148,6 +1043,7 @@ DarkSunv3.raceRulesExtra = function(rules, name) {
     rules.defineRule('weapons.Bite', 'combatNotes.biteAttack', '=', '1');
     rules.defineRule('weapons.Claw', 'combatNotes.clawAttack', '=', '1');
   }
+  SRD35.raceRulesExtra(rules, name);
 };
 
 /*
