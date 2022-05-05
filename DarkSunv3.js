@@ -78,9 +78,7 @@ function DarkSunv3(baseRules) {
   DarkSunv3.LANGUAGES =
     Object.assign({}, rules.basePlugin.LANGUAGES, DarkSunv3.LANGUAGES_ADDED);
   DarkSunv3.DEITIES['None'] =
-    'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS_ADDED).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"';
-  DarkSunv3.PATHS =
-    Object.assign({}, rules.basePlugin.PATHS, DarkSunv3.PATHS_ADDED);
+    'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"';
   DarkSunv3.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
   DarkSunv3.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
   DarkSunv3.SKILLS = Object.assign({}, rules.basePlugin.SKILLS);
@@ -162,7 +160,7 @@ DarkSunv3.CLASSES = {
   'Cleric':
     SRD35.CLASSES['Cleric'] + ' ' +
     'Selectables=' +
-      QuilvynUtils.getKeys(DarkSunv3.PATHS_ADDED).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
+      QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
   'Druid':
     SRD35.CLASSES['Druid'],
   'Fighter':
@@ -196,7 +194,7 @@ DarkSunv3.CLASSES = {
   'Rogue':
     SRD35.CLASSES['Rogue']
     .replace('Features=', 'Features="Weapon Proficiency (Bard\'s Friend/Blowgun/Garrote/Small Macahuitl/Tonfa/Widow\'s Knife/Wrist Razor)",')
-    .replace('Selectables=', 'Selectables="10:Dune Trader","10:False Vulnerability","10:Looter\'s Luck",10:Notoriety,"10:Silver Tongue"'),
+    .replace('Selectables=', 'Selectables="10:Dune Trader","10:False Vulnerability","10:Looter\'s Luck",10:Notoriety,"10:Silver Tongue",'),
   'Templar':
     'HitDie=d10 Attack=3/4 SkillPoints=4 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Features=' +
@@ -388,7 +386,7 @@ DarkSunv3.LANGUAGES_ADDED = {
   'Kreen':'',
   'Sauran':''
 };
-DarkSunv3.PATHS_ADDED = {
+DarkSunv3.PATHS = {
   'Broken Sands Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric',
@@ -457,10 +455,49 @@ DarkSunv3.PATHS_ADDED = {
     'Level=levels.Cleric',
   'Sun Flare Domain':
     'Group=Cleric ' +
-    'Level=levels.Cleric'
+    'Level=levels.Cleric',
+  // From SRD v3.5
+  'Animal Domain':SRD35.PATHS['Animal Domain'],
+  'Chaos Domain':SRD35.PATHS['Chaos Domain'],
+  'Death Domain':SRD35.PATHS['Death Domain'],
+  'Destruction Domain':SRD35.PATHS['Destruction Domain'],
+  'Knowledge Domain':SRD35.PATHS['Knowledge Domain'],
+  'Law Domain':SRD35.PATHS['Law Domain'],
+  'Magic Domain':SRD35.PATHS['Magic Domain'],
+  'Plant Domain':SRD35.PATHS['Plant Domain'],
+  'Protection Domain':SRD35.PATHS['Protection Domain'],
+  'Strength Domain':SRD35.PATHS['Strength Domain'],
+  'Trickery Domain':SRD35.PATHS['Trickery Domain'],
+  'War Domain':SRD35.PATHS['War Domain'],
+  // From Spell Compendium
+  'Charm Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Charisma Boost"',
+  'Glory Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Powerful Turning"',
+  'Madness Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Mad Insight"',
+  'Mind Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Mental Insight"',
+  'Nobility Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Inspire Allies"'
 };
 DarkSunv3.DEITIES = {
-  'None':'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS_ADDED).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"',
+  'None':'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"',
   'Air':
     'Alignment=N ' +
     'Domain=' +
@@ -565,6 +602,46 @@ DarkSunv3.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, DarkSunv3.SPELLS_ADDED
 );
 DarkSunv3.SPELLS_LEVELS = {
+  'Bless Weapon':'Glory2',
+  'Bolt Of Glory':'Glory6',
+  'Bolts Of Bedevilment':'Madness5',
+  'Brain Spider':'Mind7',
+  'Calm Emotions':'Charm2',
+  'Charm Monster':'Charm5',
+  'Charm Person':'Charm1',
+  'Comprehend Languages':'Mind1',
+  'Confusion':'Madness4',
+  'Crown Of Glory':'Glory8',
+  'Demand':'Charm8,Nobility8',
+  'Detect Thoughts':'Mind2',
+  'Discern Lies':'Mind4,Nobility4',
+  'Disrupt Undead':'Glory1',
+  'Divine Favor':'Nobility1',
+  'Dominate Monster':'Charm9',
+  'Enthrall':'Nobility2',
+  'Gate':'Glory9',
+  'Geas/Quest':'Charm6,Nobility6',
+  'Greater Command':'Nobility5',
+  'Heroism':'Charm4',
+  'Holy Smite':'Glory4',
+  'Holy Sword':'Glory5',
+  'Insanity':'Charm7,Madness7',
+  'Lesser Confusion':'Madness1',
+  'Lesser Telepathic Bond':'Mind3',
+  'Maddening Scream':'Madness8',
+  'Magic Vestment':'Nobility3',
+  'Mind Blank':'Mind8',
+  'Phantasmal Killer':'Madness6',
+  'Probe Thoughts':'Mind6',
+  'Rage':'Madness3',
+  'Repulsion':'Nobility7',
+  'Searing Light':'Glory3',
+  'Storm Of Vengeance':'Nobility9',
+  'Suggestion':'Charm3',
+  'Sunbeam':'Glory7',
+  'Telepathic Bond':'Mind5',
+  'Touch Of Madness':'Madness2',
+  'Weird':'Madness9,Mind9'
 };
 for(var s in DarkSunv3.SPELLS_LEVELS) {
   var levels = DarkSunv3.SPELLS_LEVELS[s];
