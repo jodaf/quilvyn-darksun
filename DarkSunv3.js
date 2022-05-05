@@ -248,7 +248,13 @@ DarkSunv3.PRESTIGE_CLASSES = {
 };
 DarkSunv3.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
 DarkSunv3.FEATS_ADDED = {
-  'Ancestral Knowledge':
+  'Ancestral Knowledge (Blue Age)':
+    'Type=General ' +
+    'Require="intelligence >= 13","skills.Knowledge (History) >= 10"',
+  'Ancestral Knowledge (Green Age)':
+    'Type=General ' +
+    'Require="intelligence >= 13","skills.Knowledge (History) >= 10"',
+  'Ancestral Knowledge (Cleansing Wars)':
     'Type=General ' +
     'Require="intelligence >= 13","skills.Knowledge (History) >= 10"',
   'Arena Clamor':
@@ -269,15 +275,15 @@ DarkSunv3.FEATS_ADDED = {
       '"skills.Handle Animal >= 5",' +
       '"skills.Knowledge (Nature) >= 5"',
   'Commanding Presence':
-    'Type=General ' +
+    'Type=General,Fighter ' +
     'Require=' +
       '"skills.Diplomacy >= 7",' +
       '"skills.Knowledge (Warcraft) >= 5"',
   'Concentrated Fire':
-    'Type=Fighter,General ' +
+    'Type=General,Fighter ' +
     'Require=' +
       '"baseAttack >= 1"',
-  'Cornered Fire':
+  'Cornered Fighter':
     'Type=General ' +
     'Require=' +
       '"baseAttack >= 5"',
@@ -302,12 +308,21 @@ DarkSunv3.FEATS_ADDED = {
       '"features.Turn Undead"',
   'Faithful Follower':
     'Type=General',
+  'Favorite':
+    'Type=General ' +
+    'Require=' +
+      '"features.Secular Authority",' +
+      '"skills.Diplomacy >= 10"',
   'Fearsome':
     'Type=General ' +
     'Require=' +
       '"strength >= 15"',
   'Field Officer':
     'Type=General',
+  'Gladitorial Entertainer':
+    'Type=General ' +
+    'Require=' +
+      '"features.Gladitorial Performance"',
   'Greasing The Wheels':
     'Type=General ' +
     'Require=' +
@@ -365,6 +380,8 @@ DarkSunv3.FEATS_ADDED = {
     'Type=General ' +
     'Require=' +
       '"features.Defiler"',
+  'Protective':
+    'Type=General',
   'Psionic Mimicry':
     'Type=General ' +
     'Require=' +
@@ -384,24 +401,18 @@ DarkSunv3.FEATS_ADDED = {
     'Require=' +
       '"charisma >= 13",' +
       '"skills.Diplomacy >= 6",' +
-      '"features.Negotiator"',
-  'Favorite':
-    'Type=General ' +
-    'Require=' +
-      '"features.Secular Authority",' +
-      '"skills.Diplomacy >= 10"',
+      '"features.Negotiator",' +
+      '"levels.Templar"', // TODO? "Accepted into city-state's templarate"
   'Shield Wall':
     'Type=General ' +
     'Require=' +
       '"baseAttack >= 2",' +
-      '"features.Shield Proficiency",' +
-      '"skills.Diplomacy >= 10"',
+      '"features.Shield Proficiency"',
   'Sniper':
     'Type=General ' +
     'Require=' +
       '"dexterity >= 13",' +
-      '"skills.Hide >= 1",' +
-      '"features.Shield Proficiency"',
+      '"skills.Hide >= 1"',
   'Spear Wall':
     'Type=General ' +
     'Require=' +
@@ -410,13 +421,216 @@ DarkSunv3.FEATS_ADDED = {
     'Type=General ' +
     'Require=' +
       '"skills.Knowledge (Warcraft) >= 7"',
+  'Teamwork':
+    'Type=General ' +
+    'Require=' +
+      '"baseAttack >= 1"',
   'Trader':
     'Type=General',
   'Wastelander':
-    'Type=General'
+    'Type=General',
+  'Elemental Affinity':
+    'Type=Divine ' +
+    'Require=' +
+      '"charisma >= 13",' +
+      '"features.Turn Undead"',
+  'Elemental Might':
+    'Type=Divine ' +
+    'Require=' +
+      '"strength >= 13",' +
+      '"features.Turn Undead",' +
+      '"features.Power Attack"',
+  'Elemental Vengeance':
+    'Type=Divine ' +
+    'Require=' +
+      '"features.Turn Undead",' +
+      '"features.Extra Turning"',
+  'Superior Blessing':
+    'Type=Divine ' +
+    'Require=' +
+      '"features.Turn Undead"',
+  'Elemental Manifestation':
+    'Type=Psionic ' +
+    'Require=' +
+      '"spellSlots.Domain1 >= 0"',
+      // TODO "manifester level 3rd"
+  'Focused Mind':
+    'Type=Psionic ' +
+    'Require=' +
+      '"intelligence >= 13"',
+      // TODO "psionic subtype"
+  'Greater Hidden Talent':
+    'Type=Psionic ' +
+    'Require=' +
+      '"charisma >= 13",' +
+      '"features.Improved Hidden Talent",' +
+      '"level >= 5"',
+      // TODO "psionic subtype"
+  'Improved Dwarven Focus':
+    'Type=Psionic ' +
+    'Require=' +
+      '"race =~ \'Dwarf\'"',
+      // TODO "psionic subtype"
+  'Improved Elf Run':
+    'Type=Psionic ' +
+    'Require=' +
+      '"race =~ \'Elf\'"',
+      // TODO "psionic subtype"
+  'Improved Hidden Talent':
+    'Type=Psionic ' +
+    'Require=' +
+      '"charisma >= 12",' +
+      '"features.Hidden Talent",' +
+      '"level >= 3"',
+  'Jump Charge':
+    'Type=Psionic ' +
+    'Require=' +
+      '"features.Psionic Fist||features.Psionic Weapon",' +
+      '"skills.Jump >= 8"',
+  'Pterran Telepathy':
+    'Type=Psionic ' +
+    'Require=' +
+      '"race =~ \'Pterran\'",' +
+      '"spells.Missive"',
+  'Agonizing Radius':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Controlled Raze':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Distance Raze':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Destructive Raze':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Efficient Raze':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Exterminating Raze':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Fast Raze':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Sickening Raze':
+    'Type=Raze ' +
+    'Require=' +
+      '"features.Agonizing Raze"',
+  'Active Glands':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'"',
+  'Advanced Antennae':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'"',
+  'Blend':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'"',
+  'Blessed By The Ancestors':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'"',
+  'Cannibalism Ritual':
+    'Type=Racial ' +
+    'Require=' +
+      '"wisdom >= 13",' +
+      '"race =~ \'Halfling\'"',
+  'Dwarven Vision':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Mul\'"',
+  'Elfeater':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'"',
+  "Improved Gyth'sa":
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'",' +
+      '"constitution >= 13"',
+  'Tikchak':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'",' +
+      '"level >= 5"',
+  'Tokchak':
+    'Type=Racial ' +
+    'Require=' +
+      '"race =~ \'Thri-Kreen\'"',
+  'Artisan':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin =~ \'Nibenay|Raam|Urik\'"',
+  'Astrologer':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin =~ \'Draj|Nibenay\'"',
+  'Companion':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin =~ \'Kurn|Tyr\'"',
+  'Disciplined':
+    'Type=Regional ' +
+    'Require=' +
+      '"race =~ \'Dwarf\' || origin == \'Urik\'"',
+  'Freedom':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin == \'Tyr\'"',
+  'Giant Killer':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin == \'Sea Of Silt\'"',
+  'Jungle Fighter':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin =~ \'Forest Ridge|Gulg\'"',
+  'Legerdemain':
+    'Type=Regional ' +
+    'Require=' +
+      '"race =~ \'Elf\' || origin == \'Salt View\'"',
+  'Mansabar':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin == \'Raam\'"',
+  'Mekillothead':
+    'Type=Regional ' +
+    'Require=' +
+      '"race =~ \'Mul\' || origin == \'Draj\'"',
+  'Metalsmith':
+    'Type=Regional ' +
+    'Require=' +
+      '"race =~ \'Dwarf\' || origin == \'Tyr\'"',
+  "Nature's Child":
+    'Type=Regional ' +
+    'Require=' +
+      '"race =~ \'Halfling\' || origin == \'Gulg\'"',
+  'Paranoid':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin == \'Eldaarich\'"',
+  'Performance Artist':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin =~ \'Nibenay|Balic|Salt View\'"',
+  'Tarandan Method':
+    'Type=Regional ' +
+    'Require=' +
+      '"origin == \'Raam\'"'
 };
 DarkSunv3.FEATS = Object.assign({}, SRD35.FEATS, DarkSunv3.FEATS_ADDED);
 DarkSunv3.FEATURES_ADDED = {
+
   // Class
   'Accurate':'Section=combat Note="Ignore %V points of AC"',
   'Agile (Bard)':'Section=combat Note="+%V AC"',
@@ -510,6 +724,187 @@ DarkSunv3.FEATURES_ADDED = {
   'Threatening Glare':'Section=combat Note="R30\' Gaze causes fear in creatures w/fewer HD (DC %{10+levels.Gladiator//2+charismaBonus} neg)"',
   'Trick':'Section=skill Note="R30\' Opposed bluff dazes %{levels.Gladiator//3-2} targets for 1 rd"',
   'Versatile':'Section=skill Note="Two chosen skills are class skills"',
+
+  // Feat
+  'Ancestral Knowledge (Blue Age)':
+    'Section=skill Note="+10 Knowledge (History) (blue age)"',
+  'Ancestral Knowledge (Green Age)':
+    'Section=skill Note="+10 Knowledge (History) (green age)"',
+  'Ancestral Knowledge (Cleansing Wars)':
+    'Section=skill Note="+10 Knowledge (History) (cleansing wars)"',
+  'Arena Clamor':
+    'Section=combat ' +
+    'Note="R60\' After successful critical, allies gain +2 attack for 1 rd"',
+  'Brutal Attack':
+    'Section=combat ' +
+    'Note="R10\' After successful critical, foes become shaken for %{charisma Modifier} rd (DC %{10+level//2+charismaModifier} neg)"',
+  'Bug Trainer':'Section=skill Note="May train vermin"',
+  'Commanding Presence':
+    'Section=skill Note="DC 20 Diplomacy remove harmful condition from ally"',
+  'Concentrated Fire':
+    'Section=combat ' +
+    'Note="1-4 allies add equal amount to simultaneous ranged attack on single target"',
+  'Cornered Fighter':
+    'Section=feature Note="+2 attack and AC against flanking foes"',
+  'Defender Of The Land':
+    'Section=magic Note="+1 caster level and +1 damage/die vs. defilers"',
+  'Dissimulated':'Section=skill Note="+%V Bluff"',
+  "Drake's Child":
+    'Section=save ' +
+    'Note="+1 Fortitude/+1 Will/+1 vs. ability damage, energy drain, and death effects"',
+  'Elemental Cleansing':
+    'Section=combat Note="Successful turn inflicts 2d6 energy damage"',
+  'Faithful Follower':'Section=save Note="+5 vs. fear w/in 20\' of leader"',
+  'Favorite':
+    'Section=feature Note="FILL"',
+  'Fearsome':
+    'Section=feature Note="FILL"',
+  'Field Officer':
+    'Section=feature Note="FILL"',
+  'Gladitorial Entertainer':
+    'Section=feature Note="FILL"',
+  'Greasing The Wheels':
+    'Section=feature Note="FILL"',
+  'Hard As A Rock':
+    'Section=feature Note="FILL"',
+  'Implacable Defender':
+    'Section=feature Note="FILL"',
+  'Improved Sigil':
+    'Section=feature Note="FILL"',
+  'Improviser':
+    'Section=feature Note="FILL"',
+  'Innate Hunter':
+    'Section=feature Note="FILL"',
+  'Intimidating Presence':
+    'Section=feature Note="FILL"',
+  'Inspiring Presence':
+    'Section=feature Note="FILL"',
+  'Kiltektet':
+    'Section=feature Note="FILL"',
+  'Linguist':
+    'Section=feature Note="FILL"',
+  'Mastryrial Blood':
+    'Section=feature Note="FILL"',
+  'Path Dexter':
+    'Section=feature Note="FILL"',
+  'Path Sinister':
+    'Section=feature Note="FILL"',
+  'Protective':
+    'Section=feature Note="FILL"',
+  'Psionic Mimicry':
+    'Section=feature Note="FILL"',
+  'Psionic Schooling':
+    'Section=feature Note="FILL"',
+  'Raised By Beasts':
+    'Section=feature Note="FILL"',
+  'Rotate Lines':
+    'Section=feature Note="FILL"',
+  'Securlar Authority':
+    'Section=feature Note="FILL"',
+  'Shield Wall':
+    'Section=feature Note="FILL"',
+  'Sniper':
+    'Section=feature Note="FILL"',
+  'Spear Wall':
+    'Section=feature Note="FILL"',
+  'Tactical Expertise':
+    'Section=feature Note="FILL"',
+  'Teamwork':
+    'Section=feature Note="FILL"',
+  'Trader':
+    'Section=feature Note="FILL"',
+  'Wastelander':
+    'Section=feature Note="FILL"',
+  'Elemental Affinity':
+    'Section=feature Note="FILL"',
+  'Elemental Might':
+    'Section=feature Note="FILL"',
+  'Elemental Vengeance':
+    'Section=feature Note="FILL"',
+  'Superior Blessing':
+    'Section=feature Note="FILL"',
+  'Elemental Manifestation':
+    'Section=feature Note="FILL"',
+  'Focused Mind':
+    'Section=feature Note="FILL"',
+  'Greater Hidden Talent':
+    'Section=feature Note="FILL"',
+  'Improved Dwarven Focus':
+    'Section=feature Note="FILL"',
+  'Improved Elf Run':
+    'Section=feature Note="FILL"',
+  'Improved Hidden Talent':
+    'Section=feature Note="FILL"',
+  'Jump Charge':
+    'Section=feature Note="FILL"',
+  'Pterran Telepathy':
+    'Section=feature Note="FILL"',
+  'Agonizing Radius':
+    'Section=feature Note="FILL"',
+  'Controlled Raze':
+    'Section=feature Note="FILL"',
+  'Distance Raze':
+    'Section=feature Note="FILL"',
+  'Destructive Raze':
+    'Section=feature Note="FILL"',
+  'Efficient Raze':
+    'Section=feature Note="FILL"',
+  'Exterminating Raze':
+    'Section=feature Note="FILL"',
+  'Fast Raze':
+    'Section=feature Note="FILL"',
+  'Sickening Raze':
+    'Section=feature Note="FILL"',
+  'Active Glands':
+    'Section=feature Note="FILL"',
+  'Advanced Antennae':
+    'Section=feature Note="FILL"',
+  'Blend':
+    'Section=feature Note="FILL"',
+  'Blessed By The Ancestors':
+    'Section=feature Note="FILL"',
+  'Cannibalism Ritual':
+    'Section=feature Note="FILL"',
+  'Dwarven Vision':
+    'Section=feature Note="FILL"',
+  'Elfeater':
+    'Section=feature Note="FILL"',
+  "Improved Gyth'sa":
+    'Section=feature Note="FILL"',
+  'Tikchak':
+    'Section=feature Note="FILL"',
+  'Tokchak':
+    'Section=feature Note="FILL"',
+  'Artisan':
+    'Section=feature Note="FILL"',
+  'Astrologer':
+    'Section=feature Note="FILL"',
+  'Companion':
+    'Section=feature Note="FILL"',
+  'Disciplined':
+    'Section=feature Note="FILL"',
+  'Freedom':
+    'Section=feature Note="FILL"',
+  'Giant Killer':
+    'Section=feature Note="FILL"',
+  'Jungle Fighter':
+    'Section=feature Note="FILL"',
+  'Legerdemain':
+    'Section=feature Note="FILL"',
+  'Mansabar':
+    'Section=feature Note="FILL"',
+  'Mekillothead':
+    'Section=feature Note="FILL"',
+  'Metalsmith':
+    'Section=feature Note="FILL"',
+  "Nature's Child":
+    'Section=feature Note="FILL"',
+  'Paranoid':
+    'Section=feature Note="FILL"',
+  'Performance Artist':
+    'Section=feature Note="FILL"',
+  'Tarandan Method':
+    'Section=feature Note="FILL"',
 
   // Race
   'Aarakocra Ability Adjustment':
@@ -1326,6 +1721,10 @@ DarkSunv3.featRules = function(rules, name, requires, implies, types) {
  * derived directly from the abilities passed to featRules.
  */
 DarkSunv3.featRulesExtra = function(rules, name) {
+  if(name == "Dissimulated") {
+    rules.defineRule
+      ('skillNotes.dissimulated', 'intelligenceModifier', '=', null);
+  }
 };
 
 /*
