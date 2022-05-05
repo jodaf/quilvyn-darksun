@@ -81,7 +81,8 @@ function DarkSunv3(baseRules) {
     'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"';
   DarkSunv3.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
   DarkSunv3.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
-  DarkSunv3.SKILLS = Object.assign({}, rules.basePlugin.SKILLS);
+  DarkSunv3.SKILLS =
+    Object.assign({}, rules.basePlugin.SKILLS, DarkSunv3.SKILLS_ADDED);
   DarkSunv3.SPELLS = Object.assign({}, SRD35.SPELLS, DarkSunv3.SPELLS_ADDED);
   for(var s in DarkSunv3.SPELLS_LEVELS) {
     var levels = DarkSunv3.SPELLS_LEVELS[s];
@@ -105,8 +106,8 @@ function DarkSunv3(baseRules) {
   DarkSunv3.magicRules(rules, DarkSunv3.SCHOOLS, DarkSunv3.SPELLS);
   // Feats must be defined before classes
   DarkSunv3.talentRules
-    (rules, DarkSunv3.FEATS, DarkSunv3.FEATURES, DarkSunv3.GOODIES, DarkSunv3.LANGUAGES,
-     DarkSunv3.SKILLS);
+    (rules, DarkSunv3.FEATS, DarkSunv3.FEATURES, DarkSunv3.GOODIES,
+     DarkSunv3.LANGUAGES, DarkSunv3.SKILLS);
   DarkSunv3.identityRules(
     rules, DarkSunv3.ALIGNMENTS, DarkSunv3.CLASSES, DarkSunv3.DEITIES, DarkSunv3.PATHS,
     DarkSunv3.RACES, DarkSunv3.PRESTIGE_CLASSES, DarkSunv3.NPC_CLASSES
@@ -156,7 +157,13 @@ DarkSunv3.CLASSES = {
     'Selectables=' +
       '"Alchemy Dealer",Accurate,"Agile (Bard)",Coolheaded,' +
       '"Improvised Materials","Poison Dealer",Poisonbane,"Poison Resistance",' +
-      '"Scorpion\'s Touch",Skilled,"Smokestick Application",Versatile',
+      '"Scorpion\'s Touch",Skilled,"Smokestick Application",Versatile ' +
+    'Skills=' +
+      'Appraise,Balance,Climb,Craft,"Decipher Script",Diplomacy,Disguise,' +
+      '"Escape Artist",Forgery,"Gather Information",Heal,Hide,Intimidate,' +
+      'Jump,Knowledge,Listen,"Move Silently",Perform,Profession,Ride,Search,' +
+      '"Sense Motive","Sleight Of Hand","Speak Language",Tumble,' +
+      '"Use Magic Device","Use Psionic Device","Use Rope"',
   'Cleric':
     SRD35.CLASSES['Cleric'] + ' ' +
     'Selectables=' +
@@ -186,7 +193,10 @@ DarkSunv3.CLASSES = {
       '"Sum \'^skills.Perform\' >= 21 ? 18:Dragon\'s Fury" ' +
     'Selectables=' +
       '"AC Optimization","Armor Check Optimization",' +
-      '"Armor Dexterity Optimization","Armor Weight Optimization"',
+      '"Armor Dexterity Optimization","Armor Weight Optimization" ' +
+    'Skills=' +
+      'Balance,Bluff,Climb,Craft,Intimidate,Jump,Perform,Profession,' +
+      '"Sense Motive",Spot,Tumble',
   //'Psion': as Expanded Psionic Handbook
   //'Psychic Warrior': as Expanded Psionic Handbook
   'Ranger':
@@ -224,13 +234,186 @@ DarkSunv3.CLASSES = {
       'Domain6:12=1,' +
       'Domain7:14=1,' +
       'Domain8:16=1,' +
-      'Domain9:18=1'
+      'Domain9:18=1 ' +
+    'Skills=' +
+      'Appraise,Bluff,Concentration,Craft,Diplomacy,Forgery,' +
+      '"Gather Information",Heal,Intimidate,Knowledge,Literacy,Profession,' +
+      '"Sense Motive",Spellcraft,Spot',
+  //'Wilder': as Expanded Psionic Handbook
+  'Wizard':
+    SRD35.CLASSES['Wizard']
 };
 DarkSunv3.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
 DarkSunv3.PRESTIGE_CLASSES = {
 };
 DarkSunv3.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
 DarkSunv3.FEATS_ADDED = {
+  'Ancestral Knowledge':
+    'Type=General ' +
+    'Require="intelligence >= 13","skills.Knowledge (History) >= 10"',
+  'Arena Clamor':
+    'Type=General ' +
+    'Require=' +
+      '"charisma >= 13",' +
+      '"features.Improved Critical",' +
+      '"Sum \'skills.Perform\' >= 5"',
+  'Brutal Attack':
+    'Type=General ' +
+    'Require=' +
+      '"charisma >= 13",' +
+      '"features.Improved Critical",' +
+      '"Sum \'skills.Perform\' >= 5"',
+  'Bug Trainer':
+    'Type=General ' +
+    'Require=' +
+      '"skills.Handle Animal >= 5",' +
+      '"skills.Knowledge (Nature) >= 5"',
+  'Commanding Presence':
+    'Type=General ' +
+    'Require=' +
+      '"skills.Diplomacy >= 7",' +
+      '"skills.Knowledge (Warcraft) >= 5"',
+  'Concentrated Fire':
+    'Type=Fighter,General ' +
+    'Require=' +
+      '"baseAttack >= 1"',
+  'Cornered Fire':
+    'Type=General ' +
+    'Require=' +
+      '"baseAttack >= 5"',
+  'Defender Of The Land':
+    'Type=General ' +
+    'Require=' +
+      '"features.Wild Shape"',
+  'Dissimulated':
+    'Type=General ' +
+    'Require=' +
+      '"intelligence >= 13",' +
+      '"charisma >= 13",' +
+      '"skills.Bluff >= 5"',
+  "Drake's Child":
+    'Type=General ' +
+    'Require=' +
+      '"strength >= 13",' +
+      '"wisdom >= 13"',
+  'Elemental Cleansing':
+    'Type=General ' +
+    'Require=' +
+      '"features.Turn Undead"',
+  'Faithful Follower':
+    'Type=General',
+  'Fearsome':
+    'Type=General ' +
+    'Require=' +
+      '"strength >= 15"',
+  'Field Officer':
+    'Type=General',
+  'Greasing The Wheels':
+    'Type=General ' +
+    'Require=' +
+      '"charisma >= 13",' +
+      '"skills.Diplomacy >= 7",' +
+      '"skills.Knowledge (Local) >= 5"',
+  'Hard As A Rock':
+    'Type=General ' +
+    'Require=' +
+      '"constitution >= 15",' +
+      '"features.Diehard",' +
+      '"features.Great Fortitude"',
+  'Implacable Defender':
+    'Type=General ' +
+    'Require=' +
+      '"strength >= 13",' +
+      '"baseAttack >= 3"',
+  'Improved Sigil':
+    'Type=General ' +
+    'Require=' +
+      '"features.Sigil",' +
+      '"skills.Diplomacy >= 9"',
+  'Improviser':
+    'Type=General ' +
+    'Require=' +
+      '"wisdom >= 13",' +
+      '"baseAttack >= 3"',
+  'Innate Hunter':
+    'Type=General ' +
+    'Require=' +
+      '"features.Track",' +
+      '"skills.Survival >= 5"',
+  'Intimidating Presence':
+    'Type=General ' +
+    'Require=' +
+      '"charisma >= 13",' +
+      '"skills.Intimidate >= 7"',
+  'Inspiring Presence':
+    'Type=General ' +
+    'Require=' +
+      '"charisma >= 13"',
+  'Kiltektet':
+    'Type=General',
+  'Linguist':
+    'Type=General',
+  'Mastryrial Blood':
+    'Type=General ' +
+    'Require=' +
+      '"constitution >= 13"',
+  'Path Dexter':
+    'Type=General ' +
+    'Require=' +
+      '"features.Preserver"',
+  'Path Sinister':
+    'Type=General ' +
+    'Require=' +
+      '"features.Defiler"',
+  'Psionic Mimicry':
+    'Type=General ' +
+    'Require=' +
+      '"skills.Bluff >= 8",' +
+      '"skills.Knowledge (Psionics) >= 4",' +
+      '"skills.Psicraft >= 4"',
+  'Psionic Schooling':
+    'Type=General',
+  'Raised By Beasts':
+    'Type=General',
+  'Rotate Lines':
+    'Type=General ' +
+    'Require=' +
+      '"baseAttack >= 3"',
+  'Securlar Authority':
+    'Type=General ' +
+    'Require=' +
+      '"charisma >= 13",' +
+      '"skills.Diplomacy >= 6",' +
+      '"features.Negotiator"',
+  'Favorite':
+    'Type=General ' +
+    'Require=' +
+      '"features.Secular Authority",' +
+      '"skills.Diplomacy >= 10"',
+  'Shield Wall':
+    'Type=General ' +
+    'Require=' +
+      '"baseAttack >= 2",' +
+      '"features.Shield Proficiency",' +
+      '"skills.Diplomacy >= 10"',
+  'Sniper':
+    'Type=General ' +
+    'Require=' +
+      '"dexterity >= 13",' +
+      '"skills.Hide >= 1",' +
+      '"features.Shield Proficiency"',
+  'Spear Wall':
+    'Type=General ' +
+    'Require=' +
+      '"baseAttack >= 1"',
+  'Tactical Expertise':
+    'Type=General ' +
+    'Require=' +
+      '"skills.Knowledge (Warcraft) >= 7"',
+  'Trader':
+    'Type=General',
+  'Wastelander':
+    'Type=General'
 };
 DarkSunv3.FEATS = Object.assign({}, SRD35.FEATS, DarkSunv3.FEATS_ADDED);
 DarkSunv3.FEATURES_ADDED = {
@@ -595,8 +778,68 @@ DarkSunv3.RACES = {
 };
 DarkSunv3.SCHOOLS = Object.assign({}, SRD35.SCHOOLS);
 DarkSunv3.SHIELDS = Object.assign({}, SRD35.SHIELDS);
-DarkSunv3.SKILLS = Object.assign({}, SRD35.SKILLS);
+DarkSunv3.SKILLS_ADDED = {
+  'Bluff':
+    SRD35.SKILLS['Bluff'].replace('Class=', 'Class=Wizard,'),
+  'Diplomacy':
+    SRD35.SKILLS['Diplomacy'].replace('Druid,', ''),
+  'Disguise':
+    SRD35.SKILLS['Disguise'].replace('Class=', 'Class=Wizard,'),
+  'Escape Artist':
+    SRD35.SKILLS['Escape Artist'].replace('Class=', 'Class=Barbarian,'),
+  'Hide':
+    SRD35.SKILLS['Hide'].replace('Class=', 'Class=Druid,'),
+  'Knowledge (Ancient History)':
+    'Ability=intelligence untrained=n',
+  'Knowledge (Warcraft)':
+    'Ability=intelligence untrained=n Class=Fighter',
+  'Literacy':
+    'untrained=n Class=Wizard',
+  'Move Silently':
+    SRD35.SKILLS['Move Silently'].replace('Class=', 'Class=Druid,'),
+  'Swim':
+    SRD35.SKILLS['Swim'] + ' ' + 'Class=',
+  'Use Psionic Device':
+    'Ability=charisma untrained=n Class=Rogue'
+};
+DarkSunv3.SKILLS = Object.assign({}, SRD35.SKILLS, DarkSunv3.SKILLS_ADDED);
 DarkSunv3.SPELLS_ADDED = {
+  'Bolt Of Glory':
+    'School=Evocation ' +
+    'Level=Glory6 ' +
+    'Description="FILL"',
+  'Bolts Of Bedevilment':
+    'School=Enchantment ' +
+    'Level=Madness5 ' +
+    'Description="FILL"',
+  'Brain Spider':
+    'School=Divination ' +
+    'Level=Mind7 ' +
+    'Description="FILL"',
+  'Crown Of Glory':
+    'School=Evocation ' +
+    'Level=Glory8 ' +
+    'Description="FILL"',
+  'Lesser Telepathic Bond':
+    'School=Divination ' +
+    'Level=Mind3 ' +
+    'Description="FILL"',
+  'Maddening Scream':
+    'School=Enchantment ' +
+    'Level=Madness8 ' +
+    'Description="FILL"',
+  'Maddening Scream':
+    'School=Enchantment ' +
+    'Level=Madness8 ' +
+    'Description="FILL"',
+  'Probe Thoughts':
+    'School=Divination ' +
+    'Level=Mind6 ' +
+    'Description="FILL"',
+  'Touch Of Madness':
+    'School=Enchantment ' +
+    'Level=Madness2 ' +
+    'Description="FILL"'
 };
 DarkSunv3.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, DarkSunv3.SPELLS_ADDED
@@ -611,7 +854,6 @@ DarkSunv3.SPELLS_LEVELS = {
   'Charm Person':'Charm1',
   'Comprehend Languages':'Mind1',
   'Confusion':'Madness4',
-  'Crown Of Glory':'Glory8',
   'Demand':'Charm8,Nobility8',
   'Detect Thoughts':'Mind2',
   'Discern Lies':'Mind4,Nobility4',
@@ -627,12 +869,9 @@ DarkSunv3.SPELLS_LEVELS = {
   'Holy Sword':'Glory5',
   'Insanity':'Charm7,Madness7',
   'Lesser Confusion':'Madness1',
-  'Lesser Telepathic Bond':'Mind3',
-  'Maddening Scream':'Madness8',
   'Magic Vestment':'Nobility3',
   'Mind Blank':'Mind8',
   'Phantasmal Killer':'Madness6',
-  'Probe Thoughts':'Mind6',
   'Rage':'Madness3',
   'Repulsion':'Nobility7',
   'Searing Light':'Glory3',
@@ -640,7 +879,6 @@ DarkSunv3.SPELLS_LEVELS = {
   'Suggestion':'Charm3',
   'Sunbeam':'Glory7',
   'Telepathic Bond':'Mind5',
-  'Touch Of Madness':'Madness2',
   'Weird':'Madness9,Mind9'
 };
 for(var s in DarkSunv3.SPELLS_LEVELS) {
