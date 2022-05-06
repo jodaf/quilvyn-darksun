@@ -97,12 +97,11 @@ function DarkSunv3(baseRules) {
     DarkSunv3.SPELLS[s] =
       DarkSunv3.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
   }
-  DarkSunv3.WEAPONS =
-    Object.assign({}, rules.basePlugin.WEAPONS, DarkSunv3.WEAPONS_ADDED);
 
   DarkSunv3.abilityRules(rules);
   DarkSunv3.aideRules(rules, DarkSunv3.ANIMAL_COMPANIONS, DarkSunv3.FAMILIARS);
-  DarkSunv3.combatRules(rules, DarkSunv3.ARMORS, DarkSunv3.SHIELDS, DarkSunv3.WEAPONS);
+  DarkSunv3.combatRules
+    (rules, DarkSunv3.ARMORS, DarkSunv3.SHIELDS, DarkSunv3.WEAPONS);
   DarkSunv3.magicRules(rules, DarkSunv3.SCHOOLS, DarkSunv3.SPELLS);
   // Feats must be defined before classes
   DarkSunv3.talentRules
@@ -245,6 +244,19 @@ DarkSunv3.CLASSES = {
 };
 DarkSunv3.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
 DarkSunv3.PRESTIGE_CLASSES = {
+  'Arch Defiler':
+    'Require=' +
+      '"skills.Knowledge (Arcana) >= 8","skills.Spellcraft >= 8",' +
+      '"features.Agonizing Radius","features.Great Fortitude",' +
+      '"sumMetamagicFeats >= 0","spellSlots.W3 >= 0","features.Defiler" ' +
+    'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Features=' +
+      '"1:Caster Level Bonus","1:Tainted Aura","1:Defiler Feat Bonus",' +
+      '"1:Casting Time Metamagic","1:Painful Radius",1:Metamagic Raze" ' +
+    'Skills=' +
+      'Bluff,Concentration,Craft,"Decipher Script",Disguise,Intimidate,' +
+      'Knowledge,Profession,Spellcraft'
+  // TODO
 };
 DarkSunv3.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
 DarkSunv3.FEATS_ADDED = {
@@ -631,7 +643,7 @@ DarkSunv3.FEATS_ADDED = {
 DarkSunv3.FEATS = Object.assign({}, SRD35.FEATS, DarkSunv3.FEATS_ADDED);
 DarkSunv3.FEATURES_ADDED = {
 
-  // Class
+  // Classes
   'Accurate':'Section=combat Note="Ignore %V points of AC"',
   'Agile (Bard)':'Section=combat Note="+%V AC"',
   'Alchemy Dealer':
@@ -724,7 +736,10 @@ DarkSunv3.FEATURES_ADDED = {
   'Trick':'Section=skill Note="R30\' Opposed bluff dazes %{levels.Gladiator//3-2} targets for 1 rd"',
   'Versatile':'Section=skill Note="Two chosen skills are class skills"',
 
-  // Feat
+  // Prestige Classes
+  'Arch Defiler Bonus Feats':'Section=feature Note="%V Arch Defiler feats"',
+
+  // Feats
   'Ancestral Knowledge (Blue Age)':
     'Section=skill Note="+10 Knowledge (History) (blue age)"',
   'Ancestral Knowledge (Green Age)':
@@ -848,65 +863,63 @@ DarkSunv3.FEATURES_ADDED = {
     'Section=feature ' +
     'Note="Evocation spells inflict +1 damage/die while defiling "',
   'Efficient Raze':
-    'Section=feature Note="FILL"',
+    'Section=magic ' +
+    'Note="Treat terrain as one category better while defiling"',
   'Exterminating Raze':
-    'Section=feature Note="FILL"',
+    'Section=magic ' +
+    'Note="Plant creatures in defiling area suffer 4 HP/spell level"',
   'Fast Raze':
-    'Section=feature Note="FILL"',
+    'Section=magic ' +
+    'Note="Spend move action for +1 caster level and +5\' defiling radius"',
   'Sickening Raze':
-    'Section=feature Note="FILL"',
-  'Active Glands':
-    'Section=feature Note="FILL"',
-  'Advanced Antennae':
-    'Section=feature Note="FILL"',
-  'Blend':
-    'Section=feature Note="FILL"',
+    'Section=magic Note="Creatures in defiling radius suffer nausea for 1 rd"',
+  'Active Glands':'Section=combat Note="+2 poisonous bite/dy"',
+  'Advanced Antennae':'Section=skill Note="R30\' Detect creatures via smell"',
+  'Blend':'Section=skill Note="+3 Hide (arid and desert areas)"',
   'Blessed By The Ancestors':
-    'Section=feature Note="FILL"',
+    'Section=save Note="+1 Fortitude/+1 Reflex/+1 Will"',
   'Cannibalism Ritual':
-    'Section=feature Note="FILL"',
-  'Dwarven Vision':
-    'Section=feature Note="FILL"',
+    'Section=ability ' +
+    'Note="Eating higher HD foe gives +2 Strength, Dexterity, or Constitution for 1 dy"',
+  'Dwarven Vision':'Section=feature Note="Darkvision feature"',
   'Elfeater':
-    'Section=feature Note="FILL"',
+    'Section=combat,skill ' +
+    'Note=' +
+      '"+1 attack and +2 critical confirm vs. elves",' +
+      '"+2 Bluff (elves)/+2 Listen (elves)/+2 Sense Motive (elves)"',
   "Improved Gyth'sa":
-    'Section=feature Note="FILL"',
+    'Section=combat ' +
+    'Note="Recover {level*2} HP from full rest; dbl recovery from Heal skill"',
   'Tikchak':
-    'Section=feature Note="FILL"',
-  'Tokchak':
-    'Section=feature Note="FILL"',
-  'Artisan':
-    'Section=feature Note="FILL"',
+    'Section=combat,skill ' +
+    'Note=' +
+      '"Weapon Proficiency (Chatkcha)",' +
+      '"+%{wisdomModifier} Survival (hunting)"',
+  'Tokchak':'Section=combat Note="Adjacent allies gain +1 Reflex"',
+  'Artisan':'Section=skill Note="+3 Concentration/+3 choice of Craft"',
   'Astrologer':
-    'Section=feature Note="FILL"',
-  'Companion':
-    'Section=feature Note="FILL"',
-  'Disciplined':
-    'Section=feature Note="FILL"',
+    'Section=skill ' +
+    'Note="+3 Knowledge (Nature)/+5 Survival (avoid getting lost outdoors)"',
+  'Companion':'Section=skill Note="Assisting skill grants +3 bonus"',
+  'Disciplined':'Section=save,skill Note="+1 Will","+3 Concentration"',
   'Freedom':
-    'Section=feature Note="FILL"',
+    'Section=combat ' +
+    'Note="May take extra move or standard action %{level//5+1}/dy"',
   'Giant Killer':
-    'Section=feature Note="FILL"',
-  'Jungle Fighter':
-    'Section=feature Note="FILL"',
-  'Legerdemain':
-    'Section=feature Note="FILL"',
-  'Mansabar':
-    'Section=feature Note="FILL"',
-  'Mekillothead':
-    'Section=feature Note="FILL"',
-  'Metalsmith':
-    'Section=feature Note="FILL"',
-  "Nature's Child":
-    'Section=feature Note="FILL"',
-  'Paranoid':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="+4 confirm critical vs. giants/+2 AC vs. giants"',
+  'Jungle Fighter':'Section=combat Note="+2 AC in forest"',
+  'Legerdemain':'Section=skill Note="+3 Open Lock/+3 Sleight Of Hand"',
+  'Mansabar':'Section=save,skill Note="+1 Fortitude","+3 Intimidate"',
+  'Mekillothead':'Section=save,skill Note="+1 Will","+3 Intimidate"',
+  'Metalsmith':'Section=skill Note="No penalty on Craft w/metal"',
+  "Nature's Child":'Section=skill Note="+3 Knowledge (Nature)/+3 Survival"',
+  'Paranoid':'Section=save,skill Note="+1 Reflex","+3 Sense Motive"',
   'Performance Artist':
-    'Section=feature Note="FILL"',
-  'Tarandan Method':
-    'Section=feature Note="FILL"',
+    'Section=skill ' +
+    'Note="+3 choice of Perform/+3 Knowledge (Local) (choice of region)"',
+  'Tarandan Method':'Section=magic Note="+2 DC from chosen discipline"',
 
-  // Race
+  // Races
   'Aarakocra Ability Adjustment':
     'Section=ability Note="-2 Strength/+4 Dexterity/-2 Charisma"',
   'Aerial Dive':'Section=combat Note="Dbl damage after 30\' dive"',
@@ -1291,18 +1304,60 @@ for(var s in DarkSunv3.SPELLS_LEVELS) {
   DarkSunv3.SPELLS[s] =
     DarkSunv3.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
 }
-DarkSunv3.WEAPONS_ADDED = {
-  'Blade Boot':'Level=3 Category=Li Damage=1d4 Threat=19',
-  'Chakram':'Level=3 Category=R Damage=1d4 Crit=3 Range=30',
-  'Claw Bracer':'Level=3 Category=1h Damage=1d4 Threat=19',
-  'Cutlass':'Level=2 Category=1h Damage=1d6 Threat=19',
-  'Halfspear':'Level=1 Category=R Damage=d6 Crit=3 Range=20',
-  'Khopesh':'Level=3 Category=1h Damage=1d8 Threat=19',
-  'Saber':'Level=2 Category=1h Damage=1d8 Threat=19',
-  'Maul':'Level=2 Category=2h Damage=1d10 Crit=3 Threat=20',
-  'Scourge':'Level=3 Category=1h Damage=1d8 Threat=20'
+DarkSunv3.WEAPONS = {
+  'Puchik':'Level=1 Category=Li Damage=d4 Crit=3',
+  'Quabone':'Level=1 Category=1h Damage=d6',
+  'Tonfa':'Level=1 Category=1h Damage=d4',
+  'Great Tonfa':'Level=1 Category=2h Damage=d6',
+  'Blowgun':'Level=1 Category=R Damage=d1 Range=10',
+  'Pelota':'Level=1 Category=R Damage=d4 Range=10',
+  'Forearm Axe':'Level=2 Category=Li Damage=d4 Crit=3',
+  'Small Macahuitl':'Level=2 Category=Li Damage=d6 Threat=19',
+  'Slodak':'Level=2 Category=Li Damage=d6 Threat=19',
+  'Tortoise Blade':'Level=2 Category=Li Damage=d4',
+  'Alak':'Level=2 Category=1h Damage=d6 Crit=3',
+  'Alhulak':'Level=2 Category=1h Damage=d6 Crit=3',
+  'Carrikal':'Level=2 Category=1h Damage=d8 Crit=3',
+  'Impaler':'Level=2 Category=1h Damage=d6 Crit=4',
+  'Macahuitl':'Level=2 Category=1h Damage=d6 Threat=19',
+  'Fixed Crusher':'Level=2 Category=2h Damage=d6',
+  'Datchi Club':'Level=2 Category=2h Damage=d8 Crit=3',
+  'Gouge':'Level=2 Category=2h Damage=d10 Crit=3',
+  'Great Macahuitl':'Level=2 Category=2h Damage=2d6 Threat=19',
+  'Maul':'Level=2 Category=2h Damage=d12',
+  'Tkaesali':'Level=2 Category=2h Damage=d10 Crit=3',
+  'Trikal':'Level=2 Category=2h Damage=d8 Crit=3',
+  'Atlatl':'Level=2 Category=R Damage=d6 Crit=3 Range=40',
+  'Fixed Crossbow':'Level=2 Category=R Damage=2d8 Threat=19 Range=150',
+  "Bard's Friend":'Level=3 Category=Li Damage=d4 Threat=18',
+  'Ko':'Level=3 Category=Li Damage=d4 Crit=4',
+  "Bard's Garrote":'Level=3 Category=Li Damage=2d4 Crit=4',
+  'Handfork':'Level=3 Category=Li Damage=d4',
+  'Lajav':'Level=3 Category=Li Damage=d4 Crit=4',
+  'Singing Sticks':'Level=3 Category=Li Damage=d6',
+  'Talid':'Level=3 Category=Li Damage=d6 Threat=19',
+  "Widow's Knife":'Level=3 Category=Li Damage=d4 Crit=3',
+  'Wrist Razor':'Level=3 Category=Li Damage=d6 Threat=18',
+  'Elven Longblade':'Level=3 Category=1h Damage=d8 Threat=18',
+  'Heartpick':'Level=3 Category=1h Damage=d8 Crit=4',
+  "Master's Whip":'Level=3 Category=1h Damage=d3',
+  'Cahulak':'Level=3 Category=2h Damage=d6/d6 Crit=3',
+  'Free Crusher':'Level=3 Category=2h Damage=d10',
+  "Dragon's Paw":'Level=3 Category=2h Damage=d6/d6 Threat=19',
+  'Gythka':'Level=3 Category=2h Damage=d8/d8',
+  'Lotulis':'Level=3 Category=2h Damage=d8/d8 Threat=19',
+  'Double-Tipped Spear':'Level=3 Category=2h Damage=d8/d8 Crit=3 Range=20',
+  'Thanak':'Level=3 Category=2h Damage=2d6 Crit=3',
+  'Weighted Pike':'Level=3 Category=2h Damage=d8/d6 Threat=19',
+  'Swatter':'Level=3 Category=2h Damage=2d8 Crit=4',
+  'Makillot Sap':'Level=3 Category=2h Damage=2d8 Range=10',
+  'Greater Blowgun':'Level=3 Category=R Damage=d4 Range=10',
+  'Chatkcha':'Level=3 Category=R Damage=d6 Range=20',
+  'Dejada':'Level=3 Category=R Damage=d6 Range=30',
+  'Skyhammer':'Level=3 Category=R Damage=d10 Range=15',
+  'Splashbow':'Level=3 Category=R Damage=d4 Range=60',
+  'Zerka':'Level=3 Category=R Damage=d8 Threat=18 Range=30'
 };
-DarkSunv3.WEAPONS = Object.assign({}, SRD35.WEAPONS, DarkSunv3.WEAPONS_ADDED);
 
 /* Defines the rules related to character abilities. */
 DarkSunv3.abilityRules = function(rules) {
@@ -1656,6 +1711,29 @@ DarkSunv3.classRulesExtra = function(rules, name) {
     rules.defineRule
       ('features.Secular Authority', 'featureNotes.secularAptitude', '=', '1');
     rules.defineRule('turningLevel', classLevel, '+=', null);
+  } else if(name == 'Arch Defiler') {
+    feats = [
+      'Controlled Raze', 'Destructive Raze', 'Distance Raze', 'Efficient Raze',
+      'Exterminating Raze', 'Fast Raze', 'Path Sinister', 'Sickening Raze'
+    ];
+    rules.defineRule('featCount.Arch Defiler',
+      'featureNotes.archDefilerBonusFeats', '=', null
+    );
+    rules.defineRule('featureNotes.archDefilerBonusFeats',
+      classLevel, '=', 'Math.floor((source + 3) / 4)'
+    );
+    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+  }
+
+  if(feats != null && allFeats != null) {
+    for(var j = 0; j < feats.length; j++) {
+      var feat = feats[j];
+      if(!(feat in allFeats)) {
+        console.log('Feat "' + feat + '" undefined for class "' + name + '"');
+        continue;
+      }
+      allFeats[feat] = allFeats[feat].replace('Type=', 'Type="' + name + '",');
+    }
   }
 
   SRD35.classRulesExtra(rules, name);
@@ -1723,25 +1801,28 @@ DarkSunv3.featRules = function(rules, name, requires, implies, types) {
  * derived directly from the abilities passed to featRules.
  */
 DarkSunv3.featRulesExtra = function(rules, name) {
-  if(name == "Dissimulated") {
+  if(name == 'Dissimulated') {
     rules.defineRule
       ('skillNotes.dissimulated', 'intelligenceModifier', '=', null);
-  } else if(name == "Fearsome") {
+  } else if(name == 'Dwarven Vision') {
+    rules.defineRule
+      ('features.Darkvision', 'featureNotes.dwarvenVision', '=', '1');
+  } else if(name == 'Fearsome') {
     rules.defineRule('skillNotes.fearsome',
       'strengthModifier', '=', 'source + 2',
       'charismaModifier', '+', '-source'
     );
-  } else if(name == "Gladitorial Entertainer") {
+  } else if(name == 'Gladitorial Entertainer') {
     rules.defineRule('combatNotes.gladitorialEntertainer',
       'feats.Gladitorial Entertainer', '=', 'source * 4'
     );
     rules.defineRule('combatNotes.gladitorialPerformance',
       'combatNotes.gladitorialEntertainer', '+', null
     );
-  } else if(name == "Path Dexter") {
+  } else if(name == 'Path Dexter') {
     rules.defineRule
       ('magicNotes.pathDexter', 'feats.Path Dexter', '=', 'source * 2');
-  } else if(name == "Path Sinister") {
+  } else if(name == 'Path Sinister') {
     rules.defineRule
       ('magicNotes.pathSinister', 'feats.Path Sinister', '=', 'source * 2');
   }
