@@ -396,7 +396,7 @@ DarkSunv3.FEATS_ADDED = {
     'Type=General ' +
     'Require=' +
       '"baseAttack >= 3"',
-  'Securlar Authority':
+  'Secular Authority':
     'Type=General ' +
     'Require=' +
       '"charisma >= 13",' +
@@ -404,7 +404,7 @@ DarkSunv3.FEATS_ADDED = {
       '"features.Negotiator",' +
       '"levels.Templar"', // TODO? "Accepted into city-state's templarate"
   'Shield Wall':
-    'Type=General ' +
+    'Type=General,Fighter ' +
     'Require=' +
       '"baseAttack >= 2",' +
       '"features.Shield Proficiency"',
@@ -422,7 +422,7 @@ DarkSunv3.FEATS_ADDED = {
     'Require=' +
       '"skills.Knowledge (Warcraft) >= 7"',
   'Teamwork':
-    'Type=General ' +
+    'Type=General,Fighter ' +
     'Require=' +
       '"baseAttack >= 1"',
   'Trader':
@@ -665,8 +665,7 @@ DarkSunv3.FEATURES_ADDED = {
   'False Vulnerability':
     'Section=combat ' +
     'Note="No foe bonus when prone/May stand as a free action w/out foe AOO"',
-  'Gladitorial Performance':
-    'Section=combat Note="Talent effect %{levels.Gladiator}/dy"',
+  'Gladitorial Performance':'Section=combat Note="Talent effect %V/dy"',
   'Improved Parry':'Section=combat Note="Increased Parry effects"',
   'Improved Poison Use':
     'Section=combat Note="Apply poison as a free action w/out AOO"',
@@ -677,7 +676,7 @@ DarkSunv3.FEATURES_ADDED = {
     'Note="May use appraise to identify most valuable item in a pile"',
   'Martial Display':
     'Section=combat ' +
-    'Note="+2 first attack after making dispay as %1 action"',
+    'Note="+2 first attack after making display as %1 action"',
   'Martial Weapons':
     'Section=feature Note="+2 Feat Count (Martial Weapon Proficiency)"',
   'Mercy':'Section=combat Note="No nonlethal attack penalty"',
@@ -756,97 +755,98 @@ DarkSunv3.FEATURES_ADDED = {
     'Section=combat Note="Successful turn inflicts 2d6 energy damage"',
   'Faithful Follower':'Section=save Note="+5 vs. fear w/in 20\' of leader"',
   'Favorite':
-    'Section=feature Note="FILL"',
-  'Fearsome':
-    'Section=feature Note="FILL"',
-  'Field Officer':
-    'Section=feature Note="FILL"',
+    'Section=feature,skill ' +
+    'Note="+4 Secular Authority use","+2 Diplomacy (secular authority)"',
+  'Fearsome':'Section=skill Note="+%V Intimidate"',
+  'Field Officer':'Section=skill Note="+2 Diplomacy/+2 Knowledge (Warcraft)"',
   'Gladitorial Entertainer':
-    'Section=feature Note="FILL"',
-  'Greasing The Wheels':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="+%V gladitorial performance/dy"',
+  'Greasing The Wheels':'Section=skill Note="Adept at giving bribes"',
   'Hard As A Rock':
-    'Section=feature Note="FILL"',
+    'Section=combat ' +
+    'Note="Does not die immediately from massive damage; 30%/rd chance of stabilizing, 30%/hr of becoming conscious"',
   'Implacable Defender':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="+2 vs. bull rush, overrun, and trip"',
   'Improved Sigil':
-    'Section=feature Note="FILL"',
-  'Improviser':
-    'Section=feature Note="FILL"',
+    'Section=magic Note="Cast 2 chosen spells as spell-like ability 1/dy"',
+  'Improviser':'Section=feature Note="-1 attack penalty w/improvised weapons"',
   'Innate Hunter':
-    'Section=feature Note="FILL"',
+    'Section=combat,skill Note="+1 attack (animals)","+1 Survival (hunting)"',
   'Intimidating Presence':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="May demoralize %{charismaModifier} foes/rd"',
   'Inspiring Presence':
-    'Section=feature Note="FILL"',
-  'Kiltektet':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="R10\' Allies +%{charismaModifier} Will saves"',
+  'Kiltektet':'Section=skill Note="Knowledge is a class skill"',
   'Linguist':
-    'Section=feature Note="FILL"',
-  'Mastryrial Blood':
-    'Section=feature Note="FILL"',
+    'Section=skill Note="+2 Language Count/Speak Language is a class skill"',
+  'Mastryrial Blood':'Section=save Note="+4 vs. poison"',
   'Path Dexter':
-    'Section=feature Note="FILL"',
+    'Section=magic ' +
+    'Note="+1 caster level on %V abjuration or divination spells"',
   'Path Sinister':
-    'Section=feature Note="FILL"',
+    'Section=magic ' +
+    'Note="+1 caster level on %V evocation or necromancy spells"',
   'Protective':
-    'Section=feature Note="FILL"',
+    'Section=combat ' +
+    'Note="Worn gear gains +4 saves; may make DC 10+damage Reflex to transfer damage to self"',
   'Psionic Mimicry':
-    'Section=feature Note="FILL"',
+    'Section=magic ' +
+    'Note="May make DC 10+spell level Bluff to disguise spells as psionics"',
   'Psionic Schooling':
-    'Section=feature Note="FILL"',
+    'Section=ability ' +
+    'Note="Choice of psion, psychic warrior, or wilder is a favored class"',
   'Raised By Beasts':
-    'Section=feature Note="FILL"',
-  'Rotate Lines':
-    'Section=feature Note="FILL"',
-  'Securlar Authority':
-    'Section=feature Note="FILL"',
+    'Section=skill ' +
+    'Note="+%{level+charismaModifier} Diplomacy (chosen animal type)/+2 Handle Animal (chosen animal type)"',
+  'Rotate Lines':'Section=combat Note="R5\' Swap positions w/ally w/out AOO"',
+  'Secular Authority':
+    'Section=skill ' +
+    'Note="Use Diplomacy to requisition, intrude, accuse, and judge"',
   'Shield Wall':
-    'Section=feature Note="FILL"',
-  'Sniper':
-    'Section=feature Note="FILL"',
-  'Spear Wall':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="+1 AC for each adjacent ally w/large shield"',
+  'Sniper':'Section=skill Note="+5 Hide (firing missiles)"',
+  'Spear Wall':'Section=combat Note="x3 damage w/readied weapon"',
   'Tactical Expertise':
-    'Section=feature Note="FILL"',
-  'Teamwork':
-    'Section=feature Note="FILL"',
-  'Trader':
-    'Section=feature Note="FILL"',
-  'Wastelander':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="May coordinate allies as standard action"',
+  'Teamwork':'Section=combat Note="May Aid Another as a move action"',
+  'Trader':'Section=skill Note="+2 Appraise/+2 Bluff"',
+  'Wastelander':'Section=save,skill Note="+1 Fortitude","+2 Survival"',
   'Elemental Affinity':
-    'Section=feature Note="FILL"',
+    'Section=save ' +
+    'Note="Spend 1 Turn Undead for +4 Fortitude vs. patron energy for %{charismaModifier} rd"',
   'Elemental Might':
-    'Section=feature Note="FILL"',
+    'Section=combat ' +
+    'Note="Spend 1 Turn Undead for weapon +%{charismaModifier} patron energy damage for 1 rd"',
   'Elemental Vengeance':
-    'Section=feature Note="FILL"',
+    'Section=combat ' +
+    'Note="Spend 1 Turn Undead for +2d6 patron energy damage vs. undead for 1 rd"',
   'Superior Blessing':
-    'Section=feature Note="FILL"',
+    'Section=combat Note="Spend 1 Turn Undead for dbl blessed element damage"',
   'Elemental Manifestation':
-    'Section=feature Note="FILL"',
+    'Section=magic Note="+2 DC on manifest power w/patron element"',
   'Focused Mind':
-    'Section=feature Note="FILL"',
+    'Section=skill ' +
+    'Note="+2 Appraisal, Decipher Script, and Search while focused"',
   'Greater Hidden Talent':
-    'Section=feature Note="FILL"',
+    'Section=magic Note="Gain 3 Power Points and 1 1st-level power"',
   'Improved Dwarven Focus':
-    'Section=feature Note="FILL"',
-  'Improved Elf Run':
-    'Section=feature Note="FILL"',
+    'Section=save Note="+2 on focus-related checks while focused"',
+  'Improved Elf Run':'Section=ability Note="+15\' Speed while focused"',
   'Improved Hidden Talent':
     'Section=feature Note="FILL"',
   'Jump Charge':
     'Section=feature Note="FILL"',
   'Pterran Telepathy':
-    'Section=feature Note="FILL"',
-  'Agonizing Radius':
-    'Section=feature Note="FILL"',
+    'Section=magic Note="Use <i>Missive</i> to communicate w/all humanoids"',
+  'Agonizing Radius':'Section=magic Note="+1 penalty w/in defiling radius"',
   'Controlled Raze':
-    'Section=feature Note="FILL"',
+    'Section=magic ' +
+    'Note="+5\' defiling radius; may specify unaffected 5\' squares"',
   'Distance Raze':
-    'Section=feature Note="FILL"',
+    'Section=magic Note="Cast defiling circle up to %{casterLevel*10}\' away"',
   'Destructive Raze':
-    'Section=feature Note="FILL"',
+    'Section=feature ' +
+    'Note="Evocation spells inflict +1 damage/die while defiling "',
   'Efficient Raze':
     'Section=feature Note="FILL"',
   'Exterminating Raze':
@@ -1623,6 +1623,8 @@ DarkSunv3.classRulesExtra = function(rules, name) {
       'features.Combat Stance', '?', null,
       classLevel, '=', 'source<6 ? "standard" : source<12 ? "move" : "swift"'
     );
+    rules.defineRule
+      ('combatNotes.gladitorialPerformance', classLevel, '=', null);
     rules.defineRule('combatNotes.martialDisplay.1',
       'features.Combat Stance', '?', null,
       classLevel, '=', 'source<6 ? "standard" : source<12 ? "move" : "swift"'
@@ -1724,6 +1726,24 @@ DarkSunv3.featRulesExtra = function(rules, name) {
   if(name == "Dissimulated") {
     rules.defineRule
       ('skillNotes.dissimulated', 'intelligenceModifier', '=', null);
+  } else if(name == "Fearsome") {
+    rules.defineRule('skillNotes.fearsome',
+      'strengthModifier', '=', 'source + 2',
+      'charismaModifier', '+', '-source'
+    );
+  } else if(name == "Gladitorial Entertainer") {
+    rules.defineRule('combatNotes.gladitorialEntertainer',
+      'feats.Gladitorial Entertainer', '=', 'source * 4'
+    );
+    rules.defineRule('combatNotes.gladitorialPerformance',
+      'combatNotes.gladitorialEntertainer', '+', null
+    );
+  } else if(name == "Path Dexter") {
+    rules.defineRule
+      ('magicNotes.pathDexter', 'feats.Path Dexter', '=', 'source * 2');
+  } else if(name == "Path Sinister") {
+    rules.defineRule
+      ('magicNotes.pathSinister', 'feats.Path Sinister', '=', 'source * 2');
   }
 };
 
