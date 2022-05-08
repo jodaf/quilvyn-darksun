@@ -84,6 +84,14 @@ function DarkSunv3(baseRules) {
   DarkSunv3.SKILLS =
     Object.assign({}, rules.basePlugin.SKILLS, DarkSunv3.SKILLS_ADDED);
   DarkSunv3.SPELLS = Object.assign({}, SRD35.SPELLS, DarkSunv3.SPELLS_ADDED);
+  delete DarkSunv3.SPELLS['Bless Water'];
+  delete DarkSunv3.SPELLS['Control Water'];
+  delete DarkSunv3.SPELLS['Create Water'];
+  delete DarkSunv3.SPELLS['Curse Water'];
+  delete DarkSunv3.SPELLS['Flame Strike'];
+  delete DarkSunv3.SPELLS['Fire Storm'];
+  delete DarkSunv3.SPELLS['Water Breathing'];
+  delete DarkSunv3.SPELLS['Water Walking'];
   for(var s in DarkSunv3.SPELLS_LEVELS) {
     var levels = DarkSunv3.SPELLS_LEVELS[s];
     if(!(s in DarkSunv3.SPELLS)) {
@@ -849,11 +857,78 @@ DarkSunv3.FEATURES_ADDED = {
   'Versatile':'Section=skill Note="Two chosen skills are class skills"',
 
   // Prestige Classes
+  'Additional Domain':'Section=feature Note="FILL"',
+  'Agent':'Section=feature Note="FILL"',
+  'Allies':'Section=feature Note="FILL"',
+  'Animal Companion':'Section=feature Note="FILL"',
   'Arch Defiler Bonus Feats':'Section=feature Note="%V Arch Defiler feats"',
+  'Blaze Trail':'Section=feature Note="FILL"',
   'Casting Time Metamagic':'Section=feature Note="FILL"',
+  'Contact':'Section=feature Note="FILL"',
+  'Crowd Support':'Section=feature Note="FILL"',
+  'Damage Reduction':'Section=feature Note="FILL"',
+  'Dazzle':'Section=feature Note="FILL"',
+  'Discipline Insight':'Section=feature Note="FILL"',
+  'Distributive Bargaining':'Section=feature Note="FILL"',
+  'Dosage':'Section=feature Note="FILL"',
+  'Element Immunity':'Section=feature Note="FILL"',
+  'Elemental Affiliation':'Section=feature Note="FILL"',
+  'Elemental Focus':'Section=feature Note="FILL"',
+  'Elemental Shield':'Section=feature Note="FILL"',
+  'Empower Poison':'Section=feature Note="FILL"',
+  'Energy Reistance':'Section=feature Note="FILL"',
+  'Extend Poison':'Section=feature Note="FILL"',
+  'Fame':'Section=feature Note="FILL"',
+  'Fast Talk':'Section=feature Note="FILL"',
+  'Favored Terrain':'Section=feature Note="FILL"',
+  'Fearless Presence':'Section=feature Note="FILL"',
+  'Finishing Move':'Section=feature Note="FILL"',
+  'Forethought':'Section=feature Note="FILL"',
+  'Grove Master Spells':'Section=feature Note="FILL"',
+  'Guarded Lands':'Section=feature Note="FILL"',
+  'Hard March':'Section=feature Note="FILL"',
+  'Identify Poison':'Section=feature Note="FILL"',
+  'Ignore Element':'Section=feature Note="FILL"',
+  'Improved Fast Talk':'Section=feature Note="FILL"',
+  'Improved Signature Move':'Section=feature Note="FILL"',
+  'Integrative Bargaining':'Section=feature Note="FILL"',
+  'Legend':'Section=feature Note="FILL"',
+  'Linguist':'Section=feature Note="FILL"',
+  'Maximize Poison':'Section=feature Note="FILL"',
+  'Mental Resistance':'Section=feature Note="FILL"',
   'Metamagic Raze':'Section=feature Note="FILL"',
+  'Mindblank':'Section=feature Note="FILL"',
+  'Open Arms':'Section=feature Note="FILL"',
   'Painful Radius':'Section=feature Note="FILL"',
+  'Poison Immunity':'Section=feature Note="FILL"',
+  'Poison Secret':'Section=feature Note="FILL"',
+  'Poison Use':'Section=feature Note="FILL"',
+  "Poisoner's Fortitude":'Section=feature Note="FILL"',
+  'Power Element':'Section=feature Note="FILL"',
+  'Psilogism':'Section=feature Note="FILL"',
+  'Psionic Acumen':'Section=feature Note="FILL"',
+  'Psionic Rationalization':'Section=feature Note="FILL"',
+  'Quicken Poison':'Section=feature Note="FILL"',
+  'Reputation':'Section=feature Note="FILL"',
+  'Roar Of The Crowd':'Section=feature Note="FILL"',
+  'Sacrifice':'Section=feature Note="FILL"',
+  'Schoolmaster':'Section=feature Note="FILL"',
+  'Secular Authority':'Section=feature Note="FILL"',
+  'Signature Move':'Section=feature Note="FILL"',
+  'Smite Intruder':'Section=feature Note="FILL"',
+  'Smite Opponents':'Section=feature Note="FILL"',
+  'Spell Channeling':'Section=feature Note="FILL"',
+  'Spell-Like Abilities':'Section=feature Note="FILL"',
+  'Spontaneous Domain Spells':'Section=feature Note="FILL"',
+  'Summon Elemental':'Section=feature Note="FILL"',
+  'Sustenance':'Section=feature Note="FILL"',
+  'Swift Strike':'Section=feature Note="FILL"',
   'Tainted Aura':'Section=feature Note="FILL"',
+  'Taunt':'Section=feature Note="FILL"',
+  'Timeless Body':'Section=feature Note="FILL"',
+  'Uncanny Stealth':'Section=feature Note="FILL"',
+  'Weapon Mastery':'Section=feature Note="FILL"',
+  'Wild Shape':'Section=feature Note="FILL"',
 
   // Feats
   'Ancestral Knowledge (Blue Age)':
@@ -1368,6 +1443,14 @@ DarkSunv3.SPELLS_ADDED = {
 DarkSunv3.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, DarkSunv3.SPELLS_ADDED
 );
+delete DarkSunv3.SPELLS['Bless Water'];
+delete DarkSunv3.SPELLS['Control Water'];
+delete DarkSunv3.SPELLS['Create Water'];
+delete DarkSunv3.SPELLS['Curse Water'];
+delete DarkSunv3.SPELLS['Flame Strike'];
+delete DarkSunv3.SPELLS['Fire Storm'];
+delete DarkSunv3.SPELLS['Water Breathing'];
+delete DarkSunv3.SPELLS['Water Walking'];
 DarkSunv3.SPELLS_LEVELS = {
   'Bless Weapon':'Glory2',
   'Bolt Of Glory':'Glory6',
