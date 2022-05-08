@@ -17,7 +17,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 
 /*jshint esversion: 6 */
 /* jshint forin: false */
-/* globals Quilvyn, QuilvynRules, QuilvynUtils, SRD35 */
+/* globals PHB35, Quilvyn, QuilvynRules, QuilvynUtils, SRD35 */
 "use strict";
 
 /*
@@ -255,8 +255,120 @@ DarkSunv3.PRESTIGE_CLASSES = {
       '"1:Casting Time Metamagic","1:Painful Radius",1:Metamagic Raze" ' +
     'Skills=' +
       'Bluff,Concentration,Craft,"Decipher Script",Disguise,Intimidate,' +
-      'Knowledge,Profession,Spellcraft'
-  // TODO
+      'Knowledge,Profession,Spellcraft',
+  'Arena Champion':
+    'Require=' +
+      '"baseAttack >= 5","sumPerformFeats >= 6",' +
+      '"Max \'features.Weapon Focus\' >= 1","features.Toughness" ' +
+    'HitDie=d12 Attack=1 SkillPoints=4 Fortitude=1/2 Reflex=1/3 Will=1/3 ' +
+    'Features=' +
+      '"1:Crowd Support",2:Reputation,"3:Weapon Mastery",' +
+      '"4:Signature Move",6:Fame,"7:Improved Signature Move",' +
+      '"8:Roar Of The Crowd",10:Legend,"10:Finishing Move" ' +
+    'Skills=' +
+      'Balance,Bluff,Climb,Craft,Intimidate,Jump,Perform,Profession,' +
+      '"Sense Motive",Tumble',
+  'Dune Trader':
+    'Require=' +
+      '"skills.Appraise >= 5","skills.Bluff >= 5","skills.Diplomacy >= 7",' +
+      '"skills.Profession (Merchant) >= 2","skills.Sense Motive >= 5",' +
+      'features.Trader ' +
+    'HitDie=d6 Attack=3/4 SkillPoints=8 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Features=' +
+      '"1:Open Arms","1:Fast Talk",2:Contact,"3:Distributive Bargaining",' +
+      '4:Dazzle,4:Linguist,5:Agent,"6:Improved Fast Talk",' +
+      '"7:Integrative Bargaining",8:Taunt,9:Allies ' +
+    'Skills=' +
+      'Appraise,Bluff,Craft,"Decipher Script",Diplomacy,Disguise,Forgery,' +
+      '"Gather Information",Hide,Intimidate,Listen,"Move Silently",' +
+      '"Open Lock",Profession,Ride,Search,"Sense Motive","Sleight Of Hand",' +
+      '"Speak Language",Spot',
+  'Elementalist':
+    'Require=' +
+      '"skills.Knowledge (Religion) >= 8","skills.Knowledge (Planes) >= 5",' +
+      '"spellSlots.C3 >= 1 || spellSlots.D3 >= 1" ' +
+    'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Features=' +
+      '"1:Caster Level Bonus","1:Elemental Affiliation","1:Energy Reistance",' +
+      '"2:Elemental Focus","3:Additional Domain","4:Elemental Shield",' +
+      '"5:Ignore Element","6:Spontaneous Domain Spells","7:Summon Elemental",' +
+      '"9:Power Element","10:Element Immunity" ' +
+    'Skills=' +
+      'Concentration,Craft,Heal,"Knowledge (Religion)","Knowledge (Planes)",' +
+      'Profession,Spellcraft',
+  'Grove Master':
+    'Require=' +
+      '"skills.Knowledge (Nature) >= 10","skills.Survival >= 5",' +
+      '"skills.Hide >= 4","features.Wastelander",' +
+      '"spellSlots.C3 >= 1 || spellSlots.D3 >= 1" ' +
+    'HitDie=d8 Attack=1/2 SkillPoints=6 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Features=' +
+      '"1:Caster Level Bonus","1:Animal Companion","1:Wild Shape",' +
+      '"1:Guarded Lands","1:Sacrifice","2:Smite Intruder","3:Sustenance",' +
+      '"4:Grove Master Spells","10:Timeless Body" ' +
+    'Skills=' +
+      'Concentration,Craft,Diplomacy,Disguise,"Handle Animal",Heal,Hide,' +
+      '"Knowledge (Nature)",Listen,"Move Silently",Profession,Ride,' +
+      'Spellcraft,Spot,Survival',
+  'Master Scout':
+    'Require=' +
+      '"skills.Survival >= 8","features.Track","features.Wastelander" ' +
+    'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Features=' +
+      '"1:Armor Proficiency (Light)","1:Weapon Proficiency (Simple)",' +
+      '"1:Blaze Trail","1:Hard March","2:Swift Strike","3:Uncanny Stealth",' +
+      '"4:Favored Terrain","5:Swift Strike","6:Bonus Feat" ' +
+    'Skills=' +
+      'Balance,Climb,Craft,"Handle Animal",Hide,Jump,"Knowledge (Nature)",' +
+      'Listen,"Move Silently",Spot,Survival,"Use Rope"',
+  'Poisonmaster':
+    'Require=' +
+      '"skills.Craft (Poisonmaking) >= 8","skills.Craft (Alchemy) >= 4",' +
+      '"features.Skill Focus (Craft (Poisonmaking))" ' +
+    'HitDie=d6 Attack=3/4 SkillPoints=4 Fortitude=1/2 Reflex=1/2 Will=1/2 ' +
+    'Features=' +
+      '"1:Identify Poison",1:Dosage,"1:Poison Use","2:Poison Secret",' +
+      '"3:Extend Poison","4:Mental Resistance","5:Empower Poison",' +
+      '"5:Damage Reduction","7:Poisoner\'s Fortitude","7:Maximize Poison",' +
+      '8:Mindblank,"9:Quicken Poison","10:Poison Immunity" ' +
+    'Skills=' +
+      'Appraise,Bluff,Concentration,Craft,"Decipher Script",Diplomacy,' +
+      'Disguise,"Gather Information",Heal,Hide,Intimidate,' +
+      '"Knowledge (Nature)",Listen,"Move Silently",Perform,Profession,' +
+      '"Sense Motive","Sleight Of Hand",Spot',
+  'Psiologist':
+    'Require=' +
+      '"alignment =~ \'Lawful\'","skills.Knowledge (Psionics) >= 12",' +
+      '"skills.Psicraft >= 12","feats.Psionic Affinity",' +
+      '"features.Skill Focus (Knowledge (Psionics))",' +
+      '"features.Skill Focus (Psicraft)","sumMetapsionicFeats >= 2",' +
+      '"spellSlots.Psionic5 >= 1" ' +
+    'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Features=' +
+      '"1:Caster Level Bonus",1:Psilogism,"2:Psionic Acumen",' +
+      '"3:Psionic Rationalization",4:Forethought,"8:Discipline Insight",' +
+      '10:Schoolmaster ' +
+    'Skills=' +
+      'Autohypnosis,Bluff,Concentration,Diplomacy,Knowledge,Literacy,' +
+      'Psicraft,"Sense Motive","Use Psionic Device"',
+  'Templar Knight':
+    'Require=' +
+      '"baseAttack >= 5","skills.Diplomacy >= 2" ' +
+    'HitDie=d10 Attack=1 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/3 ' +
+    'Features=' +
+      '"1:Secular Authority","1:Spell-Like Abilities","1:Smite Opponents",' +
+      '"2:Fearless Presence","3:Bonus Feat","5:Spell Channeling" ' +
+    'Skills=' +
+      'Bluff,Climb,Concentration,Craft,Diplomacy,"Handle Animal",Heal,' +
+      'Intimidate,Jump,"Knowledge (Religion)","Knowledge (Warcraft)",' +
+      'Literacy,Profession,Ride,"Sense Motive",Spellcraft ' +
+    'CasterLevelArcane="levels.Templar Knight" ' +
+    'SpellAbility=wisdom ' +
+    'SpellSlots=' +
+      'Templar0:1=0;2=1;7=2,' +
+      'Templar1:3=0;4=1;9=2,' +
+      'Templar2:5=0;6=1;10=2,' +
+      'Templar3:7=0;8=1'
 };
 DarkSunv3.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
 DarkSunv3.FEATS_ADDED = {
@@ -738,6 +850,10 @@ DarkSunv3.FEATURES_ADDED = {
 
   // Prestige Classes
   'Arch Defiler Bonus Feats':'Section=feature Note="%V Arch Defiler feats"',
+  'Casting Time Metamagic':'Section=feature Note="FILL"',
+  'Metamagic Raze':'Section=feature Note="FILL"',
+  'Painful Radius':'Section=feature Note="FILL"',
+  'Tainted Aura':'Section=feature Note="FILL"',
 
   // Feats
   'Ancestral Knowledge (Blue Age)':
@@ -1187,6 +1303,8 @@ DarkSunv3.RACES = {
 DarkSunv3.SCHOOLS = Object.assign({}, SRD35.SCHOOLS);
 DarkSunv3.SHIELDS = Object.assign({}, SRD35.SHIELDS);
 DarkSunv3.SKILLS_ADDED = {
+  'Autohypnosis':
+    'Ability=wisdom untrained=n',
   'Bluff':
     SRD35.SKILLS['Bluff'].replace('Class=', 'Class=Wizard,'),
   'Diplomacy':
@@ -1205,6 +1323,8 @@ DarkSunv3.SKILLS_ADDED = {
     'untrained=n Class=Wizard',
   'Move Silently':
     SRD35.SKILLS['Move Silently'].replace('Class=', 'Class=Druid,'),
+  'Psicraft':
+    'Ability=intelligence untrained=n',
   'Swim':
     SRD35.SKILLS['Swim'] + ' ' + 'Class=',
   'Use Psionic Device':
@@ -1231,10 +1351,6 @@ DarkSunv3.SPELLS_ADDED = {
   'Lesser Telepathic Bond':
     'School=Divination ' +
     'Level=Mind3 ' +
-    'Description="FILL"',
-  'Maddening Scream':
-    'School=Enchantment ' +
-    'Level=Madness8 ' +
     'Description="FILL"',
   'Maddening Scream':
     'School=Enchantment ' +
