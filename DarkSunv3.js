@@ -1161,6 +1161,7 @@ DarkSunv3.FEATURES_ADDED = {
     'Section=ability ' +
     'Note="+2 Strength/+4 Dexterity/-2 Intelligence/+2 Wisdom/-4 Charisma"',
   'Tireless':'Section=save Note="+4 extended physical action"'
+
 };
 DarkSunv3.FEATURES = Object.assign({}, SRD35.FEATURES, DarkSunv3.FEATURES_ADDED);
 DarkSunv3.GOODIES = Object.assign({}, SRD35.GOODIES);
@@ -1518,7 +1519,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Control Tides':
     'School=Transmutation ' +
-    'Level=C4,D4,W6,T6 ' +
+    'Level=C4,D4,"Drowning Despair3",W6,T6 ' +
     'Description="FILL"',
   'Conversion':
     'School=Abjuration ' +
@@ -1544,7 +1545,7 @@ DarkSunv3.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level=C1 ' +
     'Description="FILL"',
-  'Curse Of The White Sands':
+  'Curse Of The Black Sands':
     'School=Transmutation ' +
     'Level=C4,D3,"Broken Sands2" ' +
     'Description="FILL"',
@@ -1590,7 +1591,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Greater Elemental Chariot':
     'School=Transmutation ' +
-    'Level=C9 ' +
+    'Level=C9,"Soaring Spirit9" ' +
     'Description="FILL"',
   'Elemental Storm':
     'School=Evocation ' +
@@ -1618,7 +1619,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Fissure':
     'School=Evocation ' +
-    'Level="Mountains Fury9" ' +
+    'Level="Broken Sands9","Mountains Fury9" ' +
     'Description="FILL"',
   'Flame Harvest':
     'School=Evocation ' +
@@ -1626,7 +1627,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Flash Flood':
     'School=Conjuration ' +
-    'Level="Drowning Despair8",D9 ' +
+    'Level="Drowning Despair8",D9,"Living Waters8" ' +
     'Description="FILL"',
   "Fool's Feast":
     'School=Transmutation ' +
@@ -1642,7 +1643,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Glass Storm':
     'School=Evocation ' +
-    'Level="Broken Sands6" ' +
+    'Level="Broken Sands7" ' +
     'Description="FILL"',
   'Gloomcloud':
     'School=Enchantment ' +
@@ -1654,7 +1655,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Gray Rift':
     'School=Conjuration ' +
-    'Level="Dead Heart7",T9,W9 ' +
+    'Level="Dead Heart8",T9,W9 ' +
     'Description="FILL"',
   'Groundflame':
     'School=Conjuration ' +
@@ -1734,7 +1735,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Pact Of Water':
     'School=Necromancy ' +
-    'Level="Living Waters5",T5 ' +
+    'Level="Living Waters4",T5 ' +
     'Description="FILL"',
   'Plant Renewal':
     'School=Transmutation ' +
@@ -1780,7 +1781,7 @@ DarkSunv3.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level=W5,"Broken Sands4" ' +
     'Description="FILL"',
-  'Sandflow':
+  'Sand Flow':
     'School=Transmutation ' +
     'Level="Broken Sands5",T5,W5 ' +
     'Description="FILL"',
@@ -1834,7 +1835,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Summon Tyr-Storm':
     'School=Conjuration ' +
-    'Level=W6 ' +
+    'Level="Furious Storm6",W6 ' +
     'Description="FILL"',
   'Sunstroke':
     'School=Evocation ' +
@@ -1892,7 +1893,7 @@ DarkSunv3.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level="Drowning Despair5" ' +
     'Description="FILL"',
-  'Waters Of Light':
+  'Waters Of Life':
     'School=Transmutation ' +
     'Level=D7,"Living Waters7" ' +
     'Description="FILL"',
@@ -1902,7 +1903,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   'Whirlpool Of Doom':
     'School=Transmutation ' +
-    'Level="Earthen Embrace7" ' +
+    'Level="Drowning Despair7","Earthen Embrace7" ' +
     'Description="FILL"',
   'Wild Lands':
     'School=Enchantment ' +
@@ -1918,7 +1919,7 @@ DarkSunv3.SPELLS_ADDED = {
     'Description="FILL"',
   "Worm's Breath":
     'School=Transmutation ' +
-    'Level=C3,D3,R3,T3,W3 ' +
+    'Level=C3,D3,"Living Waters3",R3,T3,W3 ' +
     'Description="FILL"',
   'Wrath Of The Sorcerer-King':
     'School=Divination ' +
@@ -2239,41 +2240,153 @@ delete DarkSunv3.SPELLS['Fire Storm'];
 delete DarkSunv3.SPELLS['Water Breathing'];
 delete DarkSunv3.SPELLS['Water Walking'];
 DarkSunv3.SPELLS_LEVELS = {
+  'Acid Fog':'"Ill Winds6"',
+  'Air Walk':'"Soaring Spirit4"',
+  'Animal Messenger':'"Ruinous Swarm1"',
+  'Animate Dead':'"Dead Heart3"',
+  "Bear's Endurance":'"Earthen Embrace2"',
+  'Black Tentacles':'"Soul Slayer4"',
+  'Blade Barrier':'"Broken Sands6"',
   'Bless Weapon':'Glory2',
   'Bolt Of Glory':'Glory6',
   'Bolts Of Bedevilment':'Madness5',
   'Brain Spider':'Mind7',
+  'Burning Hands':'"Fiery Wrath1","Smoldering Spirit1"',
+  'Call Lightning':'"Sky Blitz3"',
+  'Call Lightning Storm':'"Sky Blitz5"',
   'Calm Emotions':'Charm2',
+  'Cause Fear':'"Drowning Despair1"',
+  'Chain Lightning':'"Sky Blitz7"',
   'Charm Monster':'Charm5',
   'Charm Person':'Charm1',
+  'Chill Metal':'"Cold Malice2"',
+  'Chill Touch':'"Cold Malice1"',
+  'Circle Of Death':'"Soul Slayer7"',
+  'Cloudkill':'"Ill Winds5"',
+  'Color Spray':'"Sun Flare1"',
+  'Command':'"Rolling Thunder1"',
   'Comprehend Languages':'Mind1',
+  'Cone Of Cold':'"Cold Malice5"',
   'Confusion':'Madness4',
+  'Contagion':'"Decaying Touch3"',
+  'Continual Flame':'"Burning Eyes3"',
+  'Control Weather':'"Sky Blitz6"',
+  'Control Winds':'"Furious Storm5"',
+  'Creeping Doom':'"Ruinous Swarm7"',
+  'Daylight':'"Sun Flare2"',
+  'Death Knell':'"Dead Heart1"',
+  'Delayed Blast Fireball':'"Smoldering Spirit6"',
   'Demand':'Charm8,Nobility8',
+  'Destruction':'"Decaying Touch7"',
+  'Detect Secret Doors':'"Lights Revelation1"',
   'Detect Thoughts':'Mind2',
-  'Discern Lies':'Mind4,Nobility4',
+  'Discern Lies':'"Lights Revelation4",Mind4,Nobility4',
+  'Discern Location':'"Lights Revelation8"',
+  'Disintegrate':'"Decaying Touch6"',
   'Disrupt Undead':'Glory1',
   'Divine Favor':'Nobility1',
   'Dominate Monster':'Charm9',
+  'Earthquake':'"Mountains Fury7"',
+  'Elemental Storm':'"Smoldering Spirit7"',
+  'Energy Drain':'"Cold Malice9"',
+  'Enervation':'"Cold Malice4"',
   'Enthrall':'Nobility2',
+  'Entropic Shield':'"Desert Mirage1"',
+  'Faerie Fire':'"Burning Eyes1"',
+  'Feather Fall':'"Soaring Spirit1"',
+  'Find The Path':'"Burning Eyes6","Lights Revelation6"',
+  'Finger Of Death':'"Dead Heart7"',
+  'Fire Seeds':'"Fiery Wrath6"',
+  'Fire Shield':'"Smoldering Spirit5"',
+  'Fire Trap':'"Fiery Wrath2"',
+  'Fireball':'"Smoldering Spirit3"',
+  'Fly':'"Soaring Spirit3"',
+  'Fog Cloud':'"Living Waters2"',
+  'Foresight':'"Lights Revelation9"',
+  'Flesh To Stone':'"Earthen Embrace6","Mountains Fury6"',
+  'Freezing Sphere':'"Cold Malice7"',
   'Gate':'Glory9',
   'Geas/Quest':'Charm6,Nobility6',
-  'Greater Command':'Nobility5',
+  'Giant Vermin':'"Ruinous Swarm4"',
+  'Glitterdust':'"Desert Mirage2"',
+  'Greater Command':'Nobility5,"Rolling Thunder5"',
+  'Greater Shout':'"Rolling Thunder7"',
+  'Greater Teleport':'"Soaring Spirit6"',
+  'Gust Of Wind':'"Furious Storm1"',
+  'Harm':'"Soul Slayer6"',
+  'Heat Metal':'"Mountains Fury2"',
   'Heroism':'Charm4',
   'Holy Smite':'Glory4',
   'Holy Sword':'Glory5',
+  'Horrid Wilting':'"Cold Malice8","Desert Mirage8"',
+  'Ice Storm':'"Cold Malice3","Furious Storm4"',
+  'Imprisonment':'"Earthen Embrace9"',
+  'Incendiary Cloud':'"Ill Winds8","Smoldering Spirit8","Sun Flare8"',
+  'Infestation':'"Ruinous Swarm6"',
   'Insanity':'Charm7,Madness7',
+  'Insect Plague':'"Ruinous Swarm5"',
+  'Invisibility Purge':'"Lights Revelation3"',
+  'Iron Body':'"Earthen Embrace8"',
+  'Legend Lore':'"Lights Revelation7"',
   'Lesser Confusion':'Madness1',
+  'Magic Stone':'"Earthen Embrace1","Mountains Fury1"',
   'Magic Vestment':'Nobility3',
   'Mind Blank':'Mind8',
+  'Mislead':'"Desert Mirage6"',
+  'Move Earth':'"Forged Stone6"',
   'Phantasmal Killer':'Madness6',
+  'Power Word Blind':'"Decaying Touch8","Rolling Thunder8"',
+  'Power Word Kill':'"Rolling Thunder9"',
+  'Power Word Stun':'"Rolling Thunder6"',
+  'Prismatic Sphere':'"Desert Mirage9"',
+  'Prismatic Spray':'"Sun Flare7"',
+  'Prismatic Wall':'"Desert Mirage7","Sun Flare9"',
+  'Pyrotechnics':'"Ill Winds2","Smoldering Spirit2"',
+  'Quench':'"Sky Blitz4"',
   'Rage':'Madness3',
+  'Rainbow Pattern':'"Sun Flare4"',
+  'Ray Of Enfeeblement':'"Soul Slayer1"',
+  'Repel Metal Or Stone':'"Forged Stone8","Mountains Fury5"',
+  'Repel Vermin':'"Ruinous Swarm3"',
   'Repulsion':'Nobility7',
-  'Searing Light':'Glory3',
-  'Storm Of Vengeance':'Nobility9',
+  'Resist Energy':'"Fiery Wrath3"',
+  'Reverse Gravity':'"Soaring Spirit8"',
+  'Rusting Grasp':'"Decaying Touch2"',
+  'Searing Light':'Glory3,"Sun Flare3"',
+  'Secure Shelter':'"Earthen Embrace3"',
+  'Shocking Grasp':'"Sky Blitz1"',
+  'Shout':'"Rolling Thunder4"',
+  'Slay Living':'"Soul Slayer5"',
+  'Sleet Storm':'"Furious Storm3"',
+  'Soften Earth And Stone':'"Forged Stone2"',
+  'Soul Bind':'"Soul Slayer9"',
+  'Sound Burst':'"Rolling Thunder2"',
+  'Speak With Dead':'"Dead Heart2"',
+  'Spider Climb':'"Soaring Spirit2"',
+  'Spike Stones':'"Forged Stone4","Mountains Fury3"',
+  'Statue':'"Forged Stone7"',
+  'Stinking Cloud':'"Ill Winds4"',
+  'Stoneskin':'"Earthen Embrace5"',
+  'Stone Shape':'"Forged Stone3"',
+  'Storm Of Vengeance':'"Drowning Despair9",Nobility9,"Furious Storm9"',
   'Suggestion':'Charm3',
-  'Sunbeam':'Glory7',
+  'Summon Swarm':'"Ruinous Swarm2"',
+  'Sunbeam':'Glory7,"Sun Flare6"',
+  'Sunburst':'"Fiery Wrath8"',
+  'Sympathy':'"Ruinous Swarm8"',
   'Telepathic Bond':'Mind5',
-  'Weird':'Madness9,Mind9'
+  'Teleport':'"Soaring Spirit5"',
+  'Time Stop':'"Decaying Touch9"',
+  'Transmute Mud To Rock':'"Forged Stone5"',
+  'Trap The Soul':'"Soul Slayer8"',
+  'True Seeing':'"Burning Eyes5","Lights Revelation5"',
+  'Vampiric Touch':'"Dead Heart4"',
+  'Wall Of Stone':'"Earthen Embrace4"',
+  'Weird':'Madness9,Mind9',
+  'Whirlwind':'"Furious Storm7"',
+  'Wind Wall':'"Rolling Thunder3"',
+  'Wind Walk':'"Soaring Spirit6"',
+  'Zone Of Truth':'"Lights Revelation2"'
 };
 for(var s in DarkSunv3.SPELLS_LEVELS) {
   var levels = DarkSunv3.SPELLS_LEVELS[s];
