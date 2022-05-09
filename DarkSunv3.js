@@ -373,10 +373,10 @@ DarkSunv3.PRESTIGE_CLASSES = {
     'CasterLevelArcane="levels.Templar Knight" ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
-      'Templar0:1=0;2=1;7=2,' +
-      'Templar1:3=0;4=1;9=2,' +
-      'Templar2:5=0;6=1;10=2,' +
-      'Templar3:7=0;8=1'
+      'T0:1=0;2=1;7=2,' +
+      'T1:3=0;4=1;9=2,' +
+      'T2:5=0;6=1;10=2,' +
+      'T3:7=0;8=1'
 };
 DarkSunv3.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
 DarkSunv3.FEATS_ADDED = {
@@ -1211,7 +1211,7 @@ DarkSunv3.PATHS = {
   'Living Waters Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric',
-  "Mountain's Fury Domain":
+  "Mountains Fury Domain":
     'Group=Cleric ' +
     'Level=levels.Cleric',
   'Refreshing Storm Domain':
@@ -1289,16 +1289,16 @@ DarkSunv3.DEITIES = {
     'Alignment=N ' +
     'Domain=' +
       '"Decaying Touch","Earthen Embrace","Forged Stone","Ruinous Swarm",' +
-      '"Mountain\'s Fury"',
+      '"Mountains Fury"',
   'Fire':
     'Alignment=N ' +
     'Domain=' +
-      '"Burning Eyes","Sky Blitz","Mountain\'s Fury","Smoldering Spirit",' +
+      '"Burning Eyes","Sky Blitz","Mountains Fury","Smoldering Spirit",' +
       '"Fiery Wrath"',
   'Magma':
     'Alignment=N ' +
     'Domain=' +
-      '"Broken Sands","Dead Heart","Ill Wind","Mountain\'s Fury"',
+      '"Broken Sands","Dead Heart","Ill Wind","Mountains Fury"',
   'Rain':
     'Alignment=N ' +
     'Domain=' +
@@ -1407,6 +1407,793 @@ DarkSunv3.SKILLS_ADDED = {
 };
 DarkSunv3.SKILLS = Object.assign({}, SRD35.SKILLS, DarkSunv3.SKILLS_ADDED);
 DarkSunv3.SPELLS_ADDED = {
+  
+  'Acid Rain':
+    'School=Conjuration ' +
+    'Level="Decaying Touch4" ' +
+    'Description="FILL"',
+  'Air Lens':
+    'School=Transmutation ' +
+    'Level=T5,"Sun Flare5" ' +
+    'Description="FILL"',
+  'Allegiance Of The Land':
+    'School=Evocation ' +
+    'Level=D6 ' +
+    'Description="FILL"',
+  'Awaken Water Spirits':
+    'School=Transmutation ' +
+    'Level=D6,"Living Waters6" ' +
+    'Description="FILL"',
+  'Backlash':
+    'School=Abjuration ' +
+    'Level=D1,W2 ' +
+    'Description="FILL"',
+  'Banish Tyr-Storm':
+    'School=Abjuration ' +
+    'Level=W6 ' +
+    'Description="FILL"',
+  'Battlefield Healing':
+    'School=Conjuration ' +
+    'Level=T2 ' +
+    'Description="FILL"',
+  'Black Cairn':
+    'School=Divination ' +
+    'Level=D1,T1 ' +
+    'Description="FILL"',
+  'Blazing Wreath':
+    'School=Evocation ' +
+    'Level="Smoldering Spirit9" ' +
+    'Description="FILL"',
+  'Bless Element':
+    'School=Transmutation ' +
+    'Level=C1 ' +
+    'Description="FILL"',
+  'Blindscorch':
+    'School=Evocation ' +
+    'Level="Smoldering Spirit4" ' +
+    'Description="FILL"',
+  "Boneclaw's Cut":
+    'School=Necromancy ' +
+    'Level=D3,W3 ' +
+    'Description="FILL"',
+  'Boneharden':
+    'School=Transmutation ' +
+    'Level=D2,W2 ' +
+    'Description="FILL"',
+  'Braxatskin':
+    'School=Transmutation ' +
+    'Level=C6,D5,W6 ' +
+    'Description="FILL"',
+  'Breeze Lore':
+    'School=Divination ' +
+    'Level="Ill Winds3" ' +
+    'Description="FILL"',
+  'Cerulean Hail':
+    'School=Conjuration ' +
+    'Level=W5,"Cold Malice6" ' +
+    'Description="FILL"',
+  'Cerulean Shock':
+    'School=Evocation ' +
+    'Level=W2 ' +
+    'Description="FILL"',
+  'Channel Stench':
+    'School=Conjuration ' +
+    'Level="Ill Winds1" ' +
+    'Description="FILL"',
+  'Claws Of The Tembo':
+    'School=Conjuration ' +
+    'Level=D3,R3,W4 ' +
+    'Description="FILL"',
+  'Cleansing Flame':
+    'School=Evocation ' +
+    'Level=C5,D5,W6 ' +
+    'Description="FILL"',
+  'Clear Water':
+    'School=Transmutation ' +
+    'Level=D2,"Living Waters1" ' +
+    'Description="FILL"',
+  'Clear-River':
+    'School=Evocation ' +
+    'Level=D3,W3 ' +
+    'Description="FILL"',
+  'Clues Of Ash':
+    'School=Divination ' +
+    'Level="Burning Eyes2" ' +
+    'Description="FILL"',
+  'Coat Of Mists':
+    'School=Conjuration ' +
+    'Level="Desert Mirage4",D5 ' +
+    'Description="FILL"',
+  "Confessor's Flame":
+    'School=Evocation ' +
+    'Level="Burning Eyes8",T7 ' +
+    'Description="FILL"',
+  'Conflagration':
+    'School=Evocation ' +
+    'Level="Fiery Wrath9" ' +
+    'Description="FILL"',
+  'Conservation':
+    'School=Abjuration ' +
+    'Level=D2,W3 ' +
+    'Description="FILL"',
+  'Control Tides':
+    'School=Transmutation ' +
+    'Level=C4,D4,W6,T6 ' +
+    'Description="FILL"',
+  'Conversion':
+    'School=Abjuration ' +
+    'Level=D5 ' +
+    'Description="FILL"',
+  'Cooling Canopy':
+    'School=Conjuration ' +
+    'Level=C1,D1,R1,W1 ' +
+    'Description="FILL"',
+  'Create Element':
+    'School=Conjuration ' +
+    'Level=C0 ' +
+    'Description="FILL"',
+  'Create Oasis':
+    'School=Conjuration ' +
+    'Level=D6 ' +
+    'Description="FILL"',
+  'Crusade':
+    'School=Enchantment ' +
+    'Level=T7 ' +
+    'Description="FILL"',
+  'Curse Element':
+    'School=Transmutation ' +
+    'Level=C1 ' +
+    'Description="FILL"',
+  'Curse Of The White Sands':
+    'School=Transmutation ' +
+    'Level=C4,D3,"Broken Sands2" ' +
+    'Description="FILL"',
+  'Curse Of The Choking Sands':
+    'School=Transmutation ' +
+    'Level="Desert Mirage3" ' +
+    'Description="FILL"',
+  'Death Mark':
+    'School=Necromancy ' +
+    'Level=W2,"Soul Slayer2" ' +
+    'Description="FILL"',
+  'Death Whip':
+    'School=Necromancy ' +
+    'Level=W3,"Soul Slayer3" ' +
+    'Description="FILL"',
+  'Dedication':
+    'School=Enchantment ' +
+    'Level=W3,T3 ' +
+    'Description="FILL"',
+  'Defiler Scent':
+    'School=Divination ' +
+    'Level=D0,T0 ' +
+    'Description="FILL"',
+  'Detect Element':
+    'School=Divination ' +
+    'Level=C0 ' +
+    'Description="FILL"',
+  'Drown On Dry Land':
+    'School=Transmutation ' +
+    'Level="Drowning Despair6" ' +
+    'Description="FILL"',
+  'Echo Of The Lirr':
+    'School=Evocation ' +
+    'Level=D2,R2 ' +
+    'Description="FILL"',
+  'Elemental Armor':
+    'School=Transmutation ' +
+    'Level=C4 ' +
+    'Description="FILL"',
+  'Elemental Chariot':
+    'School=Transmutation ' +
+    'Level=C7 ' +
+    'Description="FILL"',
+  'Greater Elemental Chariot':
+    'School=Transmutation ' +
+    'Level=C9 ' +
+    'Description="FILL"',
+  'Elemental Storm':
+    'School=Evocation ' +
+    'Level=C8,D7,"Smoldering Spirit7" ' +
+    'Description="FILL"',
+  'Elemental Strike':
+    'School=Evocation ' +
+    'Level=C5,D4,"Fiery Wrath5",T5 ' +
+    'Description="FILL"',
+  'Elemental Weapon':
+    'School=Transmutation ' +
+    'Level=C4 ' +
+    'Description="FILL"',
+  'Eye Of The Storm':
+    'School=Abjuration ' +
+    'Level=W2,C3,D3,"Furious Storm2",R2 ' +
+    'Description="FILL"',
+  'Fire Track':
+    'School=Divination ' +
+    'Level="Burning Eyes4" ' +
+    'Description="FILL"',
+  'Firewater':
+    'School=Transmutation ' +
+    'Level="Sky Blitz1" ' +
+    'Description="FILL"',
+  'Fissure':
+    'School=Evocation ' +
+    'Level="Mountains Fury9" ' +
+    'Description="FILL"',
+  'Flame Harvest':
+    'School=Evocation ' +
+    'Level=D8,"Fiery Wrath7" ' +
+    'Description="FILL"',
+  'Flash Flood':
+    'School=Conjuration ' +
+    'Level="Drowning Despair8",D9 ' +
+    'Description="FILL"',
+  "Fool's Feast":
+    'School=Transmutation ' +
+    'Level=T4 ' +
+    'Description="FILL"',
+  'Footsteps Of The Quarry':
+    'School=Divination ' +
+    'Level=R2,T2,W2 ' +
+    'Description="FILL"',
+  'Ghostfire':
+    'School=Necromancy ' +
+    'Level=W4 ' +
+    'Description="FILL"',
+  'Glass Storm':
+    'School=Evocation ' +
+    'Level="Broken Sands6" ' +
+    'Description="FILL"',
+  'Gloomcloud':
+    'School=Enchantment ' +
+    'Level=W4 ' +
+    'Description="FILL"',
+  'Gray Beckoning':
+    'School=Conjuration ' +
+    'Level="Dead Heart6",W7 ' +
+    'Description="FILL"',
+  'Gray Rift':
+    'School=Conjuration ' +
+    'Level="Dead Heart7",T9,W9 ' +
+    'Description="FILL"',
+  'Groundflame':
+    'School=Conjuration ' +
+    'Level=D5,W6 ' +
+    'Description="FILL"',
+  'Hand Of The Sorcerer-King':
+    'School=Abjuration ' +
+    'Level=T1 ' +
+    'Description="FILL"',
+  'Heartseeker':
+    'School=Transmutation ' +
+    'Level=C9,D9,"Forged Stone8" ' +
+    'Description="FILL"',
+  'Heat Lash':
+    'School=Evocation ' +
+    'Level=C1 ' +
+    'Description="FILL"',
+  'Illusory Talent':
+    'School=Illusion ' +
+    'Level=W1 ' +
+    'Description="FILL"',
+  'Image Of The Sorcerer-King':
+    'School=Necromancy ' +
+    'Level=T3 ' +
+    'Description="FILL"',
+  'Infestation':
+    'School=Conjuration ' +
+    'Level=C7,D6,"Ruinous Swarm6",W7 ' +
+    'Description="FILL"',
+  "Klar's Heart":
+    'School=Transmutation ' +
+    'Level=D4,T5 ' +
+    'Description="FILL"',
+  'Legendary Stonecraft':
+    'School=Transmutation ' +
+    'Level="Forged Stone9" ' +
+    'Description="FILL"',
+  'Lighten Load':
+    'School=Transmutation ' +
+    'Level=C3 ' +
+    'Description="FILL"',
+  'Liquid Lightning':
+    'School=Evocation ' +
+    'Level="Sky Blitz8" ' +
+    'Description="FILL"',
+  'Lungs Of Water':
+    'School=Conjuration ' +
+    'Level="Drowning Despair4" ' +
+    'Description="FILL"',
+  'Mage Seeker':
+    'School=Divination ' +
+    'Level=W4,T4 ' +
+    'Description="FILL"',
+  'Magic Trick':
+    'School=Illusion ' +
+    'Level=W2 ' +
+    'Description="FILL"',
+  'Magma Tunnel':
+    'School=Transmutation ' +
+    'Level="Mountains Fury8",W9 ' +
+    'Description="FILL"',
+  'Molten':
+    'School=Transmutation ' +
+    'Level="Broken Sands8" ' +
+    'Description="FILL"',
+  'Nurturing Seeds':
+    'School=Abjuration ' +
+    'Level=D0,R1 ' +
+    'Description="FILL"',
+  'Oil Spray':
+    'School=Conjuration ' +
+    'Level="Mountains Fury4" ' +
+    'Description="FILL"',
+  'Pact Of Darkness':
+    'School=Necromancy ' +
+    'Level=W9 ' +
+    'Description="FILL"',
+  'Pact Of Water':
+    'School=Necromancy ' +
+    'Level="Living Waters5",T5 ' +
+    'Description="FILL"',
+  'Plant Renewal':
+    'School=Transmutation ' +
+    'Level=D1 ' +
+    'Description="FILL"',
+  'Poisoned Gale':
+    'School=Conjuration ' +
+    'Level="Ill Winds7",T8 ' +
+    'Description="FILL"',
+  'Protection From Time':
+    'School=Abjuration ' +
+    'Level=W8 ' +
+    'Description="FILL"',
+  'Quietstorm':
+    'School=Evocation ' +
+    'Level=W5 ' +
+    'Description="FILL"',
+  'Ragestorm':
+    'School=Evocation ' +
+    'Level=C5,W5 ' +
+    'Description="FILL"',
+  'Rangeblade':
+    'School=Illusion ' +
+    'Level=C5,W5 ' +
+    'Description="FILL"',
+  'Rejuvenate':
+    'School=Transmutation ' +
+    'Level=C6,D5 ' +
+    'Description="FILL"',
+  'Return To The Earth':
+    'School=Necromancy ' +
+    'Level=C2,D3,"Decaying Touch1",T2 ' +
+    'Description="FILL"',
+  'Sand Pit':
+    'School=Transmutation ' +
+    'Level=W3,C3,"Broken Sands1",T3 ' +
+    'Description="FILL"',
+  'Sand Spray':
+    'School=Evocation ' +
+    'Level=W4,C4,"Broken Sands3",T3 ' +
+    'Description="FILL"',
+  'Sand Trap':
+    'School=Transmutation ' +
+    'Level=W5,"Broken Sands4" ' +
+    'Description="FILL"',
+  'Sandflow':
+    'School=Transmutation ' +
+    'Level="Broken Sands5",T5,W5 ' +
+    'Description="FILL"',
+  'Sands Of Time':
+    'School=Transmutation ' +
+    'Level=C7,"Decaying Touch5",W6 ' +
+    'Description="FILL"',
+  'Sandstone':
+    'School=Transmutation ' +
+    'Level="Forged Stone1",W2 ' +
+    'Description="FILL"',
+  'Scapegoat':
+    'School=Enchantment ' +
+    'Level=W5 ' +
+    'Description="FILL"',
+  'Shining Sands':
+    'School=Transmutation ' +
+    'Level=W6,"Desert Mirage5" ' +
+    'Description="FILL"',
+  'Shroud Of Darkness':
+    'School=Necromancy ' +
+    'Level=W6 ' +
+    'Description="FILL"',
+  'Sirocco':
+    'School=Evocation ' +
+    'Level=D8,"Furious Storm6" ' +
+    'Description="FILL"',
+  'Skyfire':
+    'School=Evocation ' +
+    'Level=D5,W5 ' +
+    'Description="FILL"',
+  'Slave Scent':
+    'School=Divination ' +
+    'Level=W0 ' +
+    'Description="FILL"',
+  'Sparkrain':
+    'School=Evocation ' +
+    'Level=W5 ' +
+    'Description="FILL"',
+  'Spirit Of Flame':
+    'School=Divination ' +
+    'Level="Burning Eyes9" ' +
+    'Description="FILL"',
+  'Sting Of The Gold Scorpion':
+    'School=Necromancy ' +
+    'Level=D2,R2,W2 ' +
+    'Description="FILL"',
+  'Storm Legion':
+    'School=Transmutation ' +
+    'Level=D9,"Furious Storm8" ' +
+    'Description="FILL"',
+  'Summon Tyr-Storm':
+    'School=Conjuration ' +
+    'Level=W6 ' +
+    'Description="FILL"',
+  'Sunstroke':
+    'School=Evocation ' +
+    'Level="Fiery Wrath4" ' +
+    'Description="FILL"',
+  'Surface Tension':
+    'School=Transmutation ' +
+    'Level="Drowning Despair2" ' +
+    'Description="FILL"',
+  'Surface Walk':
+    'School=Transmutation ' +
+    'Level=C3,D3,R3,T3 ' +
+    'Description="FILL"',
+  'Swarm Of Anguish':
+    'School=Transmutation ' +
+    'Level=D9,"Ruinous Swarm9" ' +
+    'Description="FILL"',
+  'Sweet Water':
+    'School=Transmutation ' +
+    'Level="Living Waters5" ' +
+    'Description="FILL"',
+  'Tempest':
+    'School=Evocation ' +
+    'Level=W9 ' +
+    'Description="FILL"',
+  'Touch The Black':
+    'School=Necromancy ' +
+    'Level=W4 ' +
+    'Description="FILL"',
+  'Unliving Identity':
+    'School=Necromancy ' +
+    'Level=C7,"Dead Heart5",W7 ' +
+    'Description="FILL"',
+  'Vampiric Youthfulness':
+    'School=Necromancy ' +
+    'Level="Dead Heart9",W9 ' +
+    'Description="FILL"',
+  'Wakefulness':
+    'School=Enchantment ' +
+    'Level=W2 ' +
+    'Description="FILL"',
+  'Watch Fire':
+    'School=Divination ' +
+    'Level="Burning Eyes7" ' +
+    'Description="FILL"',
+  'Water Light':
+    'School=Transmutation ' +
+    'Level="Sky Blitz9" ' +
+    'Description="FILL"',
+  'Water Shock':
+    'School=Evocation ' +
+    'Level="Sky Blitz2" ' +
+    'Description="FILL"',
+  'Water Trap':
+    'School=Transmutation ' +
+    'Level="Drowning Despair5" ' +
+    'Description="FILL"',
+  'Waters Of Light':
+    'School=Transmutation ' +
+    'Level=D7,"Living Waters7" ' +
+    'Description="FILL"',
+  'Waterways':
+    'School=Conjuration ' +
+    'Level="Living Waters9" ' +
+    'Description="FILL"',
+  'Whirlpool Of Doom':
+    'School=Transmutation ' +
+    'Level="Earthen Embrace7" ' +
+    'Description="FILL"',
+  'Wild Lands':
+    'School=Enchantment ' +
+    'Level=D9 ' +
+    'Description="FILL"',
+  'Wind Trap':
+    'School=Conjuration ' +
+    'Level="Ill Winds9" ' +
+    'Description="FILL"',
+  'Wisdom Of The Sorcerer-King':
+    'School=Transmutation ' +
+    'Level=T6 ' +
+    'Description="FILL"',
+  "Worm's Breath":
+    'School=Transmutation ' +
+    'Level=C3,D3,R3,T3,W3 ' +
+    'Description="FILL"',
+  'Wrath Of The Sorcerer-King':
+    'School=Divination ' +
+    'Level=T4 ' +
+    'Description="FILL"',
+  'Zombie Berry':
+    'School=Transmutation ' +
+    'Level=D3,W3 ' +
+    'Description="FILL"',
+  //
+  'Aura Reading':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Bioflexibility':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Cast Missiles':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Cause Sleep':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Cryokinesis':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Deflect Strike':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psionic Detect Poison':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Ghost Writing':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Hush':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Photosynthesis':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psionic Draw':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psychic Tracking':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Tattoo Animation':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Trail Of Destruction':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Wild Leap':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psionic Alter Self':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Psionic Calm Emotions':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Concentrate Water':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Detect Life':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Molecular Binding':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Pheromone Discharge':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Return Missile':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Sensory Suppression':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Sever The Tie':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Watcher Ward':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Antidote Simulation':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Beacon':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Psionic Blink':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Psionic Lighten Load':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Mass Manipulation':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Nerve Manipulation':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Psionic Sight':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Detonate':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Magnetize':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Repugnance':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Shadow Jump':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Electroerosion':
+    'School=Divination ' +
+    'Level=Psion5 ' +
+    'Description="FILL"',
+  'Dimensional Screen':
+    'School=Divination ' +
+    'Level=Psion6 ' +
+    'Description="FILL"',
+  'Incorporeality':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Mindflame':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Share Strength':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Aging':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Death Field':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Accelerate':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Complete Healing':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Poison Simulation':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Psionic Teleport Object':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Psionic Locale':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Detect Moisture':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Truthear':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Cosmic Awareness':
+    'School=Divination ' +
+    'Level=Psion9 ' +
+    'Description="FILL"',
+  'Pocket Dimension':
+    'School=Divination ' +
+    'Level=Psion5 ' +
+    'Description="FILL"',
+  'Hallucination':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Cast Missiles':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Deflect Strike':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psionic Draw':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Tattoo Animation':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Wild Leap':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Antidote Simulation':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Return Missile':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Share Strength':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Accelerate':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Death Field':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Shadow Jump':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Nerve Manipulation':
+    'School=Divination ' +
+    'Level=Psion5 ' +
+    'Description="FILL"',
+  'Poison Manipulation':
+    'School=Divination ' +
+    'Level=Psion6 ' +
+    'Description="FILL"',
+  //
   'Bolt Of Glory':
     'School=Evocation ' +
     'Level=Glory6 ' +
