@@ -36,7 +36,7 @@ function DarkSun35(baseRules) {
     return;
   }
 
-  var rules = new QuilvynRules('DarkSun35 - D&D v3.5', DarkSun35.VERSION);
+  var rules = new QuilvynRules('DarkSun - D&D v3.5', DarkSun35.VERSION);
   rules.basePlugin = SRD35;
   DarkSun35.rules = rules;
 

@@ -20,7 +20,7 @@ following lines to the file plugins/plugins.js:
     RULESETS['Dark Sun Campaign Setting using AD&D 2E rules'] = {
       url:'plugins/DarkSun2E.js',
       group:'Old School D&D',
-      require:'OldSchool.js'
+      require:['OSRIC.js', 'OldSchool.js']
     };
 
     RULESETS['Dark Sun Campaign Setting using SRD v3.5 rules'] = {
