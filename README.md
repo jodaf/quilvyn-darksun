@@ -18,13 +18,13 @@ subdirectory within the Quilvyn installation directory, then append the
 following lines to the file plugins/plugins.js:
 
     RULESETS['Dark Sun Campaign Setting using AD&D 2E rules'] = {
-      url:'plugins/DarkSunv2.js',
+      url:'plugins/DarkSun2E.js',
       group:'Old School D&D',
       require:'OldSchool.js'
     };
 
-    RULESETS['Dark Sun Campaign Setting using D&D v3.5 rules'] = {
-      url:'plugins/DarkSunv3.js',
+    RULESETS['Dark Sun Campaign Setting using SRD v3.5 rules'] = {
+      url:'plugins/DarkSun35.js',
       group:'v3.5',
       require:'SRD35.js'
     };
