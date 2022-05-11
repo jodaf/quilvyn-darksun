@@ -22,38 +22,38 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 
 /*
  * This module loads the rules from the Dark Sun Campaign Setting v3.5 rules
- * from athas.org. The DarkSunv3 function contains methods that load rules for
+ * from athas.org. The DarkSun35 function contains methods that load rules for
  * particular parts of the rules: raceRules for character races, magicRules
  * for spells, etc. These member methods can be called independently in order
- * to use a subset of the DarkSunv3 rules. Similarly, the constant fields of
- * DarkSunv3 (FEATS, RACES, etc.) can be manipulated to modify the user's
+ * to use a subset of the DarkSun35 rules. Similarly, the constant fields of
+ * DarkSun35 (FEATS, RACES, etc.) can be manipulated to modify the user's
  * choices.
  */
-function DarkSunv3(baseRules) {
+function DarkSun35(baseRules) {
 
   if(window.SRD35 == null) {
-    alert('The DarkSunv3 module requires use of the SRD35 module');
+    alert('The DarkSun35 module requires use of the SRD35 module');
     return;
   }
 
-  var rules = new QuilvynRules('DarkSunv3 - D&D v3.5', DarkSunv3.VERSION);
+  var rules = new QuilvynRules('DarkSun35 - D&D v3.5', DarkSun35.VERSION);
   rules.basePlugin = SRD35;
-  DarkSunv3.rules = rules;
+  DarkSun35.rules = rules;
 
-  DarkSunv3.CHOICES = rules.basePlugin.CHOICES.concat(DarkSunv3.CHOICES_ADDED);
-  rules.defineChoice('choices', DarkSunv3.CHOICES);
-  rules.choiceEditorElements = DarkSunv3.choiceEditorElements;
-  rules.choiceRules = DarkSunv3.choiceRules;
+  DarkSun35.CHOICES = rules.basePlugin.CHOICES.concat(DarkSun35.CHOICES_ADDED);
+  rules.defineChoice('choices', DarkSun35.CHOICES);
+  rules.choiceEditorElements = DarkSun35.choiceEditorElements;
+  rules.choiceRules = DarkSun35.choiceRules;
   rules.editorElements = SRD35.initialEditorElements();
   rules.getFormats = SRD35.getFormats;
-  rules.getPlugins = DarkSunv3.getPlugins;
+  rules.getPlugins = DarkSun35.getPlugins;
   rules.makeValid = SRD35.makeValid;
-  rules.randomizeOneAttribute = DarkSunv3.randomizeOneAttribute;
-  DarkSunv3.RANDOMIZABLE_ATTRIBUTES =
+  rules.randomizeOneAttribute = DarkSun35.randomizeOneAttribute;
+  DarkSun35.RANDOMIZABLE_ATTRIBUTES =
     rules.basePlugin.RANDOMIZABLE_ATTRIBUTES.concat
-    (DarkSunv3.RANDOMIZABLE_ATTRIBUTES_ADDED);
-  rules.defineChoice('random', DarkSunv3.RANDOMIZABLE_ATTRIBUTES);
-  rules.ruleNotes = DarkSunv3.ruleNotes;
+    (DarkSun35.RANDOMIZABLE_ATTRIBUTES_ADDED);
+  rules.defineChoice('random', DarkSun35.RANDOMIZABLE_ATTRIBUTES);
+  rules.ruleNotes = DarkSun35.ruleNotes;
 
   SRD35.createViewers(rules, SRD35.VIEWERS);
   rules.defineChoice('extras',
@@ -64,37 +64,37 @@ function DarkSunv3(baseRules) {
     'race:Race,select-one,races', 'levels:Class Levels,bag,levels',
     'prestige:Prestige Levels,bag,prestiges', 'npc:NPC Levels,bag,npcs');
 
-  DarkSunv3.ALIGNMENTS = Object.assign({}, rules.basePlugin.ALIGNMENTS);
-  DarkSunv3.ANIMAL_COMPANIONS =
+  DarkSun35.ALIGNMENTS = Object.assign({}, rules.basePlugin.ALIGNMENTS);
+  DarkSun35.ANIMAL_COMPANIONS =
     Object.assign( {}, rules.basePlugin.ANIMAL_COMPANIONS);
-  DarkSunv3.ARMORS = Object.assign({}, rules.basePlugin.ARMORS);
-  DarkSunv3.NPC_CLASSES = Object.assign({}, rules.basePlugin.NPC_CLASSES);
-  DarkSunv3.FAMILIARS = Object.assign({}, rules.basePlugin.FAMILIARS);
-  DarkSunv3.FEATS =
-    Object.assign({}, rules.basePlugin.FEATS, DarkSunv3.FEATS_ADDED);
-  DarkSunv3.FEATURES =
-    Object.assign({}, rules.basePlugin.FEATURES, DarkSunv3.FEATURES_ADDED);
-  DarkSunv3.GOODIES = Object.assign({}, rules.basePlugin.GOODIES);
-  DarkSunv3.LANGUAGES =
-    Object.assign({}, rules.basePlugin.LANGUAGES, DarkSunv3.LANGUAGES_ADDED);
-  DarkSunv3.DEITIES['None'] =
-    'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"';
-  DarkSunv3.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
-  DarkSunv3.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
-  DarkSunv3.SKILLS =
-    Object.assign({}, rules.basePlugin.SKILLS, DarkSunv3.SKILLS_ADDED);
-  DarkSunv3.SPELLS = Object.assign({}, SRD35.SPELLS, DarkSunv3.SPELLS_ADDED);
-  delete DarkSunv3.SPELLS['Bless Water'];
-  delete DarkSunv3.SPELLS['Control Water'];
-  delete DarkSunv3.SPELLS['Create Water'];
-  delete DarkSunv3.SPELLS['Curse Water'];
-  delete DarkSunv3.SPELLS['Flame Strike'];
-  delete DarkSunv3.SPELLS['Fire Storm'];
-  delete DarkSunv3.SPELLS['Water Breathing'];
-  delete DarkSunv3.SPELLS['Water Walking'];
-  for(var s in DarkSunv3.SPELLS_LEVELS) {
-    var levels = DarkSunv3.SPELLS_LEVELS[s];
-    if(!(s in DarkSunv3.SPELLS)) {
+  DarkSun35.ARMORS = Object.assign({}, rules.basePlugin.ARMORS);
+  DarkSun35.NPC_CLASSES = Object.assign({}, rules.basePlugin.NPC_CLASSES);
+  DarkSun35.FAMILIARS = Object.assign({}, rules.basePlugin.FAMILIARS);
+  DarkSun35.FEATS =
+    Object.assign({}, rules.basePlugin.FEATS, DarkSun35.FEATS_ADDED);
+  DarkSun35.FEATURES =
+    Object.assign({}, rules.basePlugin.FEATURES, DarkSun35.FEATURES_ADDED);
+  DarkSun35.GOODIES = Object.assign({}, rules.basePlugin.GOODIES);
+  DarkSun35.LANGUAGES =
+    Object.assign({}, rules.basePlugin.LANGUAGES, DarkSun35.LANGUAGES_ADDED);
+  DarkSun35.DEITIES['None'] =
+    'Domain="' + QuilvynUtils.getKeys(DarkSun35.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"';
+  DarkSun35.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
+  DarkSun35.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
+  DarkSun35.SKILLS =
+    Object.assign({}, rules.basePlugin.SKILLS, DarkSun35.SKILLS_ADDED);
+  DarkSun35.SPELLS = Object.assign({}, SRD35.SPELLS, DarkSun35.SPELLS_ADDED);
+  delete DarkSun35.SPELLS['Bless Water'];
+  delete DarkSun35.SPELLS['Control Water'];
+  delete DarkSun35.SPELLS['Create Water'];
+  delete DarkSun35.SPELLS['Curse Water'];
+  delete DarkSun35.SPELLS['Flame Strike'];
+  delete DarkSun35.SPELLS['Fire Storm'];
+  delete DarkSun35.SPELLS['Water Breathing'];
+  delete DarkSun35.SPELLS['Water Walking'];
+  for(var s in DarkSun35.SPELLS_LEVELS) {
+    var levels = DarkSun35.SPELLS_LEVELS[s];
+    if(!(s in DarkSun35.SPELLS)) {
       if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
         s = PHB35.SPELL_RENAMES[s];
       } else {
@@ -102,40 +102,40 @@ function DarkSunv3(baseRules) {
         continue;
       }
     }
-    DarkSunv3.SPELLS[s] =
-      DarkSunv3.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
+    DarkSun35.SPELLS[s] =
+      DarkSun35.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
   }
 
-  DarkSunv3.abilityRules(rules);
-  DarkSunv3.aideRules(rules, DarkSunv3.ANIMAL_COMPANIONS, DarkSunv3.FAMILIARS);
-  DarkSunv3.combatRules
-    (rules, DarkSunv3.ARMORS, DarkSunv3.SHIELDS, DarkSunv3.WEAPONS);
-  DarkSunv3.magicRules(rules, DarkSunv3.SCHOOLS, DarkSunv3.SPELLS);
+  DarkSun35.abilityRules(rules);
+  DarkSun35.aideRules(rules, DarkSun35.ANIMAL_COMPANIONS, DarkSun35.FAMILIARS);
+  DarkSun35.combatRules
+    (rules, DarkSun35.ARMORS, DarkSun35.SHIELDS, DarkSun35.WEAPONS);
+  DarkSun35.magicRules(rules, DarkSun35.SCHOOLS, DarkSun35.SPELLS);
   // Feats must be defined before classes
-  DarkSunv3.talentRules
-    (rules, DarkSunv3.FEATS, DarkSunv3.FEATURES, DarkSunv3.GOODIES,
-     DarkSunv3.LANGUAGES, DarkSunv3.SKILLS);
-  DarkSunv3.identityRules(
-    rules, DarkSunv3.ALIGNMENTS, DarkSunv3.CLASSES, DarkSunv3.DEITIES, DarkSunv3.PATHS,
-    DarkSunv3.RACES, DarkSunv3.PRESTIGE_CLASSES, DarkSunv3.NPC_CLASSES
+  DarkSun35.talentRules
+    (rules, DarkSun35.FEATS, DarkSun35.FEATURES, DarkSun35.GOODIES,
+     DarkSun35.LANGUAGES, DarkSun35.SKILLS);
+  DarkSun35.identityRules(
+    rules, DarkSun35.ALIGNMENTS, DarkSun35.CLASSES, DarkSun35.DEITIES, DarkSun35.PATHS,
+    DarkSun35.RACES, DarkSun35.PRESTIGE_CLASSES, DarkSun35.NPC_CLASSES
   );
 
   Quilvyn.addRuleSet(rules);
 
 }
 
-DarkSunv3.VERSION = '2.3.1.0';
+DarkSun35.VERSION = '2.3.1.0';
 
-DarkSunv3.CHOICES_ADDED = [];
-DarkSunv3.CHOICES = SRD35.CHOICES.concat(DarkSunv3.CHOICES_ADDED);
-DarkSunv3.RANDOMIZABLE_ATTRIBUTES_ADDED = [];
-DarkSunv3.RANDOMIZABLE_ATTRIBUTES =
-  SRD35.RANDOMIZABLE_ATTRIBUTES.concat(DarkSunv3.RANDOMIZABLE_ATTRIBUTES_ADDED);
+DarkSun35.CHOICES_ADDED = [];
+DarkSun35.CHOICES = SRD35.CHOICES.concat(DarkSun35.CHOICES_ADDED);
+DarkSun35.RANDOMIZABLE_ATTRIBUTES_ADDED = [];
+DarkSun35.RANDOMIZABLE_ATTRIBUTES =
+  SRD35.RANDOMIZABLE_ATTRIBUTES.concat(DarkSun35.RANDOMIZABLE_ATTRIBUTES_ADDED);
 
-DarkSunv3.ALIGNMENTS = Object.assign({}, SRD35.ALIGNMENTS);
-DarkSunv3.ANIMAL_COMPANIONS = Object.assign({}, SRD35.ANIMAL_COMPANIONS);
-DarkSunv3.ARMORS = Object.assign({}, SRD35.ARMORS);
-DarkSunv3.MONARCHS = {
+DarkSun35.ALIGNMENTS = Object.assign({}, SRD35.ALIGNMENTS);
+DarkSun35.ANIMAL_COMPANIONS = Object.assign({}, SRD35.ANIMAL_COMPANIONS);
+DarkSun35.ARMORS = Object.assign({}, SRD35.ARMORS);
+DarkSun35.MONARCHS = {
   'Abalach-Re':'Domain=Chaos,Charm',
   'Andropinis':'Domain=Law,Nobility',
   'Borys':'Domain=Destruction,Protection',
@@ -148,7 +148,7 @@ DarkSunv3.MONARCHS = {
   'Oronis':'Domain=Knowledge,Protection',
   'Tectuktitlay':'Domain=Glory,Strength'
 };
-DarkSunv3.CLASSES = {
+DarkSun35.CLASSES = {
   'Barbarian':
     SRD35.CLASSES['Barbarian'],
   'Bard':
@@ -174,7 +174,7 @@ DarkSunv3.CLASSES = {
   'Cleric':
     SRD35.CLASSES['Cleric'] + ' ' +
     'Selectables=' +
-      QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
+      QuilvynUtils.getKeys(DarkSun35.PATHS).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
   'Druid':
     SRD35.CLASSES['Druid'],
   'Fighter':
@@ -219,7 +219,7 @@ DarkSunv3.CLASSES = {
       '"1:Weapon Proficiency (Simple)","1:Martial Weapons",' +
       '"1:Secular Aptitude","1:Assume Domain",1:Sigil,"4:Turn Undead" ' +
     'Selectables=' +
-      QuilvynUtils.getKeys(DarkSunv3.Monarchs).map(x => '"1:' + x + '"').join(',') + ' ' +
+      QuilvynUtils.getKeys(DarkSun35.Monarchs).map(x => '"1:' + x + '"').join(',') + ' ' +
     'CasterLevelArcane=levels.Templar ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
@@ -250,8 +250,8 @@ DarkSunv3.CLASSES = {
   'Wizard':
     SRD35.CLASSES['Wizard']
 };
-DarkSunv3.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
-DarkSunv3.PRESTIGE_CLASSES = {
+DarkSun35.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
+DarkSun35.PRESTIGE_CLASSES = {
   'Arch Defiler':
     'Require=' +
       '"skills.Knowledge (Arcana) >= 8","skills.Spellcraft >= 8",' +
@@ -378,8 +378,8 @@ DarkSunv3.PRESTIGE_CLASSES = {
       'T2:5=0;6=1;10=2,' +
       'T3:7=0;8=1'
 };
-DarkSunv3.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
-DarkSunv3.FEATS_ADDED = {
+DarkSun35.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
+DarkSun35.FEATS_ADDED = {
   'Ancestral Knowledge (Blue Age)':
     'Type=General ' +
     'Require="intelligence >= 13","skills.Knowledge (History) >= 10"',
@@ -760,8 +760,8 @@ DarkSunv3.FEATS_ADDED = {
     'Require=' +
       '"origin == \'Raam\'"'
 };
-DarkSunv3.FEATS = Object.assign({}, SRD35.FEATS, DarkSunv3.FEATS_ADDED);
-DarkSunv3.FEATURES_ADDED = {
+DarkSun35.FEATS = Object.assign({}, SRD35.FEATS, DarkSun35.FEATS_ADDED);
+DarkSun35.FEATURES_ADDED = {
 
   // Classes
   'Accurate':'Section=combat Note="Ignore %V points of AC"',
@@ -1163,13 +1163,13 @@ DarkSunv3.FEATURES_ADDED = {
   'Tireless':'Section=save Note="+4 extended physical action"'
 
 };
-DarkSunv3.FEATURES = Object.assign({}, SRD35.FEATURES, DarkSunv3.FEATURES_ADDED);
-DarkSunv3.GOODIES = Object.assign({}, SRD35.GOODIES);
-DarkSunv3.LANGUAGES_ADDED = {
+DarkSun35.FEATURES = Object.assign({}, SRD35.FEATURES, DarkSun35.FEATURES_ADDED);
+DarkSun35.GOODIES = Object.assign({}, SRD35.GOODIES);
+DarkSun35.LANGUAGES_ADDED = {
   'Kreen':'',
   'Sauran':''
 };
-DarkSunv3.PATHS = {
+DarkSun35.PATHS = {
   'Broken Sands Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric',
@@ -1279,8 +1279,8 @@ DarkSunv3.PATHS = {
     'Features=' +
       '"1:Inspire Allies"'
 };
-DarkSunv3.DEITIES = {
-  'None':'Domain="' + QuilvynUtils.getKeys(DarkSunv3.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"',
+DarkSun35.DEITIES = {
+  'None':'Domain="' + QuilvynUtils.getKeys(DarkSun35.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"',
   'Air':
     'Alignment=N ' +
     'Domain=' +
@@ -1317,7 +1317,7 @@ DarkSunv3.DEITIES = {
     'Domain=' +
       '"Desert Mirage","Drowning Despair","Sky Blitz","Living Waters"'
 };
-DarkSunv3.RACES = {
+DarkSun35.RACES = {
   'Aarakocra':
     'Features=' +
       '"Aarakocra Ability Adjustment",' +
@@ -1376,9 +1376,9 @@ DarkSunv3.RACES = {
       '"Natural Armor",Poison,"Race Level Adjustment","Sleep Immunity" ' +
     'Languages=Kreen'
 };
-DarkSunv3.SCHOOLS = Object.assign({}, SRD35.SCHOOLS);
-DarkSunv3.SHIELDS = Object.assign({}, SRD35.SHIELDS);
-DarkSunv3.SKILLS_ADDED = {
+DarkSun35.SCHOOLS = Object.assign({}, SRD35.SCHOOLS);
+DarkSun35.SHIELDS = Object.assign({}, SRD35.SHIELDS);
+DarkSun35.SKILLS_ADDED = {
   'Autohypnosis':
     'Ability=wisdom untrained=n',
   'Bluff':
@@ -1406,8 +1406,8 @@ DarkSunv3.SKILLS_ADDED = {
   'Use Psionic Device':
     'Ability=charisma untrained=n Class=Rogue'
 };
-DarkSunv3.SKILLS = Object.assign({}, SRD35.SKILLS, DarkSunv3.SKILLS_ADDED);
-DarkSunv3.SPELLS_ADDED = {
+DarkSun35.SKILLS = Object.assign({}, SRD35.SKILLS, DarkSun35.SKILLS_ADDED);
+DarkSun35.SPELLS_ADDED = {
   
   'Acid Rain':
     'School=Conjuration ' +
@@ -2228,18 +2228,18 @@ DarkSunv3.SPELLS_ADDED = {
     'Level=Madness2 ' +
     'Description="FILL"'
 };
-DarkSunv3.SPELLS = Object.assign(
-  {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, DarkSunv3.SPELLS_ADDED
+DarkSun35.SPELLS = Object.assign(
+  {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, DarkSun35.SPELLS_ADDED
 );
-delete DarkSunv3.SPELLS['Bless Water'];
-delete DarkSunv3.SPELLS['Control Water'];
-delete DarkSunv3.SPELLS['Create Water'];
-delete DarkSunv3.SPELLS['Curse Water'];
-delete DarkSunv3.SPELLS['Flame Strike'];
-delete DarkSunv3.SPELLS['Fire Storm'];
-delete DarkSunv3.SPELLS['Water Breathing'];
-delete DarkSunv3.SPELLS['Water Walking'];
-DarkSunv3.SPELLS_LEVELS = {
+delete DarkSun35.SPELLS['Bless Water'];
+delete DarkSun35.SPELLS['Control Water'];
+delete DarkSun35.SPELLS['Create Water'];
+delete DarkSun35.SPELLS['Curse Water'];
+delete DarkSun35.SPELLS['Flame Strike'];
+delete DarkSun35.SPELLS['Fire Storm'];
+delete DarkSun35.SPELLS['Water Breathing'];
+delete DarkSun35.SPELLS['Water Walking'];
+DarkSun35.SPELLS_LEVELS = {
   'Acid Fog':'"Ill Winds6"',
   'Air Walk':'"Soaring Spirit4"',
   'Animal Messenger':'"Ruinous Swarm1"',
@@ -2388,22 +2388,22 @@ DarkSunv3.SPELLS_LEVELS = {
   'Wind Walk':'"Soaring Spirit6"',
   'Zone Of Truth':'"Lights Revelation2"'
 };
-for(var s in DarkSunv3.SPELLS_LEVELS) {
-  var levels = DarkSunv3.SPELLS_LEVELS[s];
-  if(!(s in DarkSunv3.SPELLS)) {
+for(var s in DarkSun35.SPELLS_LEVELS) {
+  var levels = DarkSun35.SPELLS_LEVELS[s];
+  if(!(s in DarkSun35.SPELLS)) {
     if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
       s = PHB35.SPELL_RENAMES[s];
     } else {
       // We might be loading before PHB35 has completed. There will be another
-      // chance to pick this up during DarkSunv3() initialization.
+      // chance to pick this up during DarkSun35() initialization.
       // console.log('Missing spell "' + s + '"');
       continue;
     }
   }
-  DarkSunv3.SPELLS[s] =
-    DarkSunv3.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
+  DarkSun35.SPELLS[s] =
+    DarkSun35.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
 }
-DarkSunv3.WEAPONS = {
+DarkSun35.WEAPONS = {
   'Puchik':'Level=1 Category=Li Damage=d4 Crit=3',
   'Quabone':'Level=1 Category=1h Damage=d6',
   'Tonfa':'Level=1 Category=1h Damage=d4',
@@ -2459,25 +2459,25 @@ DarkSunv3.WEAPONS = {
 };
 
 /* Defines the rules related to character abilities. */
-DarkSunv3.abilityRules = function(rules) {
+DarkSun35.abilityRules = function(rules) {
   rules.basePlugin.abilityRules(rules);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines rules related to animal companions and familiars. */
-DarkSunv3.aideRules = function(rules, companions, familiars) {
+DarkSun35.aideRules = function(rules, companions, familiars) {
   rules.basePlugin.aideRules(rules, companions, familiars);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines rules related to combat. */
-DarkSunv3.combatRules = function(rules, armors, shields, weapons) {
+DarkSun35.combatRules = function(rules, armors, shields, weapons) {
   rules.basePlugin.combatRules(rules, armors, shields, weapons);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines rules related to basic character identity. */
-DarkSunv3.identityRules = function(
+DarkSun35.identityRules = function(
   rules, alignments, classes, deities, paths, races, prestigeClasses, npcClasses
 ) {
 
@@ -2502,13 +2502,13 @@ DarkSunv3.identityRules = function(
 };
 
 /* Defines rules related to magic use. */
-DarkSunv3.magicRules = function(rules, schools, spells) {
+DarkSun35.magicRules = function(rules, schools, spells) {
   rules.basePlugin.magicRules(rules, schools, spells);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines rules related to character aptitudes. */
-DarkSunv3.talentRules = function(
+DarkSun35.talentRules = function(
   rules, feats, features, goodies, languages, skills
 ) {
   rules.basePlugin.talentRules
@@ -2520,11 +2520,11 @@ DarkSunv3.talentRules = function(
  * Adds #name# as a possible user #type# choice and parses #attrs# to add rules
  * related to selecting that choice.
  */
-DarkSunv3.choiceRules = function(rules, type, name, attrs) {
+DarkSun35.choiceRules = function(rules, type, name, attrs) {
   if(type == 'Alignment')
-    DarkSunv3.alignmentRules(rules, name);
+    DarkSun35.alignmentRules(rules, name);
   else if(type == 'Animal Companion')
-    DarkSunv3.companionRules(rules, name,
+    DarkSun35.companionRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Str'),
       QuilvynUtils.getAttrValue(attrs, 'Dex'),
       QuilvynUtils.getAttrValue(attrs, 'Con'),
@@ -2539,7 +2539,7 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Level')
     );
   else if(type == 'Armor')
-    DarkSunv3.armorRules(rules, name,
+    DarkSun35.armorRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'AC'),
       QuilvynUtils.getAttrValue(attrs, 'Weight'),
       QuilvynUtils.getAttrValue(attrs, 'Dex'),
@@ -2547,7 +2547,7 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Spell')
     );
   else if(type == 'Class' || type == 'Npc' || type == 'Prestige') {
-    DarkSunv3.classRules(rules, name,
+    DarkSun35.classRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValue(attrs, 'HitDie'),
       QuilvynUtils.getAttrValue(attrs, 'Attack'),
@@ -2564,15 +2564,15 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
       QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
-    DarkSunv3.classRulesExtra(rules, name);
+    DarkSun35.classRulesExtra(rules, name);
   } else if(type == 'Deity')
-    DarkSunv3.deityRules(rules, name,
+    DarkSun35.deityRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Alignment'),
       QuilvynUtils.getAttrValueArray(attrs, 'Domain'),
       QuilvynUtils.getAttrValueArray(attrs, 'Weapon')
     );
   else if(type == 'Familiar')
-    DarkSunv3.familiarRules(rules, name,
+    DarkSun35.familiarRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Str'),
       QuilvynUtils.getAttrValue(attrs, 'Dex'),
       QuilvynUtils.getAttrValue(attrs, 'Con'),
@@ -2587,19 +2587,19 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Level')
     );
   else if(type == 'Feat') {
-    DarkSunv3.featRules(rules, name,
+    DarkSun35.featRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValueArray(attrs, 'Imply'),
       QuilvynUtils.getAttrValueArray(attrs, 'Type')
     );
-    DarkSunv3.featRulesExtra(rules, name);
+    DarkSun35.featRulesExtra(rules, name);
   } else if(type == 'Feature')
-     DarkSunv3.featureRules(rules, name,
+     DarkSun35.featureRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Section'),
       QuilvynUtils.getAttrValueArray(attrs, 'Note')
     );
   else if(type == 'Goody')
-    DarkSunv3.goodyRules(rules, name,
+    DarkSun35.goodyRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Pattern'),
       QuilvynUtils.getAttrValue(attrs, 'Effect'),
       QuilvynUtils.getAttrValue(attrs, 'Value'),
@@ -2608,9 +2608,9 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Note')
     );
   else if(type == 'Language')
-    DarkSunv3.languageRules(rules, name);
+    DarkSun35.languageRules(rules, name);
   else if(type == 'Path') {
-    DarkSunv3.pathRules(rules, name,
+    DarkSun35.pathRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Group'),
       QuilvynUtils.getAttrValue(attrs, 'Level'),
       QuilvynUtils.getAttrValueArray(attrs, 'Features'),
@@ -2618,9 +2618,9 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
       QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
-    DarkSunv3.pathRulesExtra(rules, name);
+    DarkSun35.pathRulesExtra(rules, name);
   } else if(type == 'Race') {
-    DarkSunv3.raceRules(rules, name,
+    DarkSun35.raceRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValueArray(attrs, 'Features'),
       QuilvynUtils.getAttrValueArray(attrs, 'Selectables'),
@@ -2628,15 +2628,15 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
       QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
-    DarkSunv3.raceRulesExtra(rules, name);
+    DarkSun35.raceRulesExtra(rules, name);
   } else if(type == 'School') {
-    DarkSunv3.schoolRules(rules, name,
+    DarkSun35.schoolRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Features')
     );
     if(rules.basePlugin.schoolRulesExtra)
       rules.basePlugin.schoolRulesExtra(rules, name);
   } else if(type == 'Shield')
-    DarkSunv3.shieldRules(rules, name,
+    DarkSun35.shieldRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'AC'),
       QuilvynUtils.getAttrValue(attrs, 'Weight'),
       QuilvynUtils.getAttrValue(attrs, 'Skill'),
@@ -2644,7 +2644,7 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
     );
   else if(type == 'Skill') {
     var untrained = QuilvynUtils.getAttrValue(attrs, 'Untrained');
-    DarkSunv3.skillRules(rules, name,
+    DarkSun35.skillRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Ability'),
       untrained != 'n' && untrained != 'N',
       QuilvynUtils.getAttrValueArray(attrs, 'Class'),
@@ -2667,13 +2667,13 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
       var level = matchInfo[2] * 1;
       var fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
       // TODO indicate domain spells in attributes?
-      var domainSpell = DarkSunv3.PATHS[group + ' Domain'] != null;
-      DarkSunv3.spellRules
+      var domainSpell = DarkSun35.PATHS[group + ' Domain'] != null;
+      DarkSun35.spellRules
         (rules, fullName, school, group, level, description, domainSpell);
       rules.addChoice('spells', fullName, attrs);
     }
   } else if(type == 'Weapon')
-    DarkSunv3.weaponRules(rules, name,
+    DarkSun35.weaponRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Level'),
       QuilvynUtils.getAttrValue(attrs, 'Category'),
       QuilvynUtils.getAttrValue(attrs, 'Damage'),
@@ -2694,7 +2694,7 @@ DarkSunv3.choiceRules = function(rules, type, name, attrs) {
 };
 
 /* Defines in #rules# the rules associated with alignment #name#. */
-DarkSunv3.alignmentRules = function(rules, name) {
+DarkSun35.alignmentRules = function(rules, name) {
   rules.basePlugin.alignmentRules(rules, name);
   // No changes needed to the rules defined by base method
 };
@@ -2706,7 +2706,7 @@ DarkSunv3.alignmentRules = function(rules, name) {
  * #skillPenalty# on specific skills and yields a #spellFail# percent chance of
  * arcane spell failure.
  */
-DarkSunv3.armorRules = function(
+DarkSun35.armorRules = function(
   rules, name, ac, weight, maxDex, skillPenalty, spellFail
 ) {
   rules.basePlugin.armorRules
@@ -2732,7 +2732,7 @@ DarkSunv3.armorRules = function(
  * #spellAbility# names the ability for computing spell difficulty class, and
  * #spellSlots# lists the number of spells per level per day granted.
  */
-DarkSunv3.classRules = function(
+DarkSun35.classRules = function(
   rules, name, requires, hitDie, attack, skillPoints, saveFort, saveRef,
   saveWill, skills, features, selectables, languages, casterLevelArcane,
   casterLevelDivine, spellAbility, spellSlots
@@ -2749,7 +2749,7 @@ DarkSunv3.classRules = function(
  * Defines in #rules# the rules associated with class #name# that cannot be
  * derived directly from the attributes passed to classRules.
  */
-DarkSunv3.classRulesExtra = function(rules, name) {
+DarkSun35.classRulesExtra = function(rules, name) {
 
   var allFeats = rules.getChoices('feats');
   var classLevel = 'levels.' + name;
@@ -2846,7 +2846,7 @@ DarkSunv3.classRulesExtra = function(rules, name) {
  * #damage# damage. If specified, #level# indicates the minimum master level
  * the character needs to have this animal as a companion.
  */
-DarkSunv3.companionRules = function(
+DarkSun35.companionRules = function(
   rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
   level
 ) {
@@ -2862,7 +2862,7 @@ DarkSunv3.companionRules = function(
  * the deity's alignment, and #domains# and #weapons# list the associated
  * domains and favored weapons.
  */
-DarkSunv3.deityRules = function(rules, name, alignment, domains, weapons) {
+DarkSun35.deityRules = function(rules, name, alignment, domains, weapons) {
   rules.basePlugin.deityRules(rules, name, alignment, domains, weapons);
   // No changes needed to the rules defined by base method
 };
@@ -2874,7 +2874,7 @@ DarkSunv3.deityRules = function(rules, name, alignment, domains, weapons) {
  * #damage# damage. If specified, #level# indicates the minimum master level
  * the character needs to have this animal as a familiar.
  */
-DarkSunv3.familiarRules = function(
+DarkSun35.familiarRules = function(
   rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
   level
 ) {
@@ -2890,7 +2890,7 @@ DarkSunv3.familiarRules = function(
  * #implies# list any hard and soft prerequisites for the feat, and #types#
  * lists the categories of the feat.
  */
-DarkSunv3.featRules = function(rules, name, requires, implies, types) {
+DarkSun35.featRules = function(rules, name, requires, implies, types) {
   rules.basePlugin.featRules(rules, name, requires, implies, types);
   // No changes needed to the rules defined by base method
 };
@@ -2899,7 +2899,7 @@ DarkSunv3.featRules = function(rules, name, requires, implies, types) {
  * Defines in #rules# the rules associated with feat #name# that cannot be
  * derived directly from the abilities passed to featRules.
  */
-DarkSunv3.featRulesExtra = function(rules, name) {
+DarkSun35.featRulesExtra = function(rules, name) {
   if(name == 'Dissimulated') {
     rules.defineRule
       ('skillNotes.dissimulated', 'intelligenceModifier', '=', null);
@@ -2932,7 +2932,7 @@ DarkSunv3.featRulesExtra = function(rules, name) {
  * the sections of the notes related to the feature and #notes# the note texts;
  * the two must have the same number of elements.
  */
-DarkSunv3.featureRules = function(rules, name, sections, notes) {
+DarkSun35.featureRules = function(rules, name, sections, notes) {
   rules.basePlugin.featureRules(rules, name, sections, notes);
   // No changes needed to the rules defined by base method
 };
@@ -2949,7 +2949,7 @@ DarkSunv3.featureRules = function(rules, name, sections, notes) {
  * ("attribute", "combat", "companion", "feature", "magic", "save", or "skill")
  * and formats that show the effects of the goody on the character sheet.
  */
-DarkSunv3.goodyRules = function(
+DarkSun35.goodyRules = function(
   rules, name, pattern, effect, value, attributes, sections, notes
 ) {
   rules.basePlugin.goodyRules
@@ -2958,7 +2958,7 @@ DarkSunv3.goodyRules = function(
 };
 
 /* Defines in #rules# the rules associated with language #name#. */
-DarkSunv3.languageRules = function(rules, name) {
+DarkSun35.languageRules = function(rules, name) {
   rules.basePlugin.languageRules(rules, name);
   // No changes needed to the rules defined by base method
 };
@@ -2971,7 +2971,7 @@ DarkSunv3.languageRules = function(rules, name) {
  * difficulty class, and #spellSlots# lists the number of spells per level per
  * day granted.
  */
-DarkSunv3.pathRules = function(
+DarkSun35.pathRules = function(
   rules, name, group, levelAttr, features, selectables, spellAbility,
   spellSlots
 ) {
@@ -2989,7 +2989,7 @@ DarkSunv3.pathRules = function(
  * Defines in #rules# the rules associated with path #name# that cannot be
  * derived directly from the abilities passed to pathRules.
  */
-DarkSunv3.pathRulesExtra = function(rules, name) {
+DarkSun35.pathRulesExtra = function(rules, name) {
 };
 
 /*
@@ -3000,7 +3000,7 @@ DarkSunv3.pathRulesExtra = function(rules, name) {
  * difficulty class, and #spellSlots# lists the number of spells per level per
  * day granted.
  */
-DarkSunv3.raceRules = function(
+DarkSun35.raceRules = function(
   rules, name, requires, features, selectables, languages, spellAbility,
   spellSlots
 ) {
@@ -3014,7 +3014,7 @@ DarkSunv3.raceRules = function(
  * Defines in #rules# the rules associated with race #name# that cannot be
  * derived directly from the abilities passed to raceRules.
  */
-DarkSunv3.raceRulesExtra = function(rules, name) {
+DarkSun35.raceRulesExtra = function(rules, name) {
   var raceLevel =
     name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '') + 'Level';
   if(name.includes('Aarakocra')) {
@@ -3044,7 +3044,7 @@ DarkSunv3.raceRulesExtra = function(rules, name) {
  * Defines in #rules# the rules associated with magic school #name#, which
  * grants the list of #features#.
  */
-DarkSunv3.schoolRules = function(rules, name, features) {
+DarkSun35.schoolRules = function(rules, name, features) {
   rules.basePlugin.schoolRules(rules, name, features);
   // No changes needed to the rules defined by base method
 };
@@ -3055,7 +3055,7 @@ DarkSunv3.schoolRules = function(rules, name, features) {
  * use effectively, imposes #skillPenalty# on specific skills and yields a
  * #spellFail# percent chance of arcane spell failure.
  */
-DarkSunv3.shieldRules = function(
+DarkSun35.shieldRules = function(
   rules, name, ac, profLevel, skillFail, spellFail
 ) {
   rules.basePlugin.shieldRules
@@ -3072,7 +3072,7 @@ DarkSunv3.shieldRules = function(
  * lists any synergies with other skills and abilities granted by high ranks in
  * this skill.
  */
-DarkSunv3.skillRules = function(
+DarkSun35.skillRules = function(
   rules, name, ability, untrained, classes, synergies
 ) {
   rules.basePlugin.skillRules
@@ -3086,7 +3086,7 @@ DarkSunv3.skillRules = function(
  * saving throw value required by the spell. #description# is a concise
  * description of the spell's effects.
  */
-DarkSunv3.spellRules = function(
+DarkSun35.spellRules = function(
   rules, name, school, casterGroup, level, description, domainSpell
 ) {
   rules.basePlugin.spellRules
@@ -3103,7 +3103,7 @@ DarkSunv3.spellRules = function(
  * 20). If specified, the weapon can be used as a ranged weapon with a range
  * increment of #range# feet.
  */
-DarkSunv3.weaponRules = function(
+DarkSun35.weaponRules = function(
   rules, name, profLevel, category, damage, threat, critMultiplier, range
 ) {
   rules.basePlugin.weaponRules(
@@ -3116,12 +3116,12 @@ DarkSunv3.weaponRules = function(
  * Returns the list of editing elements needed by #choiceRules# to add a #type#
  * item to #rules#.
  */
-DarkSunv3.choiceEditorElements = function(rules, type) {
+DarkSun35.choiceEditorElements = function(rules, type) {
   return rules.basePlugin.choiceEditorElements(rules, type);
 };
 
 /* Sets #attributes#'s #attribute# attribute to a random value. */
-DarkSunv3.randomizeOneAttribute = function(attributes, attribute) {
+DarkSun35.randomizeOneAttribute = function(attributes, attribute) {
   this.basePlugin.randomizeOneAttribute.apply(this, [attributes, attribute]);
   if(attribute == 'levels') {
     // Recompute experience to account for level offset for some races
@@ -3138,17 +3138,17 @@ DarkSunv3.randomizeOneAttribute = function(attributes, attribute) {
 };
 
 /* Returns an array of plugins upon which this one depends. */
-DarkSunv3.getPlugins = function() {
+DarkSun35.getPlugins = function() {
   var base = this.basePlugin == window.SRD35 && window.PHB35 != null ? window.PHB35 : this.basePlugin;
   return [base].concat(base.getPlugins());
 };
 
 /* Returns HTML body content for user notes associated with this rule set. */
-DarkSunv3.ruleNotes = function() {
+DarkSun35.ruleNotes = function() {
   return '' +
     '<h2>Quilvyn Dark Sun Rule Set Notes</h2>\n' +
     '<p>\n' +
-    'Quilvyn Dark Sun Rule Set Version ' + DarkSunv3.VERSION + '\n' +
+    'Quilvyn Dark Sun Rule Set Version ' + DarkSun35.VERSION + '\n' +
     '</p>\n' +
     '<h3>Copyrights and Licensing</h3>\n' +
     '<p>\n' +
