@@ -37,7 +37,7 @@ function DarkSun2E() {
 
   OldSchool.EDITION = 'Second Edition';
 
-  var rules = new QuilvynRules(DarkSun2E.EDITION, DarkSun2E.VERSION);
+  var rules = new QuilvynRules('Dark Sun - AD&D 2E', DarkSun2E.VERSION);
 
   rules.defineChoice('choices', OldSchool.CHOICES);
   rules.choiceEditorElements = OSRIC.choiceEditorElements;
@@ -64,14 +64,12 @@ function DarkSun2E() {
     (rules, OldSchool.editedRules(DarkSun2E.SCHOOLS, 'School'),
      OldSchool.editedRules(DarkSun2E.SPELLS, 'Spell'));
   DarkSun2E.talentRules
-    (rules, OldSchool.editedRules(DarkSun2E.FEATURES, 'Feature'),
+    (rules, DarkSun2E.FEATURES,
      OldSchool.editedRules(DarkSun2E.GOODIES, 'Goody'),
-     OldSchool.editedRules(DarkSun2E.LANGUAGES, 'Language'),
-     OldSchool.editedRules(DarkSun2E.SKILLS, 'Skill'));
+     DarkSun2E.LANGUAGES, OldSchool.editedRules(DarkSun2E.SKILLS, 'Skill'));
   DarkSun2E.identityRules(
     rules, OldSchool.editedRules(DarkSun2E.ALIGNMENTS, 'Alignment'),
-    OldSchool.editedRules(DarkSun2E.CLASSES, 'Class'),
-    OldSchool.editedRules(DarkSun2E.RACES, 'Race'));
+    DarkSun2E.CLASSES, DarkSun2E.RACES);
 
   // Add additional elements to sheet
   rules.defineSheetElement('Strength');
@@ -365,73 +363,148 @@ DarkSun2E.CLASSES = {
 };
 DarkSun2E.FEATURES_ADDED = {
 
+  // Race
+  'Adaptable':'Section=feature Note="May take on features of nearby culture"',
+  'Antennae':'Section=feature Note="Reduces vision penalty by 5%"',
+  'Bite Attack':'Section=combat Note="May attack w/bite"',
+  'Brawny':'Section=combat Note="Dbl rolled hit points"',
+  'Carnivore':
+    'Section=feature Note="Considers others as potential food; relishes elves"',
+  'Chatkcha Fighter':'Section=combat Note="Weapon Proficiency (Chatkcha)"',
+  'Claw Attack':'Section=combat Note="May attack w/claws"',
+  'Clannish':
+    'Section=feature ' +
+    'Note="Attached to halfling culture; will always help other halflings"',
+  'Dodge Missiles':'Section=combat Note="12in20 chance to dodge missiles"',
+  'Dwarf Ability Adjustment':
+    'Section=ability ' +
+    'Note="+2 Constitution/-2 Charisma/-1 Dexterity/+1 Strength"',
+  'Elf Ability Adjustment':
+    'Section=ability ' +
+    'Note="-2 Constitution/+2 Dexterity/+1 Intelligence/-1 Wisdom"',
+  'Elf Run':'Section=ability Note="May move 50 miles/dy"',
+  'Exoskeleton':'Section=combat Note="+5 AC/Cannot use armor"',
+  'Half-Elf Ability Adjustment':
+    'Section=ability ' +
+    'Note="-1 Constitution/+1 Dexterity"',
+  'Half-Giant Ability Adjustment':
+    'Section=ability ' +
+    'Note="-2 Charisma/+2 Constitution/-2 Intelligence/+4 Strength/-2 Wisdom"',
+  'Halfling Ability Adjustment':
+    'Section=ability ' +
+    'Note="-1 Charisma/-1 Constitution/+2 Dexterity/-2 Strength/+2 Wisdom"',
+  'Hunter':'Section=feature Note="Focused on procuring food"',
+  'Leaper':'Section=skill Note="May jump 20\' up or 50\' forward"',
+  'Long Bow Precision':'Section=combat Note="+1 attack w/Long Bow"',
+  'Long Sword Precision':'Section=combat Note="+1 attack w/Long Sword"',
+  'Mul Ability Adjustment':
+    'Section=ability ' +
+    'Note="-2 Charisma/+1 Constitution/-1 Intelligence/+2 Strength"',
+  'Pet':'Section=feature Note="May have trained animal companion"',
+  'Protective':
+    'Section=combat Note="Instinctively leaps into battle to help companions"',
+  'Resilient':'Section=feature Note="Recovers from any exertion w/8 hrs rest"',
+  'Respect For Place':
+    'Section=feature ' +
+    'Note="Will not remove resources from where they are found"',
+  'Sleepless':'Section=feature Note="No need for sleep"',
+  'Paralyzing Bite':
+    'Section=combat ' +
+    'Note="Bitten S/M/L creatue paralyzed for 2d10/2d8/1d8 rd (Save neg)"',
+  'Survivalist':
+    'Section=skill Note="Proficient in Survival (choice of terrain)"',
+  'Thri-kreen Ability Adjustment':
+    'Section=ability ' +
+    'Note="-2 Charisma/+2 Dexterity/-1 Intelligence/+1 Wisdom"',
+  'Variable Alignment':
+    'Section=ability Note="Changes on axis of alignment each morning"',
+  'Walker':'Section=skill Note="Travels only on foot"',
+  'Wilderness Stealth':
+    'Section=skill Note="Foes -4 surprise in wilderness and wastes"',
+  'Xenophobic':'Section=feature Note="Suspicious of those outside of tribe"'
+
 };
 DarkSun2E.FEATURES =
-  Object.assign({}, OSRIC.FEATURES, OldSchool.FEATURES_ADDED, DarkSun2E.FEATURES_ADDED);
+  Object.assign({}, OldSchool.editedRules(Object.assign({}, OSRIC.FEATURES, OldSchool.FEATURES_ADDED), 'Feature'), DarkSun2E.FEATURES_ADDED);
 DarkSun2E.GOODIES = Object.assign({}, OldSchool.GOODIES);
 DarkSun2E.LANGUAGES = {
-  'Common':''
+  'Aarakocra':'',
+  'Anakore':'',
+  'Belgoi':'',
+  'Braxat':'',
+  'Common':'',
+  'Dwarf':'',
+  'Elf':'',
+  'Ettercap':'',
+  'Genie':'',
+  'Giant':'',
+  'Gith':'',
+  'Goblin Spider':'',
+  'Halfling':'',
+  'Jozhal':'',
+  'Kenku':'',
+  'Meazel':'',
+  'Thri-kreen':'',
+  'Yuan-ti':''
 };
 DarkSun2E.RACES = {
   'Dwarf':
     'Require=' +
-      '"charisma <= 16","constitution >= 12","dexterity <= 17",' +
-      '"strength >= 8" ' +
+      '"constitution >= 14","strength >= 10" ' +
     'Features=' +
-      '"1:Detect Construction","1:Detect Sliding","1:Detect Slope",' +
-      '"1:Detect Traps","1:Determine Depth","1:Dwarf Ability Adjustment",' +
-      '"1:Dwarf Dodge","1:Dwarf Enmity",1:Infravision,"1:Resist Magic",' +
-      '"1:Resist Poison" ' +
+      '"Dwarf Ability Adjustment","Focused" ' +
     'Languages=' +
-      'Common,Dwarf,Gnome,Goblin,Kobold,Orc',
+      'Common,Dwarf',
   'Elf':
     'Require=' +
-      '"charisma >= 8","constitution >= 6","dexterity >= 7",' +
-      '"intelligence >= 8" ' +
+      '"constitution >= 8","dexterity >= 12","intelligence >= 8" ' +
     'Features=' +
-      '"1:Bow Precision","1:Detect Secret Doors","1:Elf Ability Adjustment",' +
-      '1:Infravision,"1:Resist Charm","1:Resist Sleep",1:Stealthy,' +
-      '"1:Sword Precision" ' +
+      '"Elf Ability Adjustment","Elf Run",Infravision,"Long Bow Precision",' +
+      '"Long Sword Precision",Walker,"Wilderness Stealth",Xenophobic ' +
     'Languages=' +
-      'Common,Elf,Gnoll,Gnome,Goblin,Halfling,Hobgoblin,Orc',
-  'Gnome':
-    'Require=' +
-      '"constitution >= 8","intelligence >= 7","strength >= 6" ' +
-    'Features=' +
-      '"1:Burrow Tongue","1:Detect Hazard","1:Detect Slope",' +
-      '"1:Determine Depth","1:Determine Direction","1:Gnome Dodge",' +
-      '"1:Gnome Enmity",1:Infravision,"1:Resist Magic" ' +
-    'Languages=' +
-      'Common,Dwarf,Gnome,Goblin,Halfling,Kobold',
+      'Common,Elf',
   'Half-Elf':
     'Require=' +
-      '"constitution >= 6","dexterity >= 6","intelligence >= 4" ' +
+      '"dexterity >= 8" ' +
     'Features=' +
-      '"1:Detect Secret Doors",1:Infravision,"1:Resist Charm",' +
-      '"1:Resist Sleep" ' +
+      '"Half-Elf Ability Adjustment",Infravision,3:Survivalist,5:Pet ' +
     'Languages=' +
-      'Common,Elf,Gnoll,Gnome,Goblin,Halfling,Hobgoblin,Orc',
-  'Half-Orc':
+      'Common,Elf',
+  'Half-Giant':
     'Require=' +
-      '"charisma <= 12","constitution >= 13","dexterity <= 17",' +
-      '"intelligence <= 17","strength >= 6","wisdom <= 14" ' +
+      '"charisma <= 17","constitution >= 15","dexterity <= 15",' +
+      '"intelligence <= 15","strength >= 17","wisdom <= 17" ' +
     'Features=' +
-      '"1:Half-Orc Ability Adjustment",1:Infravision ' +
+      'Adaptable,Brawny,"Half-Giant Ability Adjustment","Variable Alignment" ' +
     'Languages=' +
-      'Common,Orc',
+      'Common,Giant',
   'Halfling':
     'Require=' +
-      '"constitution >= 10","dexterity >= 8","intelligence >= 6",' +
-      '"strength >= 6","wisdom <= 17" ' +
+      '"dexterity >= 12","strength <= 6","wisdom >= 7" ' +
     'Features=' +
-      '"1:Detect Slope","1:Determine Direction",' +
-      '"1:Halfling Ability Adjustment",1:Infravision,"1:Resist Magic",' +
-      '"1:Resist Poison",1:Stealthy ' +
+      'Clannish,"Deadly Aim","Halfling Ability Adjustment",' +
+      '"Respect For Place","Resist Magic","Resist Poison",Stealthy ' +
     'Languages=' +
-      'Common,Dwarf,Elf,Gnome,Goblin,Halfling,Orc',
+      'Common,Halfling',
   'Human':
     'Languages=' +
-      'Common'
+      'Common',
+  'Mul':
+    'Require=' +
+      '"constitution >= 8","strength >= 10" ' +
+    'Features=' +
+      '"Mul Ability Adjustment",Resilient ' +
+    'Languages=' +
+      'Common,Dwarf',
+  'Thri-kreen':
+    'Require=' +
+      '"charisma <= 17","dexterity >= 15","strength >= 8" ' +
+    'Features=' +
+      'Antennae,"Bite Attack",Carnivore,"Claw Attack",Exoskeleton,Hunter,' +
+      'Protective,Sleepless,"Thri-kreen Ability Adjustment",3:Leaper,' +
+      '"5:Chatkcha Fighter","5:Paralyzing Bite","7:Dodge Missiles" ' +
+    'Languages=' +
+      'Common,Thri-kreen'
 };
 DarkSun2E.SCHOOLS = Object.assign({}, OldSchool.SCHOOLS);
 DarkSun2E.SHIELDS = Object.assign({}, OldSchool.SHIELDS);
@@ -782,9 +855,9 @@ DarkSun2E.initialEditorElements = function() {
 /* Sets #attributes#'s #attribute# attribute to a random value. */
 DarkSun2E.randomizeOneAttribute = function(attributes, attribute) {
   if(attribute == 'abilities') {
-    for(var a in DarkSun2E.ABILITIES)
+    for(var a in OldSchool.ABILITIES)
       DarkSun2E.randomizeOneAttribute(attributes, a.toLowerCase());
-  } else if((attribute.charAt(0).toUpperCase + attribute.substring(1)) in DarkSun2E.ABILITIES) {
+  } else if(attribute in OldSchool.ABILITIES) {
     var rolls = [];
     for(i = 0; i < 6; i++)
       rolls.push(QuilvynUtils.random(1, 4));
