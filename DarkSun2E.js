@@ -57,16 +57,11 @@ function DarkSun2E() {
 
   DarkSun2E.abilityRules(rules);
   DarkSun2E.combatRules
-    (rules, OldSchool.editedRules(DarkSun2E.ARMORS, 'Armor'),
-     OldSchool.editedRules(DarkSun2E.SHIELDS, 'Shield'),
-     OldSchool.editedRules(DarkSun2E.WEAPONS, 'Weapon'));
-  DarkSun2E.magicRules
-    (rules, OldSchool.editedRules(DarkSun2E.SCHOOLS, 'School'),
-     OldSchool.editedRules(DarkSun2E.SPELLS, 'Spell'));
+    (rules, DarkSun2E.ARMORS, DarkSun2E.SHIELDS, DarkSun2E.WEAPONS);
+  DarkSun2E.magicRules(rules, DarkSun2E.SCHOOLS, DarkSun2E.SPELLS);
   DarkSun2E.talentRules
-    (rules, DarkSun2E.FEATURES,
-     OldSchool.editedRules(DarkSun2E.GOODIES, 'Goody'),
-     DarkSun2E.LANGUAGES, OldSchool.editedRules(DarkSun2E.SKILLS, 'Skill'));
+    (rules, DarkSun2E.FEATURES, DarkSun2E.GOODIES,
+     DarkSun2E.LANGUAGES, DarkSun2E.SKILLS);
   DarkSun2E.identityRules(
     rules, DarkSun2E.ALIGNMENTS, DarkSun2E.CLASSES, DarkSun2E.RACES
   );
@@ -116,30 +111,10 @@ DarkSun2E.VERSION = '2.3.1.0';
 
 OldSchool.EDITION = 'Second Edition';
 
-DarkSun2E.ALIGNMENTS = Object.assign({}, OldSchool.ALIGNMENTS);
-DarkSun2E.ARMORS = {
-  'None':
-    'AC=0 Move=120 Weight=0 ' +
-    'Skill="+10% Climb Walls/+5% Hide In Shadows/+10% Move Silently/+5% Pick Pockets"',
-  'Banded Mail':'AC=6 Move=90 Weight=35',
-  'Chain Mail':
-    'AC=5 Move=90 Weight=30 ' +
-    'Skill="-25% Climb Walls/-10% Find Traps/-10% Hear Noise/-15% Hide In Shadows/-15% Move Silently/-10% Open Locks/-25% Pick Pockets"',
-  'Elven Chain Mail':
-    'AC=5 Move=120 Weight=15 ' +
-    'Skill="-20% Climb Walls/-5% Find Traps/-5% Hear Noise/-10% Hide In Shadows/-10% Move Silently/-5% Open Locks/-20% Pick Pockets"',
-  'Leather':'AC=2 Move=120 Weight=15',
-  'Padded':
-    'AC=2 Move=90 Weight=10 ' +
-    'Skill="-30% Climb Walls/-10% Find Traps/-10% Hear Noise/-20% Hide In Shadows/-20% Move Silently/-10% Open Locks/-30% Pick Pockets"',
-  'Plate Mail':'AC=7 Move=60 Weight=45',
-  'Ring Mail':'AC=3 Move=90 Weight=25',
-  'Scale Mail':'AC=4 Move=60 Weight=40',
-  'Splint Mail':'AC=6 Move=60 Weight=40',
-  'Studded Leather':
-    'AC=3 Move=90 Weight=20 ' +
-    'Skill="-30% Climb Walls/-10% Find Traps/-10% Hear Noise/-20% Hide In Shadows/-20% Move Silently/-10% Open Locks/-30% Pick Pockets"'
-};
+DarkSun2E.ALIGNMENTS =
+  Object.assign({}, OldSchool.editedRules(OldSchool.ALIGNMENTS, 'Alignment'));
+DarkSun2E.ARMORS =
+  Object.assign({}, OldSchool.editedRules(OldSchool.ARMORS, 'Armor'));
 var classes2E = OldSchool.editedRules(OldSchool.CLASSES, 'Class');
 DarkSun2E.CLASSES = {
   'Bard':
@@ -288,7 +263,8 @@ DarkSun2E.FEATURES_ADDED = {
 };
 DarkSun2E.FEATURES =
   Object.assign({}, OldSchool.editedRules(Object.assign({}, OSRIC.FEATURES, OldSchool.FEATURES_ADDED), 'Feature'), DarkSun2E.FEATURES_ADDED);
-DarkSun2E.GOODIES = Object.assign({}, OldSchool.GOODIES);
+DarkSun2E.GOODIES =
+  Object.assign({}, OldSchool.editedRules(OldSchool.GOODIES, 'Goody'));
 DarkSun2E.LANGUAGES = {
   'Aarakocra':'',
   'Anakore':'',
@@ -368,35 +344,52 @@ DarkSun2E.RACES = {
     'Languages=' +
       'Common,Thri-kreen'
 };
-DarkSun2E.SCHOOLS = Object.assign({}, OldSchool.SCHOOLS);
-DarkSun2E.SHIELDS = Object.assign({}, OldSchool.SHIELDS);
-DarkSun2E.SKILLS = Object.assign({}, OldSchool.SKILLS);
-DarkSun2E.SPELLS = Object.assign({}, OldSchool.SPELLS);
-DarkSun2E.WEAPONS = Object.assign({}, OldSchool.WEAPONS);
+DarkSun2E.SCHOOLS =
+  Object.assign({}, OldSchool.editedRules(OldSchool.SCHOOLS, 'School'));
+DarkSun2E.SHIELDS =
+  Object.assign({}, OldSchool.editedRules(OldSchool.SHIELDS, 'Shield'));
+DarkSun2E.SKILLS =
+  Object.assign({}, OldSchool.editedRules(OldSchool.SKILLS, 'Skill'));
+DarkSun2E.SPELLS =
+  Object.assign({}, OldSchool.editedRules(OldSchool.SPELLS, 'Spell'));
+DarkSun2E.WEAPONS_ADDED = {
+  'Chatkcha':'Category=R Damage=d4+1 Range=90',
+  'Gythka':'Category=2h Damage=d10',
+  'Impaler':'Category=2h Damage=d8',
+  'Quabone':'Category=Li Damage=d3',
+  'Wrist Razor':'Category=Li Damage=d4+1'
+};
+DarkSun2E.WEAPONS =
+  Object.assign({}, OldSchool.editedRules(OldSchool.WEAPONS, 'Weapon'), DarkSun2E.WEAPONS_ADDED);
 
 /* Defines rules related to character abilities. */
 DarkSun2E.abilityRules = function(rules) {
   OldSchool.abilityRules(rules);
+  // No changes needed to the rules defined by OldSchool method
 };
 
 /* Defines rules related to combat. */
 DarkSun2E.combatRules = function(rules, armors, shields, weapons) {
   OldSchool.combatRules(rules, armors, shields, weapons);
+  // No changes needed to the rules defined by OldSchool method
 };
 
 /* Defines rules related to basic character identity. */
 DarkSun2E.identityRules = function(rules, alignments, classes, races) {
   OldSchool.identityRules(rules, alignments, classes, races);
+  // No changes needed to the rules defined by OldSchool method
 };
 
 /* Defines rules related to magic use. */
 DarkSun2E.magicRules = function(rules, schools, spells) {
   OldSchool.magicRules(rules, schools, spells);
+  // No changes needed to the rules defined by OldSchool method
 };
 
 /* Defines rules related to character aptitudes. */
 DarkSun2E.talentRules = function(rules, features, goodies, languages, skills) {
   OldSchool.talentRules(rules, features, goodies, languages, skills);
+  // No changes needed to the rules defined by OldSchool method
 };
 
 /*
