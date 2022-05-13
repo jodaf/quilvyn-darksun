@@ -68,8 +68,8 @@ function DarkSun2E() {
      OldSchool.editedRules(DarkSun2E.GOODIES, 'Goody'),
      DarkSun2E.LANGUAGES, OldSchool.editedRules(DarkSun2E.SKILLS, 'Skill'));
   DarkSun2E.identityRules(
-    rules, OldSchool.editedRules(DarkSun2E.ALIGNMENTS, 'Alignment'),
-    DarkSun2E.CLASSES, DarkSun2E.RACES);
+    rules, DarkSun2E.ALIGNMENTS, DarkSun2E.CLASSES, DarkSun2E.RACES
+  );
 
   // Add additional elements to sheet
   rules.defineSheetElement('Strength');
@@ -114,6 +114,8 @@ function DarkSun2E() {
 
 DarkSun2E.VERSION = '2.3.1.0';
 
+OldSchool.EDITION = 'Second Edition';
+
 DarkSun2E.ALIGNMENTS = Object.assign({}, OldSchool.ALIGNMENTS);
 DarkSun2E.ARMORS = {
   'None':
@@ -138,230 +140,85 @@ DarkSun2E.ARMORS = {
     'AC=3 Move=90 Weight=20 ' +
     'Skill="-30% Climb Walls/-10% Find Traps/-10% Hear Noise/-20% Hide In Shadows/-20% Move Silently/-10% Open Locks/-30% Pick Pockets"'
 };
+var classes2E = OldSchool.editedRules(OldSchool.CLASSES, 'Class');
 DarkSun2E.CLASSES = {
-  'Assassin':
-    'Require=' +
-      '"alignment =~ \'Evil\'","constitution >= 6","dexterity >= 12",' +
-      '"intelligence >= 11","strength >= 12" ' +
-    'HitDie=d6,15,1 Attack=-1,2,4,+1@9 WeaponProficiency=3,4,2 ' +
-    'Breath=16,1,4 Death=13,1,4 Petrification=12,1,4 Spell=15,2,4 Wand=14,2,4 '+
-    'Features=' +
-      '"1:Armor Proficiency (Leather/Studded Leather)",' +
-      '"1:Shield Proficiency (All)",' +
-      '1:Assassination,1:Backstab,"1:Delayed Henchmen",1:Disguise,' +
-      '"1:Poison Use","3:Thief Skills","4:Limited Henchmen Classes",' +
-      '"intelligence >= 15 ? 9:Bonus Languages",' +
-      '"12:Read Scrolls" ' +
-    'Experience=0,1.5,3,6,12,25,50,100,200,300,425,575,750,1000,1500',
   'Bard':
-    'Require=' +
-      '"alignment =~ \'Neutral\'","charisma >= 15","constitution >= 10",' +
-      '"dexterity >= 15","intelligence >= 12","strength >= 15",' +
-      '"wisdom >= 15","levels.Fighter >= 5","levels.Thief >= 5",' +
-      '"race =~ \'Human|Half-Elf\'" ' +
-    'HitDie=d6,10,1 Attack=0,2,3,-1@19 WeaponProficiency=2,5,4 ' +
-    'Breath=16,1,3 Death=10,1,3 Petrification=13,1,3 Spell=15,1,3 Wand=14,1,3 '+
-    'Features=' +
-      '"1:Armor Proficiency (Leather)",' +
-      '"wisdom >= 13 ? 1:Bonus Druid Spells",' +
-      '"1:Charming Music","1:Defensive Song","1:Poetic Inspiration",' +
-      '"1:Resist Fire","1:Resist Lightning","2:Legend Lore",' +
-      '"3:Druid\'s Knowledge","3:Wilderness Movement","3:Woodland Languages",' +
-      '"4:Additional Languages","7:Immunity To Fey Charm",7:Shapeshift ' +
-    'Experience=' +
-      '0,2,4,8,16,25,40,60,85,110,150,200,400,600,800,1000,1200,1400,1600,' +
-      '1800,2000,2200,3000 ' +
-    'CasterLevelDivine=levels.Bard ' +
-    'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'D1:1=1;2=2;3=3;16=4;19=5,' +
-      'D2:4=1;5=2;6=3;17=4;21=5,' +
-      'D3:7=1;8=2;9=3;18=4;22=5,' +
-      'D4:10=1;11=2;12=3;19=4;23=5,' +
-      'D5:13=1;14=2;15=3;20=4;23=5',
+    classes2E['Thief'],
   'Cleric':
-    'Require=' +
-      '"wisdom >= 9" ' +
-    'HitDie=d8,9,2 Attack=0,2,3,-1@19 WeaponProficiency=2,4,3 ' +
-    'Breath=16,1,3 Death=10,1,3 Petrification=13,1,3 Spell=15,1,3 Wand=14,1,3 '+
-    'Features=' +
-      '"1:Armor Proficiency (All)","1:Shield Proficiency (All)",' +
-      '"1:Turn Undead",' +
-      '"wisdom >= 16 ? 1:Bonus Cleric Experience",' +
-      '"wisdom >= 13 ? 1:Bonus Cleric Spells",' +
-      '"wisdom <= 12 ? 1:Cleric Spell Failure" ' +
+    classes2E['Cleric']
+    .replace('Features=', 'Features="5:Element Immunity","7:Conjure Element",'),
+  'Defiler':
+    classes2E['Magic User']
+    .replaceAll('Magic User', 'Defiler') + ' ' +
+    'Require="intelligence >= 9" ' +
     'Experience=' +
-      '0,1.5,3,6,13,27.5,55,110,225,450,675,900,1125,1350,1575,1800,2025,' +
-      '2250,2475,2700,2925,3150,3375,3600,3825,4050,4275,4500,4725 ' +
-    'CasterLevelDivine=levels.Cleric ' +
-    'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'C1:1=1;2=2;4=3;9=4;11=5;12=6;15=7;17=8;19=9,' +
-      'C2:3=1;4=2;5=3;9=4;12=5;13=6;15=7;17=8;19=9,' +
-      'C3:5=1;6=2;8=3;11=4;12=5;13=6;15=7;17=8;19=9,' +
-      'C4:7=1;8=2;10=3;13=4;14=5;16=6;18=7;20=8;21=9,' +
-      'C5:9=1;10=2;14=3;15=4;16=5;18=6;20=7;21=8;22=9,' +
-      'C6:11=1;12=2;16=3;18=4;20=5;21=6;23=7;24=8;26=9,' +
-      'C7:16=1;19=2;22=3;25=4;27=5;28=6;29=7',
+      '0,1.75,3.5,7,14,28,42,63,94.5,180,270,540,820,1080,1350,1620,1890,' +
+      '2160,2430,2700',
+  'Defiler Illusionist':
+    classes2E['Illusionist']
+    .replaceAll('Illusionist', 'Defiler') + ' ' +
+    'Require="intelligence >= 9" ' +
+    'Experience=' +
+      '0,1.75,3.5,7,14,28,42,63,94.5,180,270,540,820,1080,1350,1620,1890,' +
+      '2160,2430,2700',
   'Druid':
-    'Require=' +
-      '"alignment =~ \'Neutral\'","charisma >= 15","wisdom >= 12" ' +
-    'HitDie=d8,14,1 Attack=0,2,3,- WeaponProficiency=2,5,4 ' +
-    'Breath=16,1,3 Death=10,1,3 Petrification=13,1,3 Spell=15,1,3 Wand=14,1,3 '+
-    'Features=' +
-      '"1:Armor Proficiency (Leather)","1:Shield Proficiency (All)",' +
-      '"charisma >= 16/wisdom >= 16 ? 1:Bonus Druid Experience",' +
-      '"wisdom >= 13 ? 1:Bonus Druid Spells",' +
-      '"1:Resist Fire","1:Resist Lightning","3:Druid\'s Knowledge",' +
-      '"3:Wilderness Movement","3:Woodland Languages",' +
-      '"7:Immunity To Fey Charm",7:Shapeshift ' +
-    'Experience=0,2,4,7.5,12.5,20,35,60,90,125,200,300,750,1500 ' +
-    'CasterLevelDivine=levels.Druid ' +
-    'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'D1:1=2;3=3;4=4;9=5;13=6,' +
-      'D2:2=1;3=2;5=3;7=4;11=5;14=6,' +
-      'D3:3=1;4=2;7=3;12=4;13=5;14=6,' +
-      'D4:6=1;8=2;10=3;12=4;13=5;14=6,' +
-      'D5:9=1;10=2;12=3;13=4;14=5,' +
-      'D6:11=1;12=2;13=3;14=4,' +
-      'D7:12=1;13=2;14=3',
+    classes2E['Druid'],
   'Fighter':
-    'Require="constitution >= 7","strength >= 9" ' +
-    'HitDie=d10,9,3 Attack=0,2,2,-2@19 WeaponProficiency=4,3,2 ' +
-    'Breath=17,1.5,2 Death=14,1.5,2 Petrification=15,1.5,2 Spell=17,1.5,2 Wand=16,1.5,2 ' +
-    'Features=' +
-      '"1:Armor Proficiency (All)","1:Shield Proficiency (All)",' +
-      '"strength >= 16 ? 1:Bonus Fighter Experience",' +
-      '"1:Fighting The Unskilled" ' +
-    'Experience=' +
-      '0,2,4,8,18,25,70,125,250,500,750,1000,1250,1500,1750,2000,2250,2500,' +
-      '2750,3000,3250,3500,3750,4000,4250,4500,4750,5000,5250',
-  'Illusionist':
-    'Require="dexterity >= 16","intelligence >= 15" ' +
-    'HitDie=d4,10,1 Attack=-1,3,5,-1@6 WeaponProficiency=1,6,5 ' +
-    'Breath=15,2,5 Death=14,1.5,5 Petrification=13,2,5 Spell=12,2,5 Wand=11,2,5 '+
-    'Features=' +
-      '"10:Eldritch Craft" ' +
-    'CasterLevelArcane=levels.Illusionist ' +
-    'Experience=' +
-      '0,2.25,4.5,9,18,35,60,95,145,220,440,660,880,1100,1320,1540,1760,1980,' +
-      '2200,2420,2640,2860,3080,3300,3520,3740,3960,4180,4400 ' +
-    'SpellAbility=intelligence ' +
-    'SpellSlots=' +
-      'I1:1=1;2=2;4=3;5=4;9=5;24=6;26=7,' +
-      'I2:3=1;4=2;6=3;10=4;12=5;24=6;26=7,' +
-      'I3:5=1;7=2;9=3;12=4;16=5;24=6;26=7,' +
-      'I4:8=1;9=2;11=3;15=4;17=5;24=6;26=7,' +
-      'I5:10=1;11=2;16=3;19=4;21=5;25=6,' +
-      'I6:12=1;13=2;18=3;21=4;22=5;25=6,' +
-      'I7:14=1;15=2;20=3;22=4;23=5;25=6',
-  'Magic User':
-    'Require="dexterity >= 6","intelligence >= 9" ' +
-    'HitDie=d4,11,1 Attack=-1,3,5,-1@6 WeaponProficiency=1,6,5 ' +
-    'Breath=15,2,5 Death=14,1.5,5 Petrification=13,2,5 Spell=12,2,5 ' +
-    'Wand=11,2,5 '+
-    'Features=' +
-      '"intelligence >= 16 ? 1:Bonus Magic User Experience",' +
-      '"7:Eldritch Craft" ' +
-    'Experience=' +
-      '0,2.5,5,10,22.5,40,60,90,135,250,375,750,1125,1500,1875,2250,2625,' +
-      '3000,3375,3750,4125,4500,4875,4250,4625,5000,5375,5750,6125 ' +
-    'CasterLevelArcane="levels.Magic User" ' +
-    'SpellAbility=intelligence ' +
-    'SpellSlots=' +
-      'M1:1=1;2=2;4=3;5=4;13=5;26=6;29=7,' +
-      'M2:3=1;4=2;7=3;10=4;13=5;26=6;29=7,' +
-      'M3:5=1;6=2;8=3;11=4;13=5;26=6;29=7,' +
-      'M4:7=1;8=2;11=3;12=4;15=5;26=6;29=7,' +
-      'M5:9=1;10=2;11=3;12=4;15=5;27=6,' +
-      'M6:12=1;13=2;16=3;20=4;22=5;27=6,' +
-      'M7:14=1;16=2;17=3;21=4;23=5;27=6,' +
-      'M8:16=1;17=2;19=3;21=4;23=5;28=6,' +
-      'M9:18=1;20=2;22=3;24=4;25=5;28=6',
-  'Monk':
-    'Require=' +
-      '"alignment =~ \'Lawful\'","constitution >= 11","dexterity >= 15",' +
-      '"strength >= 15","wisdom >= 15" ' +
-    'HitDie=2d4,18,1 Attack=0,2,3,- WeaponProficiency=1,2,3 ' +
-    'Breath=16,1,4 Death=13,1,4 Petrification=12,1,4 Spell=15,2,4 Wand=14,2,4 '+
-    'Features=' +
-      '"1:Delayed Henchmen","1:Dodge Missiles",1:Evasion,"1:Killing Blow",' +
-      '"1:Monk Skills","1:Precise Blow",1:Spiritual,"1:Stunning Blow",' +
-      '1:Unburdened,2:Aware,"3:Speak With Animals","4:Flurry Of Blows",' +
-      '"4:Masked Mind","4:Slow Fall","5:Controlled Movement",' +
-      '"5:Purity Of Body","6:Feign Death","6:Limited Henchmen Classes",' +
-      '"7:Wholeness Of Body","8:Speak With Plants","9:Improved Evasion",' +
-      '"9:Resist Influence","10:Mental Discipline","11:Diamond Body",' +
-      '"12:Free Will","13:Quivering Palm" ' +
-    'Experience=' +
-      '0,2.25,4.75,10,22.5,47.5,98,200,350,500,700,950,1250,1750,2250,2750,' +
-      '3250',
-  'Paladin':
-    'Require=' +
-      '"alignment == \'Lawful Good\'","charisma >= 17","constitution >= 9",' +
-      '"intelligence >= 9","strength >= 12","wisdom >= 13" ' +
-    'HitDie=d10,9,3 Attack=0,2,2,-2@19 WeaponProficiency=3,3,2 ' +
-    'Breath=17,1.5,2 Death=14,1.5,2 Petrification=15,1.5,2 Spell=17,1.5,2 ' +
-    'Wand=16,1.5,2 ' +
-    'Features=' +
-      '"1:Armor Proficiency (All)","1:Shield Proficiency (All)",' +
-      '"strength >= 16/wisdom >= 16 ? 1:Bonus Paladin Experience",' +
-      '"1:Cure Disease","1:Detect Evil",1:Discriminating,"1:Divine Health",' +
-      '"1:Divine Protection","1:Fighting The Unskilled","1:Lay On Hands",' +
-      '1:Non-Materialist,1:Philanthropist,"1:Protection From Evil",' +
-      '"3:Turn Undead","4:Summon Warhorse" ' +
-    'Experience=' +
-      '0,2.75,5.5,12,24,45,95,175,350,700,1050,1400,1750,2100,2450,2800,3150,' +
-      '3500,3850,4200,4550,4900,5250,5600,5950,6300,6650,7000,7350 ' +
-    'CasterLevelDivine="levels.Paladin >= 9 ? levels.Paladin - 8 : null" ' +
-    'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'C1:9=1;10=2;14=3;21=4,' +
-      'C2:11=1;12=2;16=3;22=4,' +
-      'C3:13=1;17=2;18=3;23=4,' +
-      'C4:15=1;19=2;20=3;24=4',
+    classes2E['Fighter']
+    .replace('Features=3:Trainer,4:Artillerist,"6:Construct Defenses",7:Commander,10:Leadership,'), 
+  'Gladiator':
+    classes2E['Fighter'] + ' ' +
+    'Require="constitution >= 15","dexterity >= 12","strength >= 13"'
+    .replaceAll('Fighter', 'Gladiator')
+    .replace('Features=','Features="Weapons Expert",Brawler,"5:Optimized Armor",'),
+  'Preserver':
+    classes2E['Magic User']
+    .replaceAll('Magic User','Preserver') + ' ' +
+    'Require="intelligence >= 9"',
+  'Preserver Illusionist':
+    classes2E['Illusionist']
+    .replace('Illusionist','Preserver') + ' ' +
+    'Require="intelligence >= 9"',
   'Ranger':
-    'Require=' +
-      '"alignment =~ \'Good\'","constitution >= 14","dexterity >= 6",' +
-      '"intelligence >= 13","strength >= 13","wisdom >= 14" ' +
-    'HitDie=2d8,10,2 Attack=0,2,2,-2@19 WeaponProficiency=3,3,2 ' +
-    'Breath=17,1.5,2 Death=14,1.5,2 Petrification=15,1.5,2 Spell=17,1.5,2 ' +
-    'Wand=16,1.5,2 ' +
-    'Features=' +
-      '"1:Armor Proficiency (All)","1:Shield Proficiency (All)",' +
-      '"strength >= 16/intelligence >= 16/wisdom >= 16 ? 1:Bonus Ranger Experience",' +
-      '"1:Alert Against Surprise","1:Delayed Henchmen","1:Favored Enemy",' +
-      '"1:Fighting The Unskilled",1:Loner,1:Selective,1:Tracking,' +
-      '"1:Travel Light","10:Scrying Device Use" ' +
-    'Experience=' +
-      '0,2.25,4.5,10,20,40,90,150,225,325,650,975,1300,1625,2000,2325,2650,' +
-      '2975,3300,3625,3950,4275,4600,4925,5250,5575,5900,6225,6550 ' +
-    'CasterLevelArcane=' +
-      '"levels.Ranger >= 8 ? Math.floor((levels.Ranger - 6) / 2) : null" ' +
-    'CasterLevelDivine=' +
-      '"levels.Ranger >= 9 ? Math.floor((levels.Ranger - 6) / 2) : null" ' +
-      'SpellAbility=wisdom ' +
-      'SpellSlots=' +
-        'D1:8=1;10=2,' +
-        'D2:12=1;14=2,' +
-        'D3:16=1;17=2,' +
-        'M1:9=1;11=2,' +
-        'M2:12=1;14=2',
+    classes2E['Ranger'] + ' ' +
+    'Require="constitution >= 14","dexterity >= 13","strength >= 13","wisdom >= 14"',
+  'Templar':
+    classes2E['Cleric'] + ' ' +
+    'Require="alignment !~ \'Good\'","intelligence >= 10","wisdom >= 9" ' +
+    'SpellSlots=' +
+      'P1:2=1;4=2;5=3;11=4;14=5;15=6;16=7;18=8;19=9,' +
+      'P2:3=1;5=2;8=3;12=4;14=5;15=6;16=7;18=8;19=9,' +
+      'P3:6=1;7=2;9=3;13=4;15=5;16=6;17=7;18=8;19=9,' +
+      'P4:8=1;10=2;12=3;14=4;15=5;16=6;17=7;18=8;19=9,' +
+      'P5:11=1;13=2;15=3;16=4;17=5;18=6;19=7;20=9,' +
+      'P6:14=1;15=2;16=3;17=4;19=5;20=6,' +
+      'P7:15=1;17=2;19=3;20=4'
+    .replace('Features=', 'Features="Command Slave","Pass Judgement","2:Enter Building","3:Requisition Soldiers","4:Make Accusation","6:Draw Funds","17:Grant Pardon"'),
   'Thief':
-    'Require=' +
-      '"alignment =~ \'Neutral|Evil\'","dexterity >= 9" ' +
-    'HitDie=d6,10,2 Attack=-1,2,4,+1@9 WeaponProficiency=2,4,3 ' +
-    'Breath=16,1,4 Death=13,1,4 Petrification=12,1,4 Spell=15,2,4 Wand=14,2,4 '+
-    'Features=' +
-      '"1:Armor Proficiency (Leather/Studded Leather)",' +
-      '"dexterity >= 16 ? 1:Bonus Thief Experience",' +
-      '1:Backstab,"1:Thief Skills","10:Read Scrolls" ' +
-    'Experience=' +
-      '0,1.25,2.5,5,10,20,42.5,70,110,160,220,440,660,880,1100,1320,1540,' +
-      '1760,1980,2200,2420,2640,2860,3080,3300,3520,3740,3960,4180'
+    classes2E['Thief']
 };
+delete DarkSun2E.CLASSES['Magic User'];
 DarkSun2E.FEATURES_ADDED = {
+
+  // Class
+  'Bonus Defiler Experience':
+    'Section=ability Note="10% added to awarded experience"',
+  'Bonus Protective Experience':
+    'Section=ability Note="10% added to awarded experience"',
+  'Command Slave':
+    'Section=feature Note="May command any slave within home city"',
+  'Draw Funds':
+    'Section=feature Note="May draw %{levels.Templar}d10 GP city funds"',
+  'Enter Building':'Section=feature Note="May enter any %V within home city"',
+  'Grant Pardon':
+    'Section=feature Note="May pardon condemned man within home city"',
+  'Make Accusation':
+    'Section=feature Note="May accuse %V of crime within home city"',
+  'Pass Judgement':
+    'Section=feature Note="May pass judgement on %V within home city"',
+  'Requisition Soldiers':
+    'Section=feature ' +
+    'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
 
   // Race
   'Adaptable':'Section=feature Note="May take on features of nearby culture"',
@@ -715,8 +572,22 @@ DarkSun2E.classRules = function(
  * derived directly from the abilities passed to classRules.
  */
 DarkSun2E.classRulesExtra = function(rules, name) {
+  var classLevel = 'levels.' + name;
+  if(name == 'Templar') {
+    rules.defineRule('featureNotes.enterBuilding',
+      classLevel, '=',
+        'source >= 5 ? "freehold, palace, or temple" : "freehold"'
+    );
+    rules.defineRule('featureNotes.makeAccusation',
+      classLevel, '=', 'source >= 10 ? "freeman or noble" : "freeman"'
+    );
+    rules.defineRule('featureNotes.passJudgement',
+      classLevel, '=',
+        'source >= 15 ? "slave, freeman, or noble" : ' +
+        'source >= 7 ? "slave or freeman" : "slave"'
+    );
+  }
   OldSchool.classRulesExtra(rules, name);
-  // No changes needed to the rules defined by OldSchool method
 };
 
 /*
@@ -854,6 +725,8 @@ DarkSun2E.initialEditorElements = function() {
 
 /* Sets #attributes#'s #attribute# attribute to a random value. */
 DarkSun2E.randomizeOneAttribute = function(attributes, attribute) {
+  console.log(attribute);
+  console.log(attributes);
   if(attribute == 'abilities') {
     for(var a in OldSchool.ABILITIES)
       DarkSun2E.randomizeOneAttribute(attributes, a.toLowerCase());
