@@ -154,6 +154,7 @@ DarkSun2E.CLASSES = {
     'Experience=' +
       '0,1.75,3.5,7,14,28,42,63,94.5,180,270,540,820,1080,1350,1620,1890,' +
       '2160,2430,2700',
+/*
   'Defiler Illusionist':
     classes2E['Illusionist']
     .replaceAll('Illusionist', 'Defiler') + ' ' +
@@ -161,6 +162,7 @@ DarkSun2E.CLASSES = {
     'Experience=' +
       '0,1.75,3.5,7,14,28,42,63,94.5,180,270,540,820,1080,1350,1620,1890,' +
       '2160,2430,2700',
+*/
   'Druid':
     classes2E['Druid'],
   'Fighter':
@@ -175,15 +177,19 @@ DarkSun2E.CLASSES = {
     classes2E['Magic User']
     .replaceAll('Magic User','Preserver') + ' ' +
     'Require="intelligence >= 9"',
+/*
   'Preserver Illusionist':
     classes2E['Illusionist']
     .replace('Illusionist','Preserver') + ' ' +
     'Require="intelligence >= 9"',
+*/
   'Ranger':
     classes2E['Ranger'] + ' ' +
     'Require="constitution >= 14","dexterity >= 13","strength >= 13","wisdom >= 14"',
   'Templar':
-    classes2E['Cleric'] + ' ' +
+    classes2E['Cleric']
+    .replaceAll('Cleric', 'Templar')
+    .replace('Features=', 'Features="Command Slave","Pass Judgement","2:Enter Building","3:Requisition Soldiers","4:Make Accusation","6:Draw Funds","17:Grant Pardon",') + ' ' +
     'Require="alignment !~ \'Good\'","intelligence >= 10","wisdom >= 9" ' +
     'SpellSlots=' +
       'P1:2=1;4=2;5=3;11=4;14=5;15=6;16=7;18=8;19=9,' +
@@ -192,8 +198,7 @@ DarkSun2E.CLASSES = {
       'P4:8=1;10=2;12=3;14=4;15=5;16=6;17=7;18=8;19=9,' +
       'P5:11=1;13=2;15=3;16=4;17=5;18=6;19=7;20=9,' +
       'P6:14=1;15=2;16=3;17=4;19=5;20=6,' +
-      'P7:15=1;17=2;19=3;20=4'
-    .replace('Features=', 'Features="Command Slave","Pass Judgement","2:Enter Building","3:Requisition Soldiers","4:Make Accusation","6:Draw Funds","17:Grant Pardon"'),
+      'P7:15=1;17=2;19=3;20=4',
   'Thief':
     classes2E['Thief']
 };
@@ -725,8 +730,6 @@ DarkSun2E.initialEditorElements = function() {
 
 /* Sets #attributes#'s #attribute# attribute to a random value. */
 DarkSun2E.randomizeOneAttribute = function(attributes, attribute) {
-  console.log(attribute);
-  console.log(attributes);
   if(attribute == 'abilities') {
     for(var a in OldSchool.ABILITIES)
       DarkSun2E.randomizeOneAttribute(attributes, a.toLowerCase());
