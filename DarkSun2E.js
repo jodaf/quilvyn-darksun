@@ -66,7 +66,7 @@ function DarkSun2E() {
     rules, DarkSun2E.ALIGNMENTS, DarkSun2E.CLASSES, DarkSun2E.RACES
   );
 
-  // Add additional elements to sheet
+  // Add additional elements to sheet -- copied from OldSchool.js
   rules.defineSheetElement('Strength');
   rules.defineSheetElement
     ('StrengthInfo', 'Dexterity', '<b>Strength</b>: %V', '/');
@@ -164,7 +164,7 @@ DarkSun2E.CLASSES = {
   'Templar':
     classes2E['Cleric']
     .replaceAll('Cleric', 'Templar')
-    .replace('Features=', 'Features="Command Slave","Pass Judgement","2:Enter Building","3:Requisition Soldiers","4:Make Accusation","6:Draw Funds","17:Grant Pardon",') + ' ' +
+    .replace('Features=', 'Features="Command Slave","Pass Judgment","2:Enter Building","3:Requisition Soldiers","4:Make Accusation","6:Draw Funds","17:Grant Pardon",') + ' ' +
     'Require="alignment !~ \'Good\'","intelligence >= 10","wisdom >= 9" ' +
     'SpellSlots=' +
       'P1:2=1;4=2;5=3;11=4;14=5;15=6;16=7;18=8;19=9,' +
@@ -194,24 +194,25 @@ DarkSun2E.FEATURES_ADDED = {
     'Section=feature Note="May pardon condemned man within home city"',
   'Make Accusation':
     'Section=feature Note="May accuse %V of crime within home city"',
-  'Pass Judgement':
-    'Section=feature Note="May pass judgement on %V within home city"',
+  'Pass Judgment':
+    'Section=feature Note="May pass judgment on %V within home city"',
   'Requisition Soldiers':
     'Section=feature ' +
     'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
 
   // Race
-  'Adaptable':'Section=feature Note="May take on features of nearby culture"',
-  'Antennae':'Section=feature Note="Reduces vision penalty by 5%"',
+  'Antennae':'Section=combat Note="Reduces melee vision penalty by 1"',
   'Bite Attack':'Section=combat Note="May attack w/bite"',
+  'Brawler':'Section=combat Note="+%V punching/+%1% KO"',
   'Brawny':'Section=combat Note="Dbl rolled hit points"',
-  'Carnivore':
-    'Section=feature Note="Considers others as potential food; relishes elves"',
+  'Carnivore':'Section=feature Note="Considers others as potential food"',
   'Chatkcha Fighter':'Section=combat Note="Weapon Proficiency (Chatkcha)"',
   'Claw Attack':'Section=combat Note="May attack w/claws"',
   'Clannish':
     'Section=feature ' +
     'Note="Attached to halfling culture; will always help other halflings"',
+  'Conditioned':
+    'Section=feature Note="Unaffected by temperatures from 32F to 110F"',
   'Dodge Missiles':'Section=combat Note="12in20 chance to dodge missiles"',
   'Dwarf Ability Adjustment':
     'Section=ability ' +
@@ -219,8 +220,13 @@ DarkSun2E.FEATURES_ADDED = {
   'Elf Ability Adjustment':
     'Section=ability ' +
     'Note="-2 Constitution/+2 Dexterity/+1 Intelligence/-1 Wisdom"',
-  'Elf Run':'Section=ability Note="May move 50 miles/dy"',
-  'Exoskeleton':'Section=combat Note="+5 AC/Cannot use armor"',
+  'Elf Run':'Section=ability Note="+%1 Speed/May move 50 miles/dy"',
+  'Exoskeleton':'Section=combat Note="-5 AC/Cannot use armor"',
+  'Focused':
+    'Section=feature,save,skill ' +
+    'Note="Judges others based on contribution to focus",' +
+         '"+1 saves while pursuing focus",' +
+         '"+2 proficiencies while pursuing focus"',
   'Half-Elf Ability Adjustment':
     'Section=ability ' +
     'Note="-1 Constitution/+1 Dexterity"',
@@ -231,6 +237,8 @@ DarkSun2E.FEATURES_ADDED = {
     'Section=ability ' +
     'Note="-1 Charisma/-1 Constitution/+2 Dexterity/-2 Strength/+2 Wisdom"',
   'Hunter':'Section=feature Note="Focused on procuring food"',
+  'Imitator':
+    'Section=feature Note="Will often take on habits of nearby culture"',
   'Leaper':'Section=skill Note="May jump 20\' up or 50\' forward"',
   'Long Bow Precision':'Section=combat Note="+1 attack w/Long Bow"',
   'Long Sword Precision':'Section=combat Note="+1 attack w/Long Sword"',
@@ -240,21 +248,26 @@ DarkSun2E.FEATURES_ADDED = {
   'Pet':'Section=feature Note="May have trained animal companion"',
   'Protective':
     'Section=combat Note="Instinctively leaps into battle to help companions"',
-  'Resilient':'Section=feature Note="Recovers from any exertion w/8 hrs rest"',
+  'Resist Disease':'Section=save Note="+%V vs. disease"',
   'Respect For Place':
     'Section=feature ' +
     'Note="Will not remove resources from where they are found"',
-  'Sleepless':'Section=feature Note="No need for sleep"',
+  'Sleepless':'Section=feature Note="Does not sleep"',
   'Paralyzing Bite':
     'Section=combat ' +
-    'Note="Bitten S/M/L creatue paralyzed for 2d10/2d8/1d8 rd (Save neg)"',
+    'Note="Bitten S/M/L creature paralyzed for 2d10/2d8/1d8 rd (Save neg)"',
   'Survivalist':
     'Section=skill Note="Proficient in Survival (choice of terrain)"',
   'Thri-kreen Ability Adjustment':
     'Section=ability ' +
     'Note="-2 Charisma/+2 Dexterity/-1 Intelligence/+1 Wisdom"',
+  'Thri-kreen Immunities':
+    'Section=save Note="Immune <i>Charm Person</i> and <i>Hold Person</i>"',
   'Variable Alignment':
-    'Section=ability Note="Changes on axis of alignment each morning"',
+    'Section=ability Note="Changes one axis of alignment each morning"',
+  'Vigorous':
+    'Section=feature ' +
+    'Note="May perform %1/%2/%3/%4 hrs normal/light/medium/heavy labor w/out rest; recovers w/8 hrs rest"',
   'Walker':'Section=skill Note="Travels only on foot"',
   'Wilderness Stealth':
     'Section=skill Note="Foes -4 surprise in wilderness and wastes"',
@@ -290,15 +303,17 @@ DarkSun2E.RACES = {
     'Require=' +
       '"constitution >= 14","strength >= 10" ' +
     'Features=' +
-      '"Dwarf Ability Adjustment","Focused" ' +
+      '"Dwarf Ability Adjustment",Focused,Infravision,"Resist Magic",' +
+      '"Resist Poison" ' +
     'Languages=' +
       'Common,Dwarf',
   'Elf':
     'Require=' +
       '"constitution >= 8","dexterity >= 12","intelligence >= 8" ' +
     'Features=' +
-      '"Elf Ability Adjustment","Elf Run",Infravision,"Long Bow Precision",' +
-      '"Long Sword Precision",Walker,"Wilderness Stealth",Xenophobic ' +
+      'Conditioned,"Elf Ability Adjustment","Elf Run",Infravision,' +
+      '"Long Bow Precision","Long Sword Precision",Walker,' +
+      '"Wilderness Stealth",Xenophobic ' +
     'Languages=' +
       'Common,Elf',
   'Half-Elf':
@@ -313,15 +328,16 @@ DarkSun2E.RACES = {
       '"charisma <= 17","constitution >= 15","dexterity <= 15",' +
       '"intelligence <= 15","strength >= 17","wisdom <= 17" ' +
     'Features=' +
-      'Adaptable,Brawny,"Half-Giant Ability Adjustment","Variable Alignment" ' +
+      'Brawny,"Half-Giant Ability Adjustment",Imitator,"Variable Alignment" ' +
     'Languages=' +
       'Common,Giant',
   'Halfling':
     'Require=' +
-      '"dexterity >= 12","strength <= 6","wisdom >= 7" ' +
+      '"dexterity >= 12","strength <= 18","wisdom >= 7" ' +
     'Features=' +
-      'Clannish,"Deadly Aim","Halfling Ability Adjustment",' +
-      '"Respect For Place","Resist Magic","Resist Poison",Stealthy ' +
+      'Carnivore,Clannish,"Deadly Aim","Halfling Ability Adjustment",' +
+      '"Respect For Place","Resist Disease","Resist Magic","Resist Poison",' +
+      'Stealthy ' +
     'Languages=' +
       'Common,Halfling',
   'Human':
@@ -331,7 +347,7 @@ DarkSun2E.RACES = {
     'Require=' +
       '"constitution >= 8","strength >= 10" ' +
     'Features=' +
-      '"Mul Ability Adjustment",Resilient ' +
+      'Brawler,"Mul Ability Adjustment",Vigorous ' +
     'Languages=' +
       'Common,Dwarf',
   'Thri-kreen':
@@ -339,8 +355,9 @@ DarkSun2E.RACES = {
       '"charisma <= 17","dexterity >= 15","strength >= 8" ' +
     'Features=' +
       'Antennae,"Bite Attack",Carnivore,"Claw Attack",Exoskeleton,Hunter,' +
-      'Protective,Sleepless,"Thri-kreen Ability Adjustment",3:Leaper,' +
-      '"5:Chatkcha Fighter","5:Paralyzing Bite","7:Dodge Missiles" ' +
+      'Protective,Sleepless,"Thri-kreen Ability Adjustment",' +
+      '"Thri-kreen Immunities",3:Leaper,"5:Chatkcha Fighter",' +
+      '"5:Paralyzing Bite","7:Dodge Missiles" ' +
     'Languages=' +
       'Common,Thri-kreen'
 };
@@ -353,7 +370,7 @@ DarkSun2E.SKILLS =
 DarkSun2E.SPELLS =
   Object.assign({}, OldSchool.editedRules(OldSchool.SPELLS, 'Spell'));
 DarkSun2E.WEAPONS_ADDED = {
-  'Chatkcha':'Category=R Damage=d4+1 Range=90',
+  'Chatkcha':'Category=R Damage=d6+2 Range=90',
   'Gythka':'Category=2h Damage=d10',
   'Impaler':'Category=2h Damage=d8',
   'Quabone':'Category=Li Damage=d3',
@@ -579,7 +596,7 @@ DarkSun2E.classRulesExtra = function(rules, name) {
     rules.defineRule('featureNotes.makeAccusation',
       classLevel, '=', 'source >= 10 ? "freeman or noble" : "freeman"'
     );
-    rules.defineRule('featureNotes.passJudgement',
+    rules.defineRule('featureNotes.passJudgment',
       classLevel, '=',
         'source >= 15 ? "slave, freeman, or noble" : ' +
         'source >= 7 ? "slave or freeman" : "slave"'
@@ -641,8 +658,60 @@ DarkSun2E.raceRules = function(
  * derived directly from the abilities passed to raceRules.
  */
 DarkSun2E.raceRulesExtra = function(rules, name) {
-  OldSchool.raceRulesExtra(rules, name);
-  // No changes needed to the rules defined by OldSchool method
+  var raceLevel =
+    name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '') + 'Level';
+  if(name == 'Elf') {
+    rules.defineRule('abilityNotes.elfRun.1',
+      'dexterity', '=', 'source>=16 ? (source - 12) * 10 : source>=12 ? Math.floor((source - 10) / 2) * 10 : 0'
+    );
+    rules.defineRule('compoundLongBowAttackModifier',
+      'combatNotes.longBowPrecision', '+', '1'
+    );
+    rules.defineRule
+      ('longBowAttackModifier', 'combatNotes.longBowPrecision', '+', '1');
+    rules.defineRule
+      ('longSwordAttackModifier', 'combatNotes.longSwordPrecision', '+', '1');
+  } else if(name == 'Half-Elf') {
+    rules.defineRule
+      ('nonweaponProficiencyCount', 'skillNotes.survivalist', '+=', '1');
+    rules.defineRule('skills.Survival', 'skillNotes.survivalist', '^=', '1');
+  } else if(name == 'Halfling') {
+    rules.defineRule('saveNotes.resistDisease',
+      'constitution', '=', 'Math.floor(source / 3.5)'
+    );
+  } else if(name == 'Mul') {
+    rules.defineRule('combatNotes.brawler', raceLevel, '+=', '1');
+    rules.defineRule('combatNotes.brawler.1', raceLevel, '+=', '5');
+    rules.defineRule('featureNotes.vigorous.1',
+      'features.Vigorous', '?', null,
+      'constitution', '=', 'source * 24'
+    );
+    rules.defineRule('featureNotes.vigorous.2',
+      'features.Vigorous', '?', null,
+      'constitution', '=', 'source + 48'
+    );
+    rules.defineRule('featureNotes.vigorous.3',
+      'features.Vigorous', '?', null,
+      'constitution', '=', 'source + 36'
+    );
+    rules.defineRule('featureNotes.vigorous.4',
+      'features.Vigorous', '?', null,
+      'constitution', '=', 'source + 24'
+    );
+  } else if(name == 'Thri-kreen') {
+    DarkSun2E.weaponRules(rules, 'Bite', 'Un', 'd4+1', null);
+    DarkSun2E.weaponRules(rules, 'Claws', 'Un', 'd4', null);
+    rules.defineRule('weaponProficiencyCount',
+      raceLevel, '+', '2',
+      'combatNotes.chatkchaFighter', '+', '1'
+    );
+    rules.defineRule('weaponProficiency.Bite', raceLevel, '=', '1');
+    rules.defineRule('weaponProficiency.Claws', raceLevel, '=', '1');
+    rules.defineRule
+      ('weaponProficiency.Chatkcha', 'combatNotes.chatkchaFighter', '=', '1');
+    rules.defineRule('weapons.Bite', raceLevel, '=', '1');
+    rules.defineRule('weapons.Claws', raceLevel, '=', '1');
+  }
 };
 
 /* Defines in #rules# the rules associated with magic school #name#. */
