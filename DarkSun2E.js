@@ -66,6 +66,7 @@ function DarkSun2E() {
     rules, DarkSun2E.ALIGNMENTS, DarkSun2E.CLASSES, DarkSun2E.RACES
   );
 
+  rules.defineSheetElement('Defiler Or Preserver', 'Levels+', ' <b>(%V)</b>');
   // Add additional elements to sheet -- copied from OldSchool.js
   rules.defineSheetElement('Strength');
   rules.defineSheetElement
@@ -117,29 +118,25 @@ DarkSun2E.ARMORS =
   Object.assign({}, OldSchool.editedRules(OldSchool.ARMORS, 'Armor'));
 var classes2E = OldSchool.editedRules(OldSchool.CLASSES, 'Class');
 DarkSun2E.CLASSES = {
+  'Abjurer':
+    classes2E['Abjurer']
+    .replace('Features=', 'Features=Defiler,Preserver,'),
   'Bard':
     classes2E['Thief'],
   'Cleric':
     classes2E['Cleric']
     .replace('Features=', 'Features="5:Element Immunity","7:Conjure Element",'),
-  'Defiler':
-    classes2E['Magic User']
-    .replaceAll('Magic User', 'Defiler') + ' ' +
-    'Require="intelligence >= 9" ' +
-    'Experience=' +
-      '0,1.75,3.5,7,14,28,42,63,94.5,180,270,540,820,1080,1350,1620,1890,' +
-      '2160,2430,2700',
-/*
-  'Defiler Illusionist':
-    classes2E['Illusionist']
-    .replaceAll('Illusionist', 'Defiler') + ' ' +
-    'Require="intelligence >= 9" ' +
-    'Experience=' +
-      '0,1.75,3.5,7,14,28,42,63,94.5,180,270,540,820,1080,1350,1620,1890,' +
-      '2160,2430,2700',
-*/
+  'Conjurer':
+    classes2E['Conjurer']
+    .replace('Features=', 'Features=Defiler,Preserver,'),
+  'Diviner':
+    classes2E['Diviner']
+    .replace('Features=', 'Features=Defiler,Preserver,'),
   'Druid':
     classes2E['Druid'],
+  'Enchanter':
+    classes2E['Enchanter']
+    .replace('Features=', 'Features=Defiler,Preserver,'),
   'Fighter':
     classes2E['Fighter']
     .replace('Features=3:Trainer,4:Artillerist,"6:Construct Defenses",7:Commander,10:Leadership,'), 
@@ -148,16 +145,18 @@ DarkSun2E.CLASSES = {
     'Require="constitution >= 15","dexterity >= 12","strength >= 13"'
     .replaceAll('Fighter', 'Gladiator')
     .replace('Features=','Features="Weapons Expert",Brawler,"5:Optimized Armor",'),
-  'Preserver':
-    classes2E['Magic User']
-    .replaceAll('Magic User','Preserver') + ' ' +
-    'Require="intelligence >= 9"',
-/*
-  'Preserver Illusionist':
+  'Illusionist':
     classes2E['Illusionist']
-    .replace('Illusionist','Preserver') + ' ' +
-    'Require="intelligence >= 9"',
-*/
+    .replace('Features=', 'Features=Defiler,Preserver,'),
+  'Invoker':
+    classes2E['Invoker']
+    .replace('Features=', 'Features=Defiler,Preserver,'),
+  'Magic User':
+    classes2E['Magic User']
+    .replace('Features=', 'Features=Defiler,Preserver,'),
+  'Necromancer':
+    classes2E['Necromancer']
+    .replace('Features=', 'Features=Defiler,Preserver,'),
   'Ranger':
     classes2E['Ranger'] + ' ' +
     'Require="constitution >= 14","dexterity >= 13","strength >= 13","wisdom >= 14"',
@@ -175,18 +174,19 @@ DarkSun2E.CLASSES = {
       'P6:14=1;15=2;16=3;17=4;19=5;20=6,' +
       'P7:15=1;17=2;19=3;20=4',
   'Thief':
-    classes2E['Thief']
+    classes2E['Thief'],
+  'Transmuter':
+    classes2E['Transmuter']
+    .replace('Features=', 'Features=Defiler,Preserver,')
 };
-delete DarkSun2E.CLASSES['Magic User'];
 DarkSun2E.FEATURES_ADDED = {
 
   // Class
-  'Bonus Defiler Experience':
-    'Section=ability Note="10% added to awarded experience"',
   'Bonus Protective Experience':
     'Section=ability Note="10% added to awarded experience"',
   'Command Slave':
     'Section=feature Note="May command any slave within home city"',
+  'Defiler':'Section=ability Note="Rapid advancement to level %V"',
   'Draw Funds':
     'Section=feature Note="May draw %{levels.Templar}d10 GP city funds"',
   'Enter Building':'Section=feature Note="May enter any %V within home city"',
@@ -378,6 +378,10 @@ DarkSun2E.WEAPONS_ADDED = {
 };
 DarkSun2E.WEAPONS =
   Object.assign({}, OldSchool.editedRules(OldSchool.WEAPONS, 'Weapon'), DarkSun2E.WEAPONS_ADDED);
+DarkSun2E.DEFILER_EXPERIENCE_THRESHOLD = [
+  0, 1.75, 3.5, 7, 14, 28, 42, 63, 94.5, 180, 270, 540, 820, 1080, 1350, 1620,
+  1890, 2160, 2430, 2700
+];
 
 /* Defines rules related to character abilities. */
 DarkSun2E.abilityRules = function(rules) {
@@ -395,6 +399,10 @@ DarkSun2E.combatRules = function(rules, armors, shields, weapons) {
 DarkSun2E.identityRules = function(rules, alignments, classes, races) {
   OldSchool.identityRules(rules, alignments, classes, races);
   // No changes needed to the rules defined by OldSchool method
+  rules.defineRule('defilerOrPreserver',
+    'features.Defiler', '=', '"Defiler"',
+    'features.Preserver', '=', '"Preserver"'
+  );
 };
 
 /* Defines rules related to magic use. */
@@ -588,6 +596,27 @@ DarkSun2E.classRules = function(
  */
 DarkSun2E.classRulesExtra = function(rules, name) {
   var classLevel = 'levels.' + name;
+  var prefix =
+    name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '');
+  if(name.match(/Magic User|Abjurer|Conjurer|Diviner|Enchanter|Illusionist|Invoker|Necromancer|Transmuter/)) {
+    rules.defineRule(prefix + 'Features.Defiler',
+      'notes', '?', 'source.match(/\\bdefiler\\b/i)'
+    );
+    rules.defineRule('isNotDefiler',
+      'experiencePoints.' + name, '=', '1',
+      prefix + 'Features.Defiler', '=', '0'
+    );
+    rules.defineRule
+      (prefix + 'Features.Preserver', 'isNotDefiler', '?', 'source == 1');
+    rules.defineRule('abilityNotes.defiler',
+      'experiencePoints.' + name, '=', 'DarkSun2E.DEFILER_EXPERIENCE_THRESHOLD.findIndex(item => item * 1000 > source)'
+    );
+    rules.defineRule('levels.' + name, 'abilityNotes.defiler', '^', null);
+    rules.defineRule('experiencePoints.' + name + '.1',
+      'experiencePoints.' + name, '?', null,
+      'abilityNotes.defiler', '=', 'DarkSun2E.DEFILER_EXPERIENCE_THRESHOLD[source] * 1000'
+    );
+  }
   if(name == 'Templar') {
     rules.defineRule('featureNotes.enterBuilding',
       classLevel, '=',
