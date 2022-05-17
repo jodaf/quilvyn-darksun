@@ -47,7 +47,8 @@ function DarkSun2E() {
   rules.getPlugins = DarkSun2E.getPlugins;
   rules.makeValid = OSRIC.makeValid;
   rules.randomizeOneAttribute = DarkSun2E.randomizeOneAttribute;
-  rules.defineChoice('random', OldSchool.RANDOMIZABLE_ATTRIBUTES);
+  rules.defineChoice
+    ('random', ['element'].concat(OldSchool.RANDOMIZABLE_ATTRIBUTES));
   rules.ruleNotes = DarkSun2E.ruleNotes;
 
   OSRIC.createViewers(rules, OSRIC.VIEWERS);
@@ -66,6 +67,7 @@ function DarkSun2E() {
     rules, DarkSun2E.ALIGNMENTS, DarkSun2E.CLASSES, DarkSun2E.RACES
   );
 
+  rules.defineSheetElement('Cleric Element', 'Levels+', ' <b>(%V)</b>');
   rules.defineSheetElement('Defiler Or Preserver', 'Levels+', ' <b>(%V)</b>');
   // Add additional elements to sheet -- copied from OldSchool.js
   rules.defineSheetElement('Strength');
@@ -119,47 +121,47 @@ DarkSun2E.ARMORS =
 var classes2E = OldSchool.editedRules(OldSchool.CLASSES, 'Class');
 DarkSun2E.CLASSES = {
   'Abjurer':
-    classes2E['Abjurer']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Abjurer'],
   'Bard':
     classes2E['Thief'],
   'Cleric':
     classes2E['Cleric']
-    .replace('Features=', 'Features="5:Element Immunity","7:Conjure Element",'),
+    .replace('Features=', 'Features="5:Elemental Indifference","7:Conjure Element",'),
   'Conjurer':
-    classes2E['Conjurer']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Conjurer'],
   'Diviner':
-    classes2E['Diviner']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Diviner'],
   'Druid':
     classes2E['Druid'],
   'Enchanter':
-    classes2E['Enchanter']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Enchanter'],
   'Fighter':
-    classes2E['Fighter']
-    .replace('Features=3:Trainer,4:Artillerist,"6:Construct Defenses",7:Commander,10:Leadership,'), 
+    classes2E['Fighter'] + ' ' +
+    'Features=' +
+      '"1:Armor Proficiency (All)","1:Shield Proficiency (All)",' +
+      '"strength >= 16 ? 1:Bonus Fighter Experience",' +
+      '3:Trainer,4:Artillerist,"6:Construct Defenses",7:Commander,' +
+      '"9:War Engineer",10:Leader', 
   'Gladiator':
     classes2E['Fighter'] + ' ' +
-    'Require="constitution >= 15","dexterity >= 12","strength >= 13"'
-    .replaceAll('Fighter', 'Gladiator')
-    .replace('Features=','Features="Weapons Expert",Brawler,"5:Optimized Armor",'),
+    'Require="constitution >= 15","dexterity >= 12","strength >= 13" ' +
+    'Features=' +
+      '"1:Armor Proficiency (All)","1:Shield Proficiency (All)",' +
+      '"strength >= 16 ? 1:Bonus Gladiator Experience",' +
+      '"Weapons Expert",Brawler,"5:Optimized Armor",9:Leader',
   'Illusionist':
-    classes2E['Illusionist']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Illusionist'],
   'Invoker':
-    classes2E['Invoker']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Invoker'],
   'Magic User':
-    classes2E['Magic User']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Magic User'],
   'Necromancer':
-    classes2E['Necromancer']
-    .replace('Features=', 'Features=Defiler,Preserver,'),
+    classes2E['Necromancer'],
   'Ranger':
     classes2E['Ranger'] + ' ' +
-    'Require="constitution >= 14","dexterity >= 13","strength >= 13","wisdom >= 14"',
+    'Require=' +
+      '"alignment =~ \'Good\'","constitution >= 14","dexterity >= 13",' +
+      '"strength >= 13","wisdom >= 14"',
   'Templar':
     classes2E['Cleric']
     .replaceAll('Cleric', 'Templar')
@@ -177,28 +179,53 @@ DarkSun2E.CLASSES = {
     classes2E['Thief'],
   'Transmuter':
     classes2E['Transmuter']
-    .replace('Features=', 'Features=Defiler,Preserver,')
 };
 DarkSun2E.FEATURES_ADDED = {
 
   // Class
-  'Bonus Protective Experience':
+  'Artillerist':
+    'Section=combat Note="May operate bombardment and siege weapons"',
+  'Bonus Gladiator Experience':
     'Section=ability Note="10% added to awarded experience"',
   'Command Slave':
     'Section=feature Note="May command any slave within home city"',
-  'Defiler':'Section=ability Note="Rapid advancement to level %V"',
+  'Commander':
+    'Section=combat Note="May lead up to %{levels.Fighter*100} troops"',
+  'Conjure Element':
+    'Section=magic ' +
+    'Note="R50\' Gate %{levels.Cleric-6}\' cu material from element plane of %V 1/dy"',
+  'Construct Defenses':
+    'Section=combat Note="Knows how to construct defensive works"',
+  'Defiler Abjurer':'Section=ability Note="Rapid advancement to level %V"',
+  'Defiler Conjurer':'Section=ability Note="Rapid advancement to level %V"',
+  'Defiler Diviner':'Section=ability Note="Rapid advancement to level %V"',
+  'Defiler Enchanter':'Section=ability Note="Rapid advancement to level %V"',
+  'Defiler Invoker':'Section=ability Note="Rapid advancement to level %V"',
+  'Defiler Magic User':'Section=ability Note="Rapid advancement to level %V"',
+  'Defiler Necromancer':'Section=ability Note="Rapid advancement to level %V"',
+  'Defiler Transmuter':'Section=ability Note="Rapid advancement to level %V"',
   'Draw Funds':
     'Section=feature Note="May draw %{levels.Templar}d10 GP city funds"',
+  'Elemental Indifference':
+    'Section=feature Note="Unaffected by %V %{levels.Cleric} rd/dy"',
   'Enter Building':'Section=feature Note="May enter any %V within home city"',
   'Grant Pardon':
     'Section=feature Note="May pardon condemned man within home city"',
+  'Leader':'Section=combat Note="Leads %V units of followers"',
   'Make Accusation':
     'Section=feature Note="May accuse %V of crime within home city"',
+  'Optimized Armor':'Section=combat Note="-%V AC in armor"',
   'Pass Judgment':
     'Section=feature Note="May pass judgment on %V within home city"',
   'Requisition Soldiers':
     'Section=feature ' +
     'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
+  'Trainer':
+    'Section=combat Note="May teach students in use of specialized weapons"',
+  'War Engineer':'Section=combat Note="May build heavy war machines"',
+  'Weapons Expert':
+    'Section=combat ' +
+    'Note="Proficient in all weapons; may specialize in multiple weapons"',
 
   // Race
   'Antennae':'Section=combat Note="Reduces melee vision penalty by 1"',
@@ -367,8 +394,62 @@ DarkSun2E.SHIELDS =
   Object.assign({}, OldSchool.editedRules(OldSchool.SHIELDS, 'Shield'));
 DarkSun2E.SKILLS =
   Object.assign({}, OldSchool.editedRules(OldSchool.SKILLS, 'Skill'));
+DarkSun2E.SPELLS_PRIEST_SPHERES = {
+  'Aerial Servant':'Air',
+  'Air Walk':'Air',
+  'Animate Rock':'Earth',
+  'Astral Spell':'Air',
+  'Call Lightning':'Air',
+  'Chariot Of Sustarre':'Fire',
+  "Control Temperature 10' Radius":'Air',
+  'Control Weather':'Air',
+  'Control Winds':'Air',
+  'Create Food And Water':'Water',
+  'Create Water':'Water',
+  'Dust Devil':'Air',
+  'Dust Devil':'Earth',
+  'Earthquake':'Earth',
+  'Endure Cold':'Fire',
+  'Endure Heat':'Fire',
+  'Faerie Fire':'Fire',
+  'Fire Seeds':'Fire',
+  'Fire Storm':'Fire',
+  'Fire Trap':'Fire',
+  'Flame Blade':'Fire',
+  'Flame Strike':'Fire',
+  'Flame Walk':'Fire',
+  'Heat Metal':'Fire',
+  'Insect Plague':'Air',
+  'Lower Water':'Water',
+  'Magic Font':'Water',
+  'Magical Stone':'Earth',
+  'Meld Into Stone':'Earth',
+  'Part Water':'Water',
+  'Plane Shift':'Air',
+  'Produce Fire':'Fire',
+  'Produce Flame':'Fire',
+  'Protection From Fire':'Fire',
+  'Protection From Lightning':'Air',
+  'Purify Food And Drink':'Water',
+  'Pyrotechnics':'Fire',
+  'Reflecting Pool':'Water',
+  'Resist Cold':'Fire',
+  'Resist Fire':'Fire',
+  'Spike Stones':'Earth',
+  'Stone Shape':'Earth',
+  'Transmute Metal To Wood':'Earth',
+  'Transmute Water To Dust':'Earth',
+  'Transmute Water To Dust':'Water',
+  'Wall Of Fire':'Fire',
+  'Water Breathing':'Water',
+  'Water Walk':'Water',
+  'Weather Summoning':'Air',
+  'Wind Walk':'Air'
+};
 DarkSun2E.SPELLS =
   Object.assign({}, OldSchool.editedRules(OldSchool.SPELLS, 'Spell'));
+delete DarkSun2E.SPELLS['Conjure Earth Elemental'];
+delete DarkSun2E.SPELLS['Conjure Fire Elemental'];
 DarkSun2E.WEAPONS_ADDED = {
   'Chatkcha':'Category=R Damage=d6+2 Range=90',
   'Gythka':'Category=2h Damage=d10',
@@ -399,9 +480,21 @@ DarkSun2E.combatRules = function(rules, armors, shields, weapons) {
 DarkSun2E.identityRules = function(rules, alignments, classes, races) {
   OldSchool.identityRules(rules, alignments, classes, races);
   // No changes needed to the rules defined by OldSchool method
+  rules.defineRule('clericElement',
+    'levels.Cleric', '?', null,
+    'element', '=', null
+  );
   rules.defineRule('defilerOrPreserver',
-    'features.Defiler', '=', '"Defiler"',
-    'features.Preserver', '=', '"Preserver"'
+    'casterLevelArcane', '=', '"Preserver"',
+    'features.Defiler', '=', '"Defiler"'
+  );
+  rules.defineRule('features.Defiler', 'defiler', '=', '1');
+  rules.defineChoice('notes',
+    'validationNotes.defilerAlignment:Requires alignment !~ \'Good\''
+  );
+  rules.defineRule('validationNotes.defilerAlignment',
+    'features.Defiler', '?', null,
+    'alignment', '=', 'source.includes("Good") ? 1 : null'
   );
 };
 
@@ -505,8 +598,10 @@ DarkSun2E.choiceRules = function(rules, type, name, attrs) {
       }
       var group = matchInfo[1];
       var level = matchInfo[2] * 1;
+      if(group == 'P')
+        schoolAbbr = DarkSun2E.SPELLS_PRIEST_SPHERES[name] || 'Cosmos';
       var fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
-      OldSchool.spellRules
+      DarkSun2E.spellRules
         (rules, fullName, school, group, level, description, duration, effect,
          range);
       rules.addChoice('spells', fullName, attrs);
@@ -596,28 +691,51 @@ DarkSun2E.classRules = function(
  */
 DarkSun2E.classRulesExtra = function(rules, name) {
   var classLevel = 'levels.' + name;
-  var prefix =
-    name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '');
   if(name.match(/Magic User|Abjurer|Conjurer|Diviner|Enchanter|Illusionist|Invoker|Necromancer|Transmuter/)) {
-    rules.defineRule(prefix + 'Features.Defiler',
-      'notes', '?', 'source.match(/\\bdefiler\\b/i)'
+    var note = 'abilityNotes.defiler' + name.replaceAll(' ', '');
+    rules.defineRule('features.Defiler ' + name,
+      classLevel, '?', null,
+      'features.Defiler', '=', '1'
     );
-    rules.defineRule('isNotDefiler',
-      'experiencePoints.' + name, '=', '1',
-      prefix + 'Features.Defiler', '=', '0'
-    );
-    rules.defineRule
-      (prefix + 'Features.Preserver', 'isNotDefiler', '?', 'source == 1');
-    rules.defineRule('abilityNotes.defiler',
+    rules.defineRule(note,
       'experiencePoints.' + name, '=', 'DarkSun2E.DEFILER_EXPERIENCE_THRESHOLD.findIndex(item => item * 1000 > source)'
     );
-    rules.defineRule('levels.' + name, 'abilityNotes.defiler', '^', null);
-    rules.defineRule('experiencePoints.' + name + '.1',
-      'experiencePoints.' + name, '?', null,
-      'abilityNotes.defiler', '=', 'DarkSun2E.DEFILER_EXPERIENCE_THRESHOLD[source] * 1000'
+    rules.defineRule(note + '.1',
+      note, '=', 'DarkSun2E.DEFILER_EXPERIENCE_THRESHOLD[source] * 1000'
     );
+    rules.defineRule(classLevel, note, '^', null);
+    rules.defineRule('experiencePoints.' + name + '.1', note + '.1', '=', null);
   }
-  if(name == 'Templar') {
+  if(name == 'Cleric') {
+    rules.defineRule('featureNotes.elementalIndifference',
+      'element', '=', 'source.toLowerCase()'
+    );
+    rules.defineRule
+      ('magicNotes.conjureElement', 'element', '=', 'source.toLowerCase()');
+  } else if(name == 'Fighter') {
+    rules.defineRule
+      ('combatNotes.leader', classLevel, '+=', 'source>=10 ? source-9 : null');
+  } else if(name == 'Gladiator') {
+    rules.defineRule
+      ('armorClass', 'combatNotes.optimizedArmor.1', '+', '-source');
+    rules.defineRule('combatNotes.brawler', classLevel, '+=', '4');
+    rules.defineRule('combatNotes.brawler.1', classLevel, '+=', '0');
+    rules.defineRule
+      ('combatNotes.leader', classLevel, '+=', 'source>=9 ? source-8 : null');
+    rules.defineRule
+      ('combatNotes.optimizedArmor', classLevel, '=', 'Math.floor(source / 5)');
+    rules.defineRule('combatNotes.optimizedArmor.1',
+      'armor', '?', 'source != "None"',
+      'combatNotes.optimizedArmor', '=', null
+    );
+    rules.defineRule('warriorLevel', classLevel, '+', null);
+    rules.defineRule
+      ('validationNotes.weaponSpecialization', classLevel, '^', '0');
+    // Noop to get note to appear in italics
+    rules.defineRule
+      ('weaponProficiencyCount', 'combatNotes.weaponsExpert', '+', '0');
+    rules.defineRule('weaponNonProficiencyPenalty', classLevel, 'v', '0');
+  } else if(name == 'Templar') {
     rules.defineRule('featureNotes.enterBuilding',
       classLevel, '=',
         'source >= 5 ? "freehold, palace, or temple" : "freehold"'
@@ -816,11 +934,19 @@ DarkSun2E.initialEditorElements = function() {
     if(result[i][0] in OldSchool.ABILITIES)
       result[i][3] = abilityChoices;
   }
+  var index = result.findIndex(x => x[0] == 'alignment');
+  result.splice(index, 0, ['element', 'Element', 'select-one', ['Air', 'Earth', 'Fire', 'Water']]);
+  result.splice(index, 0, ['defiler', '', 'checkbox', ['Defiler']]);
   return result;
 };
 
 /* Sets #attributes#'s #attribute# attribute to a random value. */
 DarkSun2E.randomizeOneAttribute = function(attributes, attribute) {
+  var attr;
+  var attrs;
+  var choices;
+  var howMany;
+  var i;
   if(attribute == 'abilities') {
     for(var a in OldSchool.ABILITIES)
       DarkSun2E.randomizeOneAttribute(attributes, a.toLowerCase());
@@ -831,6 +957,46 @@ DarkSun2E.randomizeOneAttribute = function(attributes, attribute) {
     rolls.sort();
     attributes[attribute] =
       rolls[1] + rolls[2] + rolls[3] + rolls[4] + rolls[5];
+  } else if(attribute == 'element') {
+    attributes['element'] =
+      ['Air', 'Earth', 'Fire', 'Water'][QuilvynUtils.random(0, 3)];
+  } else if(attribute == 'spells' &&
+            ('levels.Cleric' in attributes ||
+             'experiencePoints.Cleric' in attributes)) {
+    attrs = this.applyRules(attributes);
+    for(var level = 1; level < 8; level++) {
+      attr = 'spellSlots.P' + level;
+      if(!(attr in attrs))
+        continue;
+      howMany = attrs[attr];
+      choices = [];
+      for(var spell in this.getChoices('spells')) {
+        if(!spell.includes('P' + level))
+          continue;
+        if('spells.' + spell in attrs)
+          howMany--;
+        else if(spell.includes('Cosmos') || spell.includes(attrs.element))
+          choices.push(spell);
+      }
+      while(howMany > 0 && choices.length > 0) {
+        i = QuilvynUtils.random(0, choices.length - 1);
+        attributes['spells.' + choices[i]] = 1;
+        choices.splice(i, 1);
+        howMany--;
+      }
+    }
+    // Call OSRIC in case of multiclass caster
+    OSRIC.randomizeOneAttribute.apply(this, [attributes, attribute]);
+  } else if(attribute == 'weapons' &&
+            ('levels.Gladiator' in attributes ||
+             'experiencePoints.Gladiator' in attributes)) {
+    for(var weapon in this.getChoices('weapons')) {
+      attributes['weaponProficiency.' + weapon] = 1;
+    }
+    OSRIC.randomizeOneAttribute.apply(this, [attributes, attribute]);
+    for(weapon in this.getChoices('weapons')) {
+      delete attributes['weaponProficiency.' + weapon];
+    }
   } else {
     OSRIC.randomizeOneAttribute.apply(this, [attributes, attribute]);
   }
