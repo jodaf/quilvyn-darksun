@@ -188,7 +188,10 @@ DarkSun2E.CLASSES = {
       'P6:14=1;15=2;16=3;17=4;19=5;20=6,' +
       'P7:15=1;17=2;19=3;20=4',
   'Thief':
-    classes2E['Thief'],
+    classes2E['Thief']
+    .replaceAll('Features=', 'Features=10:Patron,') + ' ' +
+    'Require=' +
+      '"alignment != \'Lawful Good\'","dexterity >= 9"',
   'Transmuter':
     classes2E['Transmuter']
 };
@@ -236,6 +239,9 @@ DarkSun2E.FEATURES_ADDED = {
   'Optimized Armor':'Section=combat Note="-%V AC in armor"',
   'Pass Judgment':
     'Section=feature Note="May pass judgment on %V within home city"',
+  'Patron':
+    'Section=combat ' +
+    'Note="%{levels.Thief*5}% chance of finding patron to assign tasks and provide protection"',
   'Requisition Soldiers':
     'Section=feature ' +
     'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
@@ -778,6 +784,16 @@ DarkSun2E.classRulesExtra = function(rules, name) {
     );
     rules.defineRule('turningLevel', classLevel, '+=', null);
     rules.defineRule('warriorLevel', classLevel, '+', null);
+  } else if(name == 'Thief') {
+    rules.defineRule('highDexSkillModifiers', 'dexterity', '=',
+      'source==20 ? "+12% Find Traps/+17% Hide In Shadows/+20% Move Silently/+25% Open Locks/+20% Pick Pockets" : ' +
+      'source==21 ? "+15% Find Traps/+20% Hide In Shadows/+25% Move Silently/+27% Open Locks/+25% Pick Pockets" : ' +
+      'source==22 ? "+17% Find Traps/+22% Hide In Shadows/+30% Move Silently/+30% Open Locks/+27% Pick Pockets" : ' +
+      'null'
+    );
+    rules.defineRule('skillNotes.dexteritySkillModifiers',
+      'highDexSkillModifiers', '=', null
+    );
   }
   OldSchool.classRulesExtra(rules, name);
 };
@@ -875,6 +891,10 @@ DarkSun2E.raceRulesExtra = function(rules, name) {
       'features.Vigorous', '?', null,
       'constitution', '=', 'source + 24'
     );
+    rules.defineRule('skillNotes.raceSkillModifiers',
+      raceLevel, '=',
+        '"+5% Climb Walls/-5% Open Locks/+5% Move Silently/-5% Read Languages"'
+      );
   } else if(name == 'Thri-kreen') {
     DarkSun2E.weaponRules(rules, 'Bite', 'Un', 'd4+1', null);
     DarkSun2E.weaponRules(rules, 'Claws', 'Un', 'd4', null);
