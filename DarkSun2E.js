@@ -132,7 +132,15 @@ DarkSun2E.CLASSES = {
   'Diviner':
     classes2E['Diviner'],
   'Druid':
-    classes2E['Druid'],
+    classes2E['Druid']
+    .replace(/"[^"]*Armor\s+Proficiency[^"]*",/ig, '')
+    .replaceAll('Features=',
+      'Features=' +
+        'Concealment,"Guarded Lands","3:Speak With Animals",' +
+        '"charisma >= 16/wisdom >= 16 ? 1:Bonus Druid Experience",' +
+        '"5:Speak With Plants","7:Live Off The Land",10:Shapeshift,') + ' ' +
+    'Require=' +
+      '"charisma >= 15","wisdom >= 12"',
   'Enchanter':
     classes2E['Enchanter'],
   'Fighter':
@@ -164,9 +172,13 @@ DarkSun2E.CLASSES = {
       '"strength >= 13","wisdom >= 14"',
   'Templar':
     classes2E['Cleric']
-    .replaceAll('Cleric', 'Templar')
-    .replace('Features=', 'Features="Command Slave","Pass Judgment","2:Enter Building","3:Requisition Soldiers","4:Make Accusation","6:Draw Funds","17:Grant Pardon",') + ' ' +
+    .replaceAll('Cleric', 'Templar') + ' ' +
     'Require="alignment !~ \'Good\'","intelligence >= 10","wisdom >= 9" ' +
+    'Features=' +
+      '"1:Armor Proficiency (All)","1:Shield Proficiency (All)",' +
+      '"1:Turn Undead","Command Slave","Pass Judgment","2:Enter Building",' +
+      '"3:Requisition Soldiers","4:Make Accusation","6:Create Scroll",' +
+      '"6:Draw Funds","8:Create Potion","17:Grant Pardon"' + ' ' +
     'SpellSlots=' +
       'P1:2=1;4=2;5=3;11=4;14=5;15=6;16=7;18=8;19=9,' +
       'P2:3=1;5=2;8=3;12=4;14=5;15=6;16=7;18=8;19=9,' +
@@ -191,6 +203,8 @@ DarkSun2E.FEATURES_ADDED = {
     'Section=feature Note="May command any slave within home city"',
   'Commander':
     'Section=combat Note="May lead up to %{levels.Fighter*100} troops"',
+  'Concealment':
+    'Section=feature Note="Undetectable non-magically in guarded lands"',
   'Conjure Element':
     'Section=magic ' +
     'Note="R50\' Gate %{levels.Cleric-6}\' cu material from element plane of %V 1/dy"',
@@ -211,7 +225,12 @@ DarkSun2E.FEATURES_ADDED = {
   'Enter Building':'Section=feature Note="May enter any %V within home city"',
   'Grant Pardon':
     'Section=feature Note="May pardon condemned man within home city"',
+  'Guarded Lands':
+    'Section=feature ' +
+    'Note="Must select geography to protect %{levels.Druid>=12?\'and spend half time there\':\'\'}"',
   'Leader':'Section=combat Note="Leads %V units of followers"',
+  'Live Off The Land':
+    'Section=feature Note="Needs no food or water while in guarded lands"',
   'Make Accusation':
     'Section=feature Note="May accuse %V of crime within home city"',
   'Optimized Armor':'Section=combat Note="-%V AC in armor"',
@@ -220,6 +239,15 @@ DarkSun2E.FEATURES_ADDED = {
   'Requisition Soldiers':
     'Section=feature ' +
     'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
+  'Shapeshift':
+    'Section=magic ' +
+    'Note="May change into creatures common to guarded lands 3/dy"',
+  'Speak With Animals':
+    'Section=magic ' +
+    'Note="<i>Speak With Animals</i> at will %{levels.Druid>=7 ? \'\' : \'in guarded lands\'}"',
+  'Speak With Plants':
+    'Section=magic ' +
+    'Note="<i>Speak With Plants</i> at will %{levels.Druid>=9 ? \'\': \'in guarded lands\'}"',
   'Trainer':
     'Section=combat Note="May teach students in use of specialized weapons"',
   'War Engineer':'Section=combat Note="May build heavy war machines"',
@@ -748,6 +776,8 @@ DarkSun2E.classRulesExtra = function(rules, name) {
         'source >= 15 ? "slave, freeman, or noble" : ' +
         'source >= 7 ? "slave or freeman" : "slave"'
     );
+    rules.defineRule('turningLevel', classLevel, '+=', null);
+    rules.defineRule('warriorLevel', classLevel, '+', null);
   }
   OldSchool.classRulesExtra(rules, name);
 };
