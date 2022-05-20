@@ -39,7 +39,7 @@ function DarkSun2E() {
 
   var rules = new QuilvynRules('Dark Sun - AD&D 2E', DarkSun2E.VERSION);
 
-  rules.defineChoice('choices', OldSchool.CHOICES);
+  rules.defineChoice('choices', ['Power'].concat(OldSchool.CHOICES));
   rules.choiceEditorElements = OSRIC.choiceEditorElements;
   rules.choiceRules = DarkSun2E.choiceRules;
   rules.editorElements = DarkSun2E.initialEditorElements();
@@ -59,7 +59,8 @@ function DarkSun2E() {
   DarkSun2E.abilityRules(rules);
   DarkSun2E.combatRules
     (rules, DarkSun2E.ARMORS, DarkSun2E.SHIELDS, DarkSun2E.WEAPONS);
-  DarkSun2E.magicRules(rules, DarkSun2E.SCHOOLS, DarkSun2E.SPELLS);
+  DarkSun2E.magicRules
+    (rules, DarkSun2E.SCHOOLS, DarkSun2E.SPELLS, DarkSun2E.POWERS);
   DarkSun2E.talentRules
     (rules, DarkSun2E.FEATURES, DarkSun2E.GOODIES,
      DarkSun2E.LANGUAGES, DarkSun2E.SKILLS);
@@ -69,6 +70,8 @@ function DarkSun2E() {
 
   rules.defineSheetElement('Cleric Element', 'Levels+', ' <b>(%V)</b>');
   rules.defineSheetElement('Defiler Or Preserver', 'Levels+', ' <b>(%V)</b>');
+  rules.defineSheetElement('Psionic Strength Points', 'Spell Points+');
+
   // Add additional elements to sheet -- copied from OldSchool.js
   rules.defineSheetElement('Strength');
   rules.defineSheetElement
@@ -179,7 +182,7 @@ DarkSun2E.CLASSES = {
     'Features=' +
       '"Armor Proficiency (Hide/Leather/Studded Leather)",' +
       '"Shield Proficiency (Small)",' +
-      '"Psionic Disciplines" ' +
+      '"Psionic Powers" ' +
     'Experience=0,2.2,4.4,8.8,16.5,30,55,100,200,400,600,800,1000,1200,1500,1800,2100,2400,2700,3000',
   'Ranger':
     classes2E['Ranger'] + ' ' +
@@ -263,7 +266,9 @@ DarkSun2E.FEATURES_ADDED = {
   'Patron':
     'Section=combat ' +
     'Note="%{levels.Thief*5}% chance of finding patron to assign tasks and provide protection"',
-  'Psionic Disciplines':'Section=skill Note="Access to %V disciplines"',
+  'Psionic Powers':
+    'Section=magic ' +
+    'Note="Access to %V disciplines, %1 sciences, %2 devotions, and %3 defense modes"',
   'Requisition Soldiers':
     'Section=feature ' +
     'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
@@ -381,6 +386,920 @@ DarkSun2E.LANGUAGES = {
   'Thri-kreen':'',
   'Yuan-ti':''
 };
+DarkSun2E.POWERS = {
+  'Aura Sight':
+    'Discipline=Clairsentience ' +
+    'Type=Science ' +
+    'Score=wisdom,-5 ' +
+    'Cost=9,9/rd ' +
+    'Description="FILL"',
+  'Clairaudience':
+    'Discipline=Clairsentience ' +
+    'Type=Science ' +
+    'Score=wisdom,-3 ' +
+    'Cost=6,4/rd ' +
+    'Description="FILL"',
+  'Clairvoyance':
+    'Discipline=Clairsentience ' +
+    'Type=Science ' +
+    'Score=wisdom,-4 ' +
+    'Cost=7,4/rd ' +
+    'Description="FILL"',
+  'Object Reading':
+    'Discipline=Clairsentience ' +
+    'Type=Science ' +
+    'Score=wisdom,-5 ' +
+    'Cost=16 ' +
+    'Description="FILL"',
+  'Precognition':
+    'Discipline=Clairsentience ' +
+    'Type=Science ' +
+    'Score=wisdom,-5 ' +
+    'Cost=24 ' +
+    'Description="FILL"',
+  'Sensitivity To Psychic Impressions':
+    'Discipline=Clairsentience ' +
+    'Type=Science ' +
+    'Score=wisdom,-4 ' +
+    'Cost=12,2/rd ' +
+    'Description="FILL"',
+  'All-Round Vision':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=6,4/rd ' +
+    'Description="FILL"',
+  'Combat Mind':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-4 ' +
+    'Cost=5,4/rd ' +
+    'Description="FILL"',
+  'Danger Sense':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=4,3/tn ' +
+    'Description="FILL"',
+  'Feel Light':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=7,5/rd ' +
+    'Description="FILL"',
+  'Feel Sound':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=5,3/rd ' +
+    'Description="FILL"',
+  'Hear Light':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=6,3/rd ' +
+    'Description="FILL"',
+  'Know Direction':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=intelligence ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Know Location':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=intelligence ' +
+    'Cost=10 ' +
+    'Description="FILL"',
+  'Poison Sense':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Radial Navigation':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-3 ' +
+    'Cost=4,7/hr ' +
+    'Description="FILL"',
+  'See Sound':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=6,3/rd ' +
+    'Description="FILL"',
+  'Spirit Sense':
+    'Discipline=Clairsentience ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=10 ' +
+    'Description="FILL"',
+  'Create Object':
+    'Discipline=Psychokinesis ' +
+    'Type=Science ' +
+    'Score=intelligence,-4 ' +
+    'Cost=16,3/rd ' +
+    'Description="FILL"',
+  'Detonate':
+    'Discipline=Psychokinesis ' +
+    'Type=Science ' +
+    'Score=constitution,-3 ' +
+    'Cost=18 ' +
+    'Description="FILL"',
+  'Disintegrate':
+    'Discipline=Psychokinesis ' +
+    'Type=Science ' +
+    'Score=wisdom,-4 ' +
+    'Cost=40 ' +
+    'Description="FILL"',
+  'Molecular Rearrangement':
+    'Discipline=Psychokinesis ' +
+    'Type=Science ' +
+    'Score=intelligence,-5 ' +
+    'Cost=20,10/hr ' +
+    'Description="FILL"',
+  'Project Force':
+    'Discipline=Psychokinesis ' +
+    'Type=Science ' +
+    'Score=constitution,-2 ' +
+    'Cost=10 ' +
+    'Description="FILL"',
+  'Telekinesis':
+    'Discipline=Psychokinesis ' +
+    'Type=Science ' +
+    'Score=wisdom,-3 ' +
+    'Cost=3,1/rd ' +
+    'Description="FILL"',
+  'Animate Object':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-3 ' +
+    'Cost=8,3/rd ' +
+    'Description="FILL"',
+  'Animate Shadow':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=7,3/rd ' +
+    'Description="FILL"',
+  'Ballistic Attack':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Control Body':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=8,8/rd ' +
+    'Description="FILL"',
+  'Control Flames':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-1 ' +
+    'Cost=6,3/rd ' +
+    'Description="FILL"',
+  'Control Light':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=intelligence ' +
+    'Cost=12,4/rd ' +
+    'Description="FILL"',
+  'Control Sound':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-5 ' +
+    'Cost=5,2/rd ' +
+    'Description="FILL"',
+  'Control Wind':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=16,10/rd ' +
+    'Description="FILL"',
+  'Create Sound':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-7 ' +
+    'Cost=8,3/rd ' +
+    'Description="FILL"',
+  'Inertial Barrier':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=7,5/rd ' +
+    'Description="FILL"',
+  'Levitation':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=12,2/rd ' +
+    'Description="FILL"',
+  'Molecular Agitation':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=7,6/rd ' +
+    'Description="FILL"',
+  'Molecular Manipulation':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-3 ' +
+    'Cost=6,5/rd ' +
+    'Description="FILL"',
+  'Soften':
+    'Discipline=Psychokinesis ' +
+    'Type=Devotion ' +
+    'Score=intelligence ' +
+    'Cost=4,3/rd ' +
+    'Description="FILL"',
+  'Animal Affinity':
+    'Discipline=Psychometabolism ' +
+    'Type=Science ' +
+    'Score=constitution,-4 ' +
+    'Cost=15,4/rd ' +
+    'Description="FILL"',
+  'Complete Healing':
+    'Discipline=Psychometabolism ' +
+    'Type=Science ' +
+    'Score=constitution ' +
+    'Cost=30 ' +
+    'Description="FILL"',
+  'Death Field':
+    'Discipline=Psychometabolism ' +
+    'Type=Science ' +
+    'Score=constitution,-8 ' +
+    'Cost=40 ' +
+    'Description="FILL"',
+  'Energy Containment':
+    'Discipline=Psychometabolism ' +
+    'Type=Science ' +
+    'Score=constitution,-2 ' +
+    'Cost=10 ' +
+    'Description="FILL"',
+  'Life Draining':
+    'Discipline=Psychometabolism ' +
+    'Type=Science ' +
+    'Score=constitution,-3 ' +
+    'Cost=11,5/rd ' +
+    'Description="FILL"',
+  'Metamorphosis':
+    'Discipline=Psychometabolism ' +
+    'Type=Science ' +
+    'Score=constitution,-6 ' +
+    'Cost=21,1/tn ' +
+    'Description="FILL"',
+  'Shadow-form':
+    'Discipline=Psychometabolism ' +
+    'Type=Science ' +
+    'Score=constitution,-6 ' +
+    'Cost=12,3/rd ' +
+    'Description="FILL"',
+  'Absorb Disease':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=12 ' +
+    'Description="FILL"',
+  'Adrenalin Control':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=8,4/rd ' +
+    'Description="FILL"',
+  'Aging':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-7 ' +
+    'Cost=15 ' +
+    'Description="FILL"',
+  'Biofeedback':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=6,3/rd ' +
+    'Description="FILL"',
+  'Body Control':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=7,5/tn ' +
+    'Description="FILL"',
+  'Body Equilibrium':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=2,2/rd ' +
+    'Description="FILL"',
+  'Body Weaponry':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=9,4/rd ' +
+    'Description="FILL"',
+  'Catfall':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=dexterity,-2 ' +
+    'Cost=4 ' +
+    'Description="FILL"',
+  'Cause Decay':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=4 ' +
+    'Description="FILL"',
+  'Cell Adjustment':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=5,20/rd ' +
+    'Description="FILL"',
+  'Chameleon Power':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-1 ' +
+    'Cost=6,3/rd ' +
+    'Description="FILL"',
+  'Chemical Simulation':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=9,6/rd ' +
+    'Description="FILL"',
+  'Displacement':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=6,3/rd ' +
+    'Description="FILL"',
+  'Double Pain':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Ectoplasmic Form':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=9,9/rd ' +
+    'Description="FILL"',
+  'Enhanced Strength':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=2,1/rd ' +
+    'Description="FILL"',
+  'Expansion':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=6,1/rd ' +
+    'Description="FILL"',
+  'Flesh Armor':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=8,4/rd ' +
+    'Description="FILL"',
+  'Graft Weapon':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-5 ' +
+    'Cost=10,1/rd ' +
+    'Description="FILL"',
+  'Heightened Senses':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution ' +
+    'Cost=5,1/rd ' +
+    'Description="FILL"',
+  'Immovability':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-5 ' +
+    'Cost=9,6/rd ' +
+    'Description="FILL"',
+  'Lend Health':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-1 ' +
+    'Cost=4 ' +
+    'Description="FILL"',
+  'Mind Over Body':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=0,10/dy ' +
+    'Description="FILL"',
+  'Reduction':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=1,1/rd ' +
+    'Description="FILL"',
+  'Share Strength':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=6,2/rd ' +
+    'Description="FILL"',
+  'Suspend Animation':
+    'Discipline=Psychometabolism ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=12 ' +
+    'Description="FILL"',
+  'Banishment':
+    'Discipline=Psychoportation ' +
+    'Type=Science ' +
+    'Score=intelligence,-1 ' +
+    'Cost=30,10/rd ' +
+    'Description="FILL"',
+  'Probability Travel':
+    'Discipline=Psychoportation ' +
+    'Type=Science ' +
+    'Score=intelligence ' +
+    'Cost=20,8/hr ' +
+    'Description="FILL"',
+  'Summon Planar Creature':
+    'Discipline=Psychoportation ' +
+    'Type=Science ' +
+    'Score=intelligence,-4 ' +
+    'Cost=45/90 ' +
+    'Description="FILL"',
+  'Teleport':
+    'Discipline=Psychoportation ' +
+    'Type=Science ' +
+    'Score=intelligence ' +
+    'Cost=10 ' +
+    'Description="FILL"',
+  'Teleport Other':
+    'Discipline=Psychoportation ' +
+    'Type=Science ' +
+    'Score=intelligence,-2 ' +
+    'Cost=20 ' +
+    'Description="FILL"',
+  'Astral Projection':
+    'Discipline=Psychoportation ' +
+    'Type=Devotion ' +
+    'Score=intelligence ' +
+    'Cost=6,2/hr ' +
+    'Description="FILL"',
+  'Dimensional Door':
+    'Discipline=Psychoportation ' +
+    'Type=Devotion ' +
+    'Score=constitution,-1 ' +
+    'Cost=4,2/rd ' +
+    'Description="FILL"',
+  'Dimension Walk':
+    'Discipline=Psychoportation ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=8,4/tn ' +
+    'Description="FILL"',
+  'Dream Travel':
+    'Discipline=Psychoportation ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Teleport Trigger':
+    'Discipline=Psychoportation ' +
+    'Type=Devotion ' +
+    'Score=intelligence,1 ' +
+    'Cost=0,2/hr ' +
+    'Description="FILL"',
+  'Time Shift':
+    'Discipline=Psychoportation ' +
+    'Type=Devotion ' +
+    'Score=intelligence ' +
+    'Cost=16 ' +
+    'Description="FILL"',
+  'Time/Space Anchor':
+    'Discipline=Psychoportation ' +
+    'Type=Devotion ' +
+    'Score=intelligence ' +
+    'Cost=5,1/rd ' +
+    'Description="FILL"',
+  'Domination':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=wisdom,-4 ' +
+    'Cost=6,6/rd ' +
+    'Description="FILL"',
+  'Ejection':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=wisdom,-4 ' +
+    'Cost=6 ' +
+    'Description="FILL"',
+  'Fate Link':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=constitution,-5 ' +
+    'Cost=3,5/tn ' +
+    'Description="FILL"',
+  'Mass Domination':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=wisdom,-6 ' +
+    'Cost=3,2/rd ' +
+    'Description="FILL"',
+  'Mindlink':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=wisdom,-5 ' +
+    'Cost=3,8/rd ' +
+    'Description="FILL"',
+  'Mindwipe':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=intelligence,-6 ' +
+    'Cost=3,8/rd ' +
+    'Description="FILL"',
+  'Probe':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=wisdom,-5 ' +
+    'Cost=3,9/rd ' +
+    'Description="FILL"',
+  'Psychic Crush':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=wisdom,-4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Superior Invisibility':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=intelligence,-5 ' +
+    'Cost=3,5/rd ' +
+    'Description="FILL"',
+  'Switch Personality':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=constitution,-4 ' +
+    'Cost=33 ' +
+    'Description="FILL"',
+  'Tower Of Iron Will':
+    'Discipline=Telepathy ' +
+    'Type=Science ' +
+    'Score=wisdom,-2 ' +
+    'Cost=6 ' +
+    'Description="FILL"',
+  'Attraction':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=3,8/rd ' +
+    'Description="FILL"',
+  'Aversion':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=3,8/tn ' +
+    'Description="FILL"',
+  'Awe':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=charisma,-2 ' +
+    'Cost=3,4/rd ' +
+    'Description="FILL"',
+  'Conceal Thoughts':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=5,3/rd ' +
+    'Description="FILL"',
+  'Contact':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=3,1/rd ' +
+    'Description="FILL"',
+  'Daydream':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=3,3/rd ' +
+    'Description="FILL"',
+  'Ego Whip':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=4 ' +
+    'Description="FILL"',
+  'Empathy':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=1,1/rd ' +
+    'Description="FILL"',
+  'ESP':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=3,6/rd ' +
+    'Description="FILL"',
+  'False Sensory Input':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-3 ' +
+    'Cost=3,4/rd ' +
+    'Description="FILL"',
+  'Id Insinuation':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Identity Penetration':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=3,6/rd ' +
+    'Description="FILL"',
+  'Incarnation Awareness':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=3,13/rd ' +
+    'Description="FILL"',
+  'Inflict Pain':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=3,2/rd ' +
+    'Description="FILL"',
+  'Intellect Fortress':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=4 ' +
+    'Description="FILL"',
+  'Invincible Foes':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=3,5/rd ' +
+    'Description="FILL"',
+  'Invisibility':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-5 ' +
+    'Cost=3,2/rd ' +
+    'Description="FILL"',
+  'Life Detection':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-2 ' +
+    'Cost=3,3/rd ' +
+    'Description="FILL"',
+  'Mental Barrier':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Mind Bar':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-2 ' +
+    'Cost=6,4/rd ' +
+    'Description="FILL"',
+  'Mind Blank':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-7 ' +
+    'Cost=0,0 ' +
+    'Description="FILL"',
+  'Mind Thrust':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-2 ' +
+    'Cost=2 ' +
+    'Description="FILL"',
+  'Phobia Amplification':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-2 ' +
+    'Cost=3,4/rd ' +
+    'Description="FILL"',
+  'Psionic Blast':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-5 ' +
+    'Cost=10 ' +
+    'Description="FILL"',
+  'Psychic Impersonation':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=10,3/hr ' +
+    'Description="FILL"',
+  'Psychich Messenger':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=4,3/rd ' +
+    'Description="FILL"',
+  'Repugnance':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-5 ' +
+    'Cost=3,8/rd ' +
+    'Description="FILL"',
+  'Send Thoughts':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-1 ' +
+    'Cost=3,2/rd ' +
+    'Description="FILL"',
+  'Sight Link':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=3,5/tn ' +
+    'Description="FILL"',
+  'Sound Link':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=3,4/tn ' +
+    'Description="FILL"',
+  'Synaptic Static':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-4 ' +
+    'Cost=15,10/rd ' +
+    'Description="FILL"',
+  'Taste Link':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=constitution,-2 ' +
+    'Cost=3,4/tn ' +
+    'Description="FILL"',
+  'Telempathic Projection':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-2 ' +
+    'Cost=3,4/rd ' +
+    'Description="FILL"',
+  'Thought Shield':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Truthear':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=4,2/rd ' +
+    'Description="FILL"',
+  'Appraise':
+    'Discipline=Metapsionic ' +
+    'Type=Science ' +
+    'Score=intelligence,-4 ' +
+    'Cost=14 ' +
+    'Description="FILL"',
+  'Aura Alteration':
+    'Discipline=Metapsionic ' +
+    'Type=Science ' +
+    'Score=wisdom,-4 ' +
+    'Cost=10 ' +
+    'Description="FILL"',
+  'Empower':
+    'Discipline=Metapsionic ' +
+    'Type=Science ' +
+    'Score=wisdom,-12 ' +
+    'Cost=150 ' +
+    'Description="FILL"',
+  'Psychic Clone':
+    'Discipline=Metapsionic ' +
+    'Type=Science ' +
+    'Score=wisdom,-8 ' +
+    'Cost=50,5/rd ' +
+    'Description="FILL"',
+  'Psychic Surgery':
+    'Discipline=Metapsionic ' +
+    'Type=Science ' +
+    'Score=wisdom,-5 ' +
+    'Cost=3,10/tn ' +
+    'Description="FILL"',
+  'Split Personality':
+    'Discipline=Metapsionic ' +
+    'Type=Science ' +
+    'Score=wisdom,-5 ' +
+    'Cost=40,6/rd ' +
+    'Description="FILL"',
+  'Ultrablast':
+    'Discipline=Metapsionic ' +
+    'Type=Science ' +
+    'Score=wisdom,-10 ' +
+    'Cost=75 ' +
+    'Description="FILL"',
+  'Cannibalize':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=constitution ' +
+    'Cost=0 ' +
+    'Description="FILL"',
+  'Convergence':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom ' +
+    'Cost=8 ' +
+    'Description="FILL"',
+  'Enhancement':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=30,8/rd ' +
+    'Description="FILL"',
+  'Gird':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-3 ' +
+    'Cost=0 ' +
+    'Description="FILL"',
+  'Intensify':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=varies,-3 ' +
+    'Cost=5,1/rd ' +
+    'Description="FILL"',
+  'Magnify':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-5 ' +
+    'Cost=25,1/rd ' +
+    'Description="FILL"',
+  'Martial Trance':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Prolong':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=constitution,-4 ' +
+    'Cost=5,2/rd ' +
+    'Description="FILL"',
+  'Psionic Inflation':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-5 ' +
+    'Cost=20,3/rd ' +
+    'Description="FILL"',
+  'Psionic Sense':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-3 ' +
+    'Cost=4,1/rd ' +
+    'Description="FILL"',
+  'Psychic Drain':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-6 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Receptacle':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-5 ' +
+    'Cost=0 ' +
+    'Description="FILL"',
+  'Retrospection':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=120 ' +
+    'Description="FILL"',
+  'Splice':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-2 ' +
+    'Cost=5,1/rd ' +
+    'Description="FILL"',
+  'Stasis Field':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=constitution,-3 ' +
+    'Cost=20,20/rd ' +
+    'Description="FILL"',
+  'Wrench':
+    'Discipline=Metapsionic ' +
+    'Type=Devotion ' +
+    'Score=wisdom,-4 ' +
+    'Cost=15,8/rd ' +
+    'Description="FILL"'
+};
 DarkSun2E.RACES = {
   'Dwarf':
     'Require=' +
@@ -448,8 +1367,26 @@ DarkSun2E.SCHOOLS =
   Object.assign({}, OldSchool.editedRules(OldSchool.SCHOOLS, 'School'));
 DarkSun2E.SHIELDS =
   Object.assign({}, OldSchool.editedRules(OldSchool.SHIELDS, 'Shield'));
-DarkSun2E.SKILLS =
-  Object.assign({}, OldSchool.editedRules(OldSchool.SKILLS, 'Skill'));
+var skills2E = OldSchool.editedRules(OldSchool.SKILLS, 'Skill');
+DarkSun2E.SKILLS_ADDED = {
+  'Find Traps':skills2E['Find Traps'].replaceAll('Class=', 'Class=Bard,'),
+  'Hide In Shadows':
+    skills2E['Hide In Shadows'].replaceAll('Class=', 'Class=Bard,'),
+  'Move Silently':skills2E['Move Silently'].replaceAll('Class=', 'Class=Bard,'),
+  'Open Locks':skills2E['Open Locks'].replaceAll('Class=', 'Class=Bard,'),
+  'Gem Cutting':
+    skills2E['Gem Cutting'].replaceAll('Class=', 'Class=Psionicist,'),
+  'Harness Subconscious':'Ability=wisdom Modifier=-1 Class=Psionicist',
+  'Hypnosis':'Ability=charisma Modifier=-2 Class=Psionicist',
+  'Rejuvenation':'Ability=wisdom Modifier=-1 Class=Psionicist',
+  'Meditative Focus':'Ability=wisdom Modifier=1 Class=Psionicist',
+  'Musical Instrument':
+    skills2E['Musical Instrument'].replaceAll('Class=', 'Class=Psionicist,'),
+  'Reading And Writing':
+    skills2E['Reading And Writing'].replaceAll('Class=', 'Class=Psionicist,'),
+  'Religion':skills2E['Religion'].replaceAll('Class=', 'Class=Psionicist,')
+};
+DarkSun2E.SKILLS = Object.assign({}, skills2E, DarkSun2E.SKILLS_ADDED);
 DarkSun2E.SPELLS_PRIEST_SPHERES = {
   'Aerial Servant':'Air',
   'Air Walk':'Air',
@@ -555,8 +1492,13 @@ DarkSun2E.identityRules = function(rules, alignments, classes, races) {
 };
 
 /* Defines rules related to magic use. */
-DarkSun2E.magicRules = function(rules, schools, spells) {
+DarkSun2E.magicRules = function(rules, schools, spells, powers) {
+  QuilvynUtils.checkAttrTable
+    (powers, ['Discipline', 'Type', 'Score', 'Cost', 'Description']);
   OldSchool.magicRules(rules, schools, spells);
+  for(var p in powers) {
+    DarkSun2E.choiceRules(rules, 'Power', p, powers[p]);
+  }
   // No changes needed to the rules defined by OldSchool method
 };
 
@@ -617,6 +1559,14 @@ DarkSun2E.choiceRules = function(rules, type, name, attrs) {
     );
   else if(type == 'Language')
     DarkSun2E.languageRules(rules, name);
+  else if(type == 'Power')
+    DarkSun2E.powerRules(rules, name,
+      QuilvynUtils.getAttrValue(attrs, 'Discipline'),
+      QuilvynUtils.getAttrValue(attrs, 'Type'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Score'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Cost'),
+      QuilvynUtils.getAttrValue(attrs, 'Description')
+    );
   else if(type == 'Race') {
     DarkSun2E.raceRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
@@ -635,6 +1585,7 @@ DarkSun2E.choiceRules = function(rules, type, name, attrs) {
   else if(type == 'Skill') {
     DarkSun2E.skillRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Ability'),
+      QuilvynUtils.getAttrValue(attrs, 'Modifier'),
       QuilvynUtils.getAttrValueArray(attrs, 'Class')
     );
     DarkSun2E.skillRulesExtra(rules, name);
@@ -808,8 +1759,36 @@ DarkSun2E.classRulesExtra = function(rules, name) {
       ('weaponProficiencyCount', 'combatNotes.weaponsExpert', '+', '0');
     rules.defineRule('weaponNonProficiencyPenalty', classLevel, 'v', '0');
   } else if(name == 'Psionicist') {
-    rules.defineRule('skillNotes.psionicDisciplines',
+    rules.defineRule('magicNotes.psionicPowers',
       classLevel, '+=', 'Math.floor((source + 6) / 4)'
+    );
+    rules.defineRule('magicNotes.psionicPowers.1',
+      classLevel, '+=', 'Math.floor((source + 1) / 2)'
+    );
+    rules.defineRule('magicNotes.psionicPowers.2',
+      classLevel, '+=', 'source >= 4 ? source + 1 : (source * 2 + 1)'
+    );
+    rules.defineRule('magicNotes.psionicPowers.3',
+      classLevel, '+=', 'Math.min(Math.floor((source + 1) / 2), 5)'
+    );
+    rules.defineRule('magicNotes.psionicStrengthBaseScore',
+      'wisdom', '=', '20 + (source - 15) * 2'
+    );
+    rules.defineRule('magicNotes.psionicStrengthConstitutionBonus',
+      'constitution', '+', 'source>=16 ? source - 15 : null'
+    );
+    rules.defineRule('magicNotes.psionicStrengthIntelligenceBonus',
+      'intelligence', '+', 'source>=16 ? source - 15 : null'
+    );
+    rules.defineRule('magicNotes.psionicStrengthLevelBonus',
+      'wisdom', '=', 'source>=16 ? source - 15 : null',
+      classLevel, '*', 'source - 1'
+    );
+    rules.defineRule('psionicStrengthPoints',
+      'magicNotes.psionicStrengthBaseScore', '=', null,
+      'magicNotes.psionicStrengthStrengthConstitutionBonus', '+', null,
+      'magicNotes.psionicStrengthStrengthIntelligenceBonus', '+', null,
+      'magicNotes.psionicStrengthStrengthLevelBonus', '+', null
     );
   } else if(name == 'Templar') {
     rules.defineRule('featureNotes.enterBuilding',
@@ -873,6 +1852,46 @@ DarkSun2E.goodyRules = function(
 DarkSun2E.languageRules = function(rules, name) {
   OldSchool.languageRules(rules, name);
   // No changes needed to the rules defined by OldSchool method
+};
+
+/*
+ * Defines in #rules# the rules associated with psionic power #name# from
+ * discipline #discipline#, which has type #type# ('Science' or 'Devotion'),
+ * score #score# (either an ability name or a tuple consisting of an ability
+ * name and a modifier), cost #cost# (either a single value or a two-value
+ * tuple with initial and maintenance costs). #description# is a brief
+ * description of the power's effects.
+ */
+DarkSun2E.powerRules = function(
+  rules, name, discipline, type, score, cost, description
+) {
+  if(!name) {
+    console.log('Empty power name');
+    return;
+  }
+  if(!(discipline + '').match(/^(Clairsentience|Psychokinesis|Psychometabolism|Psychoportation|Telepathy|Metapsionic)$/i)) {
+    console.log('Bad discipline "' + discipline + '" for power ' + name);
+    return;
+  }
+  if(!(type + '').match(/^(Science|Devotion)$/i)) {
+    console.log('Bad type "' + type + '" for power ' + name);
+    return;
+  }
+  if(!Array.isArray(score) || score.length < 1 || score.length > 2) {
+    console.log('Bad score "' + score + '" for power ' + name);
+    return;
+  } else if(!(score[0] in OldSchool.ABILITIES) && score[0] != 'varies') {
+    console.log('Bad score "' + score + '" for power ' + name);
+    return;
+  } else if(score.length == 2 && typeof(score[1]) != 'number') {
+    console.log('Bad score "' + score + '" for power ' + name);
+    return;
+  }
+  if(!Array.isArray(cost) || cost.length < 1 || cost.length > 2) {
+    console.log('Bad cost "' + cost + '" for power ' + name);
+    return;
+  }
+
 };
 
 /*
@@ -969,12 +1988,12 @@ DarkSun2E.shieldRules = function(rules, name, ac, weight) {
 
 /*
  * Defines in #rules# the rules associated with skill #name#, associated with
- * basic ability #ability#.  #classes# lists the classes for which this is a
- * class skill; a value of "all" indicates that this is a class skill for all
- * classes.
+ * basic ability #ability# plus #modifier#. #classes# lists the classes for
+ * which this is a class skill; a value of "all" indicates that this is a class
+ * skill for all classes.
  */
-DarkSun2E.skillRules = function(rules, name, ability, classes) {
-  OldSchool.skillRules(rules, name, ability, classes);
+DarkSun2E.skillRules = function(rules, name, ability, modifier, classes) {
+  OldSchool.skillRules(rules, name, ability, modifier, classes);
   // No changes needed to the rules defined by OldSchool method
 };
 
