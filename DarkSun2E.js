@@ -123,7 +123,12 @@ DarkSun2E.CLASSES = {
   'Abjurer':
     classes2E['Abjurer'],
   'Bard':
-    classes2E['Thief'],
+    classes2E['Bard']
+    .replace(/CasterLevel\S*|SpellAbility\S*|SpellSlots\S*/g, '') + ' ' +
+    'Features=' +
+      '"Armor Proficiency (All)",' +
+      '"Charming Music","Defensive Song","Legend Lore",' +
+      '"Poetic Inspiration","Bard Skills","Master Of Poisons"',
   'Cleric':
     classes2E['Cleric']
     .replace('Features=', 'Features="5:Elemental Indifference","7:Conjure Element",'),
@@ -165,6 +170,17 @@ DarkSun2E.CLASSES = {
     classes2E['Magic User'],
   'Necromancer':
     classes2E['Necromancer'],
+  'Psionicist':
+    'Require=' +
+      '"constitution >= 11","intelligence >= 13","wisdom >= 15" ' +
+    'HitDie=d6,9,2 Attack=0,1,2,- WeaponProficiency=2,5,4 ' +
+    'NonweaponProficiency=3,3 ' +
+    'Breath=16,1,4 Death=13,1,4 Petrification=10,1,4 Spell=15,1,4 Wand=15,2,4 '+
+    'Features=' +
+      '"Armor Proficiency (Hide/Leather/Studded Leather)",' +
+      '"Shield Proficiency (Small)",' +
+      '"Psionic Disciplines" ' +
+    'Experience=0,2.2,4.4,8.8,16.5,30,55,100,200,400,600,800,1000,1200,1500,1800,2100,2400,2700,3000',
   'Ranger':
     classes2E['Ranger'] + ' ' +
     'Require=' +
@@ -200,6 +216,9 @@ DarkSun2E.FEATURES_ADDED = {
   // Class
   'Artillerist':
     'Section=combat Note="May operate bombardment and siege weapons"',
+  'Bard Skills':
+    'Section=skill ' +
+    'Note="Climb Walls, Find Traps, Hear Noise, Hide In Shadows, Move Silently, Open Locks, Pick Pockets, Read Languages"',
   'Bonus Gladiator Experience':
     'Section=ability Note="10% added to awarded experience"',
   'Command Slave':
@@ -236,12 +255,15 @@ DarkSun2E.FEATURES_ADDED = {
     'Section=feature Note="Needs no food or water while in guarded lands"',
   'Make Accusation':
     'Section=feature Note="May accuse %V of crime within home city"',
+  'Master Of Poisons':
+    'Section=skill Note="Knows how to use up to %{levels.Bard} poisons"',
   'Optimized Armor':'Section=combat Note="-%V AC in armor"',
   'Pass Judgment':
     'Section=feature Note="May pass judgment on %V within home city"',
   'Patron':
     'Section=combat ' +
     'Note="%{levels.Thief*5}% chance of finding patron to assign tasks and provide protection"',
+  'Psionic Disciplines':'Section=skill Note="Access to %V disciplines"',
   'Requisition Soldiers':
     'Section=feature ' +
     'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
@@ -725,6 +747,7 @@ DarkSun2E.classRules = function(
  */
 DarkSun2E.classRulesExtra = function(rules, name) {
   var classLevel = 'levels.' + name;
+  OldSchool.classRulesExtra(rules, name);
   if(name.match(/Magic User|Abjurer|Conjurer|Diviner|Enchanter|Illusionist|Invoker|Necromancer|Transmuter/)) {
     var note = 'abilityNotes.defiler' + name.replaceAll(' ', '');
     rules.defineRule('features.Defiler ' + name,
@@ -740,7 +763,22 @@ DarkSun2E.classRulesExtra = function(rules, name) {
     rules.defineRule(classLevel, note, '^', null);
     rules.defineRule('experiencePoints.' + name + '.1', note + '.1', '=', null);
   }
-  if(name == 'Cleric') {
+  if(name == 'Bard') {
+    // Override values from OldSchool
+    rules.defineRule('skillLevel.Find Traps', classLevel, '+=', null);
+    rules.defineRule('skillLevel.Hide In Shadows', classLevel, '+=', null);
+    rules.defineRule('skillLevel.Move Silently', classLevel, '+=', null);
+    rules.defineRule('skillLevel.Open Locks', classLevel, '+=', null);
+    rules.defineRule('skillModifier.Climb Walls', classLevel, '+=', '60');
+    rules.defineRule('skillModifier.Find Traps', classLevel, '+=', '5');
+    rules.defineRule('skillModifier.Hear Noise', classLevel, '+=', '15');
+    rules.defineRule('skillModifier.Hide In Shadows', classLevel, '+=', '5');
+    rules.defineRule('skillModifier.Move Silently', classLevel, '+=', '10');
+    rules.defineRule('skillModifier.Open Locks', classLevel, '+=', '10');
+    rules.defineRule('skillModifier.Pick Pockets', classLevel, '+=', '15');
+    rules.defineRule('skillModifier.Read Languages', classLevel, '+=', '0');
+    rules.defineRule('skillPoints', classLevel, '+=', '20 * (source - 1)');
+  } else if(name == 'Cleric') {
     rules.defineRule('featureNotes.elementalIndifference',
       'element', '=', 'source.toLowerCase()'
     );
@@ -769,6 +807,10 @@ DarkSun2E.classRulesExtra = function(rules, name) {
     rules.defineRule
       ('weaponProficiencyCount', 'combatNotes.weaponsExpert', '+', '0');
     rules.defineRule('weaponNonProficiencyPenalty', classLevel, 'v', '0');
+  } else if(name == 'Psionicist') {
+    rules.defineRule('skillNotes.psionicDisciplines',
+      classLevel, '+=', 'Math.floor((source + 6) / 4)'
+    );
   } else if(name == 'Templar') {
     rules.defineRule('featureNotes.enterBuilding',
       classLevel, '=',
@@ -795,7 +837,6 @@ DarkSun2E.classRulesExtra = function(rules, name) {
       'highDexSkillModifiers', '=', null
     );
   }
-  OldSchool.classRulesExtra(rules, name);
 };
 
 /*
