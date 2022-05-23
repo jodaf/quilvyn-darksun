@@ -72,14 +72,13 @@ function DarkSun2E() {
 
   rules.defineEditorElement
     ('disciplines', 'Disciplines', 'set', 'disciplines', 'spells');
-  rules.defineEditorElement
-    ('powers', 'Psionic Powers', 'set', 'powers', 'spells');
+  rules.defineEditorElement('powers', 'Powers', 'set', 'powers', 'spells');
   rules.defineSheetElement('Cleric Element', 'Levels+', ' <b>(%V)</b>');
   rules.defineSheetElement('Defiler Or Preserver', 'Levels+', ' <b>(%V)</b>');
   rules.defineSheetElement('Disciplines', 'Spell Points+', null, '; ');
   rules.defineSheetElement('Psionic Strength Points', 'Disciplines+');
   rules.defineSheetElement
-    ('Powers', 'Spells', '<b>Psionic Powers</b>:\n%V', '\n');
+    ('Powers', 'Spells', '<b>Powers</b>:\n%V', '\n');
 
   // Add additional elements to sheet -- copied from OldSchool.js
   rules.defineSheetElement('Strength');
@@ -184,15 +183,18 @@ DarkSun2E.CLASSES = {
     classes2E.Necromancer,
   'Psionicist':
     'Require=' +
-      '"constitution >= 11","intelligence >= 13","wisdom >= 15" ' +
+      '"alignment !~ \'Chaotic\'","constitution >= 11","intelligence >= 13",' +
+      '"wisdom >= 15" ' +
     'HitDie=d6,9,2 Attack=0,1,2,- WeaponProficiency=2,5,4 ' +
     'NonweaponProficiency=3,3 ' +
-    'Breath=16,1,4 Death=13,1,4 Petrification=10,1,4 Spell=15,1,4 Wand=15,2,4 '+
+    'Breath=16,1,4 Death=13,1,4 Petrification=10,1,4 Spell=15,2,4 Wand=15,2,4 '+
     'Features=' +
       '"Armor Proficiency (Hide/Leather/Studded Leather)",' +
       '"Shield Proficiency (Small)",' +
-      '"Psionic Powers" ' +
-    'Experience=0,2.2,4.4,8.8,16.5,30,55,100,200,400,600,800,1000,1200,1500,1800,2100,2400,2700,3000',
+      '"Psionic Powers","Resist Enchantment" ' +
+    'Experience=' +
+      '0,2.2,4.4,8.8,16.5,30,55,100,200,400,600,800,1000,1200,1500,1800,2100,' +
+      '2400,2700,3000',
   'Ranger':
     classes2E.Ranger + ' ' +
     'Require=' +
@@ -289,6 +291,7 @@ DarkSun2E.FEATURES_ADDED = {
   'Requisition Soldiers':
     'Section=feature ' +
     'Note="Can call upon %{levels.Templar}d4 soldiers within home city"',
+  'Resist Enchantment':'Section=save Note="+2 vs. enchantment spells"',
   'Shapeshift':
     'Section=magic ' +
     'Note="May change into creatures common to guarded lands 3/dy"',
@@ -304,6 +307,7 @@ DarkSun2E.FEATURES_ADDED = {
   'Weapons Expert':
     'Section=combat ' +
     'Note="Proficient in all weapons; may specialize in multiple weapons"',
+  'Wild Talent':'Section=magic Note="Access to 1 discipline and 1 devotion"',
 
   // Race
   'Antennae':'Section=combat Note="Reduces melee vision penalty by 1"',
@@ -964,7 +968,7 @@ DarkSun2E.POWERS = {
     'Description="FILL"',
   'Tower Of Iron Will':
     'Discipline=Telepathy ' +
-    'Type=Science ' +
+    'Type=Defense ' +
     'Score=wisdom,-2 ' +
     'Cost=6 ' +
     'Description="FILL"',
@@ -1054,7 +1058,7 @@ DarkSun2E.POWERS = {
     'Description="FILL"',
   'Intellect Fortress':
     'Discipline=Telepathy ' +
-    'Type=Devotion ' +
+    'Type=Defense ' +
     'Score=wisdom,-3 ' +
     'Cost=4 ' +
     'Description="FILL"',
@@ -1078,7 +1082,7 @@ DarkSun2E.POWERS = {
     'Description="FILL"',
   'Mental Barrier':
     'Discipline=Telepathy ' +
-    'Type=Devotion ' +
+    'Type=Defense ' +
     'Score=wisdom,-2 ' +
     'Cost=3 ' +
     'Description="FILL"',
@@ -1090,7 +1094,7 @@ DarkSun2E.POWERS = {
     'Description="FILL"',
   'Mind Blank':
     'Discipline=Telepathy ' +
-    'Type=Devotion ' +
+    'Type=Defense ' +
     'Score=wisdom,-7 ' +
     'Cost=0,0 ' +
     'Description="FILL"',
@@ -1168,7 +1172,7 @@ DarkSun2E.POWERS = {
     'Description="FILL"',
   'Thought Shield':
     'Discipline=Telepathy ' +
-    'Type=Devotion ' +
+    'Type=Defense ' +
     'Score=wisdom,-3 ' +
     'Cost=1 ' +
     'Description="FILL"',
@@ -1521,8 +1525,16 @@ DarkSun2E.magicRules = function(rules, schools, spells, disciplines, powers) {
     DarkSun2E.choiceRules(rules, 'Power', p, powers[p]);
   }
   QuilvynRules.validAllocationRules
-    (rules, 'discipline', 'disciplineCount', 'Sum "^disciplines\\."');
-  // No changes needed to the rules defined by OldSchool method
+    (rules, 'discipline', 'psionicDisciplineCount', 'Sum "^disciplines\\."');
+  rules.defineRule('notPsionicist',
+    'level', '=', '1',
+    'levels.Psionicist', '=', '0'
+  );
+  rules.defineRule
+    ('features.Wild Talent', 'notPsionicist', '=', 'source==1 ? 1 : null');
+  rules.defineRule
+    ('psionicDisciplineCount', 'magicNotes.wildTalent', '+=', '1');
+  rules.defineRule('psionicDevotionCount', 'magicNotes.wildTalent', '+=', '1');
 };
 
 /* Defines rules related to character aptitudes. */
@@ -1784,9 +1796,23 @@ DarkSun2E.classRulesExtra = function(rules, name) {
       ('weaponProficiencyCount', 'combatNotes.weaponsExpert', '+', '0');
     rules.defineRule('weaponNonProficiencyPenalty', classLevel, 'v', '0');
   } else if(name == 'Psionicist') {
-    rules.defineRule('disciplineCount', 'magicNotes.psionicPowers', '+=', null);
-    rules.defineRule('scienceCount', 'magicNotes.psionicPowers.1', '+=', null);
-    rules.defineRule('devotionCount', 'magicNotes.psionicPowers.2', '+=', null);
+    rules.defineRule('classPsionicistBreathSaveAdjustment',
+      classLevel, '=', 'source>=21 ? -2 : source>=9 ? -1 : null'
+    );
+    rules.defineRule('classPsionicistSpellSaveAdjustment',
+      classLevel, '=', 'source>=13 ? 2 : source>=5 ? 1 : null'
+    );
+    rules.defineRule('classPsionicistSpellSave',
+      'classPsionicistSpellSaveAdjustment', '+', null
+    );
+    rules.defineRule
+      ('psionicDisciplineCount', 'magicNotes.psionicPowers', '+=', null);
+    rules.defineRule
+      ('psionicScienceCount', 'magicNotes.psionicPowers.1', '+=', null);
+    rules.defineRule
+      ('psionicDevotionCount', 'magicNotes.psionicPowers.2', '+=', null);
+    rules.defineRule
+      ('psionicDefenseCount', 'magicNotes.psionicPowers.2', '+=', null);
     rules.defineRule('magicNotes.psionicPowers',
       classLevel, '+=', 'Math.floor((source + 6) / 4)'
     );
@@ -1794,13 +1820,13 @@ DarkSun2E.classRulesExtra = function(rules, name) {
       classLevel, '+=', 'Math.floor((source + 1) / 2)'
     );
     rules.defineRule('magicNotes.psionicPowers.2',
-      classLevel, '+=', 'source >= 4 ? source + 1 : (source * 2 + 1)'
+      classLevel, '+=', 'source>=4 ? source + 5 : (source * 2 + 1)'
     );
     rules.defineRule('magicNotes.psionicPowers.3',
       classLevel, '+=', 'Math.min(Math.floor((source + 1) / 2), 5)'
     );
     rules.defineRule('magicNotes.psionicStrengthBaseScore',
-      'features.Psionic Powers', '?', null,
+      'psionicDisciplineCount', '?', null,
       'wisdom', '=', '20 + (source - 15) * 2'
     );
     rules.defineRule('magicNotes.psionicStrengthConstitutionBonus',
@@ -1810,14 +1836,14 @@ DarkSun2E.classRulesExtra = function(rules, name) {
       'intelligence', '+', 'source>=16 ? source - 15 : null'
     );
     rules.defineRule('magicNotes.psionicStrengthLevelBonus',
-      'wisdom', '=', 'source>=16 ? source - 15 : null',
+      'wisdom', '=', 'source>=16 ? source - 5 : null',
       classLevel, '*', 'source - 1'
     );
     rules.defineRule('psionicStrengthPoints',
       'magicNotes.psionicStrengthBaseScore', '=', null,
       'magicNotes.psionicStrengthStrengthConstitutionBonus', '+', null,
       'magicNotes.psionicStrengthStrengthIntelligenceBonus', '+', null,
-      'magicNotes.psionicStrengthStrengthLevelBonus', '+', null
+      'magicNotes.psionicStrengthLevelBonus', '+', null
     );
   } else if(name == 'Templar') {
     rules.defineRule('featureNotes.enterBuilding',
@@ -1894,10 +1920,10 @@ DarkSun2E.languageRules = function(rules, name) {
 
 /*
  * Defines in #rules# the rules associated with psionic power #name# from
- * discipline #discipline#, which has type #type# ('Science' or 'Devotion'),
- * score #score# (either an ability name or a tuple consisting of an ability
- * name and a modifier), cost #cost# (either a single value or a two-value
- * tuple with initial and maintenance costs). #description# is a brief
+ * discipline #discipline#, which has type #type# ('Science', 'Devotion', or
+ * 'Defense'), score #score# (either an ability name or a tuple consisting of
+ * an ability name and a modifier), cost #cost# (either a single value or a
+ * two-value tuple with initial and maintenance costs). #description# is a brief
  * description of the power's effects.
  */
 DarkSun2E.powerRules = function(
@@ -1911,7 +1937,7 @@ DarkSun2E.powerRules = function(
     console.log('Bad discipline "' + discipline + '" for power ' + name);
     return;
   }
-  if(!(type + '').match(/^(Science|Devotion)$/i)) {
+  if(!(type + '').match(/^(Science|Devotion|Defense)$/i)) {
     console.log('Bad type "' + type + '" for power ' + name);
     return;
   }
@@ -2114,7 +2140,7 @@ DarkSun2E.randomizeOneAttribute = function(attributes, attribute) {
       rolls[1] + rolls[2] + rolls[3] + rolls[4] + rolls[5];
   } else if(attribute == 'disciplines') {
     attrs = this.applyRules(attributes);
-    howMany = attrs.disciplineCount || 0;
+    howMany = attrs.psionicDisciplineCount || 0;
     choices = [];
     for(attr in this.getChoices('disciplines')) {
       if('disciplines.' + attr in attrs)
@@ -2134,46 +2160,33 @@ DarkSun2E.randomizeOneAttribute = function(attributes, attribute) {
   } else if(attribute == 'powers') {
     attrs = this.applyRules(attributes);
     var allowedDisciplines = {};
-    var discipline;
     for(attr in attrs) {
       if(attr.match(/^disciplines\./))
         allowedDisciplines[attr.replace('disciplines.', '')] = 1;
     }
     var allPowers = this.getChoices('powers');
-    howMany = attrs.scienceCount || 0;
-    choices = [];
-    for(attr in allPowers) {
-      if(!allPowers[attr].includes('Type=Science'))
-        continue;
-      discipline = QuilvynUtils.getAttrValue(allPowers[attr], 'Discipline');
-      if('powers.' + attr in attrs)
+    ['Science', 'Devotion', 'Defense'].forEach(type => {
+      howMany = attrs['psionic' + type + 'Count'] || 0;
+      choices = [];
+      for(attr in allPowers) {
+        if(!allPowers[attr].includes('Type=' + type))
+          continue;
+        var discipline =
+          QuilvynUtils.getAttrValue(allPowers[attr], 'Discipline');
+        if(type != 'Defense' && !(discipline in allowedDisciplines))
+          continue;
+        if('powers.' + attr in attrs)
+          howMany--;
+        else
+          choices.push(attr);
+      }
+      while(howMany > 0 && choices.length > 0) {
+        i = QuilvynUtils.random(0, choices.length - 1);
+        attributes['powers.' + choices[i]] = 1;
+        choices.splice(i, 1);
         howMany--;
-      else if(discipline in allowedDisciplines)
-        choices.push(attr);
-    }
-    while(howMany > 0 && choices.length > 0) {
-      i = QuilvynUtils.random(0, choices.length - 1);
-      attributes['powers.' + choices[i]] = 1;
-      choices.splice(i, 1);
-      howMany--;
-    }
-    howMany = attrs.devotionCount || 0;
-    choices = [];
-    for(attr in allPowers) {
-      if(!allPowers[attr].includes('Type=Devotion'))
-        continue;
-      discipline = QuilvynUtils.getAttrValue(allPowers[attr], 'Discipline');
-      if('powers.' + attr in attrs)
-        howMany--;
-      else if(discipline in allowedDisciplines)
-        choices.push(attr);
-    }
-    while(howMany > 0 && choices.length > 0) {
-      i = QuilvynUtils.random(0, choices.length - 1);
-      attributes['powers.' + choices[i]] = 1;
-      choices.splice(i, 1);
-      howMany--;
-    }
+      }
+    });
   } else if(attribute == 'spells' &&
             ('levels.Cleric' in attributes ||
              'experiencePoints.Cleric' in attributes)) {
