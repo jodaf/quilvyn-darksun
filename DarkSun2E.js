@@ -1466,10 +1466,10 @@ delete DarkSun2E.SPELLS['Conjure Earth Elemental'];
 delete DarkSun2E.SPELLS['Conjure Fire Elemental'];
 DarkSun2E.WEAPONS_ADDED = {
   'Chatkcha':'Category=R Damage=d6+2 Range=90',
-  'Gythka':'Category=2h Damage=d10',
+  'Gythka':'Category=2h Damage=2d4',
   'Impaler':'Category=2h Damage=d8',
-  'Quabone':'Category=Li Damage=d3',
-  'Wrist Razor':'Category=Li Damage=d4+1'
+  'Quabone':'Category=Li Damage=d4',
+  'Wrist Razor':'Category=Li Damage=d6+1'
 };
 DarkSun2E.WEAPONS =
   Object.assign({}, OldSchool.editedRules(OldSchool.WEAPONS, 'Weapon'), DarkSun2E.WEAPONS_ADDED);
@@ -1825,25 +1825,27 @@ DarkSun2E.classRulesExtra = function(rules, name) {
     rules.defineRule('magicNotes.psionicPowers.3',
       classLevel, '+=', 'Math.min(Math.floor((source + 1) / 2), 5)'
     );
-    rules.defineRule('magicNotes.psionicStrengthBaseScore',
-      'psionicDisciplineCount', '?', null,
-      'wisdom', '=', '20 + (source - 15) * 2'
+    rules.defineRule('magicNotes.constitutionPsionicStrengthPointsBonus',
+      classLevel, '?', null,
+      'constitution', '=', 'source>=16 ? source - 15 : null'
     );
-    rules.defineRule('magicNotes.psionicStrengthConstitutionBonus',
-      'constitution', '+', 'source>=16 ? source - 15 : null'
+    rules.defineRule('magicNotes.intelligencePsionicStrengthPointsBonus',
+      classLevel, '?', null,
+      'intelligence', '=', 'source>=16 ? source - 15 : null'
     );
-    rules.defineRule('magicNotes.psionicStrengthIntelligenceBonus',
-      'intelligence', '+', 'source>=16 ? source - 15 : null'
+    rules.defineRule('magicNotes.wisdomPsionicStrengthPoints',
+      classLevel, '?', null,
+      'wisdom', '=', '20 + (source - 15) * 2',
+      'levelPsionicStrengthPoints', '+', null
     );
-    rules.defineRule('magicNotes.psionicStrengthLevelBonus',
-      'wisdom', '=', 'source>=16 ? source - 5 : null',
-      classLevel, '*', 'source - 1'
+    rules.defineRule('levelPsionicStrengthPoints',
+      classLevel, '=', 'source - 1',
+      'wisdom', '*', 'source - 5'
     );
     rules.defineRule('psionicStrengthPoints',
-      'magicNotes.psionicStrengthBaseScore', '=', null,
-      'magicNotes.psionicStrengthStrengthConstitutionBonus', '+', null,
-      'magicNotes.psionicStrengthStrengthIntelligenceBonus', '+', null,
-      'magicNotes.psionicStrengthLevelBonus', '+', null
+      'magicNotes.wisdomPsionicStrengthPoints', '=', null,
+      'magicNotes.constitutionPsionicStrengthPointsBonus', '+', null,
+      'magicNotes.intelligencePsionicStrengthPointsBonus', '+', null,
     );
   } else if(name == 'Templar') {
     rules.defineRule('featureNotes.enterBuilding',
