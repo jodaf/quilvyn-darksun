@@ -71,6 +71,8 @@ function DarkSun2E() {
   );
 
   rules.defineEditorElement
+    ('wildTalent', 'Wild Talent', 'checkbox', [''], 'spells');
+  rules.defineEditorElement
     ('disciplines', 'Disciplines', 'set', 'disciplines', 'spells');
   rules.defineEditorElement('powers', 'Powers', 'set', 'powers', 'spells');
   rules.defineSheetElement('Cleric Element', 'Levels+', ' <b>(%V)</b>');
@@ -307,7 +309,9 @@ DarkSun2E.FEATURES_ADDED = {
   'Weapons Expert':
     'Section=combat ' +
     'Note="Proficient in all weapons; may specialize in multiple weapons"',
-  'Wild Talent':'Section=magic Note="Access to 1 discipline and 1 devotion"',
+  'Wild Talent':
+    'Section=magic ' +
+    'Note="Access to 1 discipline and 1 devotion; %V Psionic Strength Points"',
 
   // Race
   'Antennae':'Section=combat Note="Reduces melee vision penalty by 1"',
@@ -413,229 +417,237 @@ DarkSun2E.POWERS = {
     'Type=Science ' +
     'Score=wisdom,-5 ' +
     'Cost=9,9/rd ' +
-    'Description="FILL"',
+    'Description="R50\' Self learns 2 targets\' alignment or level"',
   'Clairaudience':
     'Discipline=Clairsentience ' +
     'Type=Science ' +
     'Score=wisdom,-3 ' +
     'Cost=6,4/rd ' +
-    'Description="FILL"',
+    'Description="Self hears known location"',
   'Clairvoyance':
     'Discipline=Clairsentience ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
     'Cost=7,4/rd ' +
-    'Description="FILL"',
+    'Description="Self sees known location"',
   'Object Reading':
     'Discipline=Clairsentience ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
+    'Preparation=1 ' +
     'Cost=16 ' +
-    'Description="FILL"',
+    'Description="Self learns info about target object\'s prior owner"',
   'Precognition':
     'Discipline=Clairsentience ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
+    'Preparation=5 ' +
     'Cost=24 ' +
-    'Description="FILL"',
+    'Description="Self learns outcome of action over the next few hours"',
   'Sensitivity To Psychic Impressions':
     'Discipline=Clairsentience ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
+    'Preparation=2 ' +
     'Cost=12,2/rd ' +
-    'Description="FILL"',
+    'Description="Self learns history of area"',
   'All-Round Vision':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=6,4/rd ' +
-    'Description="FILL"',
+    'Description="Self gains 360-degree vision"',
   'Combat Mind':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=intelligence,-4 ' +
     'Cost=5,4/rd ' +
-    'Description="FILL"',
+    'Description="Self gains -1 initiative"',
   'Danger Sense':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=4,3/tn ' +
-    'Description="FILL"',
+    'Description="R10\' Self detects nearby hazard or threat"',
   'Feel Light':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=7,5/rd ' +
-    'Description="FILL"',
+    'Description="Self sees via skin"',
   'Feel Sound':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=5,3/rd ' +
-    'Description="FILL"',
+    'Description="Self hears via skin"',
   'Hear Light':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=6,3/rd ' +
-    'Description="FILL"',
+    'Description="Self sees via ears"',
   'Know Direction':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
     'Cost=1 ' +
-    'Description="FILL"',
+    'Description="Self determines north"',
   'Know Location':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
+    'Preparation=5 ' +
     'Cost=10 ' +
-    'Description="FILL"',
+    'Description="Self learns general location"',
   'Poison Sense':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
+    'Preparation=5 ' +
     'Cost=1 ' +
-    'Description="FILL"',
+    'Description="R1\' Self detects presence of poison"',
   'Radial Navigation':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=intelligence,-3 ' +
     'Cost=4,7/hr ' +
-    'Description="FILL"',
+    'Description="Self knows distance and direction of starting point"',
   'See Sound':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=6,3/rd ' +
-    'Description="FILL"',
+    'Description="Self hears via eyes"',
   'Spirit Sense':
     'Discipline=Clairsentience ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=10 ' +
-    'Description="FILL"',
+    'Description="R15\' Self detects presence of spirits"',
   'Create Object':
     'Discipline=Psychokinesis ' +
     'Type=Science ' +
     'Score=intelligence,-4 ' +
     'Cost=16,3/rd ' +
-    'Description="FILL"',
+    'Description="R20\' Creates object up to 4\' diameter"',
   'Detonate':
     'Discipline=Psychokinesis ' +
     'Type=Science ' +
     'Score=constitution,-3 ' +
     'Cost=18 ' +
-    'Description="FILL"',
+    'Description="R60\' 10\' radius inflicts 1d10 HP (Breath save half)"',
   'Disintegrate':
     'Discipline=Psychokinesis ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
     'Cost=40 ' +
-    'Description="FILL"',
+    'Description="R50\' Target obliterated (Death save neg)"',
   'Molecular Rearrangement':
     'Discipline=Psychokinesis ' +
     'Type=Science ' +
     'Score=intelligence,-5 ' +
+    'Preparation="2 hr" ' +
     'Cost=20,10/hr ' +
-    'Description="FILL"',
+    'Description="R2\' Converts 1 oz from one material to another"',
   'Project Force':
     'Discipline=Psychokinesis ' +
     'Type=Science ' +
     'Score=constitution,-2 ' +
     'Cost=10 ' +
-    'Description="FILL"',
+    'Description="R200\' Remote punch inflicts 1d6+AC HP"',
   'Telekinesis':
     'Discipline=Psychokinesis ' +
     'Type=Science ' +
     'Score=wisdom,-3 ' +
     'Cost=3,1/rd ' +
-    'Description="FILL"',
+    'Description="R30\' Target object moves 60\'/rd"',
   'Animate Object':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=intelligence,-3 ' +
     'Cost=8,3/rd ' +
-    'Description="FILL"',
+    'Description="Target up to 100 lb moves as if alive"',
   'Animate Shadow':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=7,3/rd ' +
-    'Description="FILL"',
+    'Description="R40\' Target shadow moves independently of source"',
   'Ballistic Attack':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Cost=5 ' +
-    'Description="FILL"',
+    'Description="R30\' 1 lb missile inflicts 1d6 HP"',
   'Control Body':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Cost=8,8/rd ' +
-    'Description="FILL"',
+    'Description="R80\' Self controls target\'s movements"',
   'Control Flames':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=wisdom,-1 ' +
     'Cost=6,3/rd ' +
-    'Description="FILL"',
+    'Description="R40\' Target 10\' sq flame doubles or halves size"',
   'Control Light':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
     'Cost=12,4/rd ' +
-    'Description="FILL"',
+    'Description="R25\' Target 400\' sq area brightens or dims"',
   'Control Sound':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=intelligence,-5 ' +
     'Cost=5,2/rd ' +
-    'Description="FILL"',
+    'Description="R100\' Modifies existing sounds"',
   'Control Wind':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
+    'Preparation=2 ' +
     'Cost=16,10/rd ' +
-    'Description="FILL"',
+    'Description="R500\' Changes speed and direction of wind, up to 10 MPH and degrees"',
   'Create Sound':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=intelligence,-7 ' +
     'Cost=8,3/rd ' +
-    'Description="FILL"',
+    'Description="R100\' Creates sound up to group shouting"',
   'Inertial Barrier':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=7,5/rd ' +
-    'Description="FILL"',
+    'Description="R3\' Barrier reduces damage from missiles, flames, breath, and gas"',
   'Levitation':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=12,2/rd ' +
-    'Description="FILL"',
+    'Description="Self ascend or descend up to 60\'/rd"',
   'Molecular Agitation':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Cost=7,6/rd ' +
-    'Description="FILL"',
+    'Description="R40\' Heats targets"',
   'Molecular Manipulation':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=intelligence,-3 ' +
+    'Preparation=1 ' +
     'Cost=6,5/rd ' +
-    'Description="FILL"',
+    'Description="R15\' Creates weak spot in target"',
   'Soften':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
     'Cost=4,3/rd ' +
-    'Description="FILL"',
+    'Description="R30\' Target object softens"',
   'Animal Affinity':
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
@@ -652,6 +664,7 @@ DarkSun2E.POWERS = {
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution,-8 ' +
+    'Preparation=3 ' +
     'Cost=40 ' +
     'Description="FILL"',
   'Energy Containment':
@@ -670,6 +683,7 @@ DarkSun2E.POWERS = {
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution,-6 ' +
+    'Preparation=5 ' +
     'Cost=21,1/tn ' +
     'Description="FILL"',
   'Shadow-form':
@@ -748,6 +762,7 @@ DarkSun2E.POWERS = {
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
+    'Preparation=1 ' +
     'Cost=9,6/rd ' +
     'Description="FILL"',
   'Displacement':
@@ -766,6 +781,7 @@ DarkSun2E.POWERS = {
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
+    'Preparation=1 ' +
     'Cost=9,9/rd ' +
     'Description="FILL"',
   'Enhanced Strength':
@@ -832,6 +848,7 @@ DarkSun2E.POWERS = {
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
+    'Preparation=5 ' +
     'Cost=12 ' +
     'Description="FILL"',
   'Banishment':
@@ -844,12 +861,14 @@ DarkSun2E.POWERS = {
     'Discipline=Psychoportation ' +
     'Type=Science ' +
     'Score=intelligence ' +
+    'Preparation=2 ' +
     'Cost=20,8/hr ' +
     'Description="FILL"',
   'Summon Planar Creature':
     'Discipline=Psychoportation ' +
     'Type=Science ' +
     'Score=intelligence,-4 ' +
+    'Preparation=12 ' +
     'Cost=45/90 ' +
     'Description="FILL"',
   'Teleport':
@@ -868,6 +887,7 @@ DarkSun2E.POWERS = {
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
+    'Preparation=1 ' +
     'Cost=6,2/hr ' +
     'Description="FILL"',
   'Dimensional Door':
@@ -880,6 +900,7 @@ DarkSun2E.POWERS = {
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
+    'Preparation=2 ' +
     'Cost=8,4/tn ' +
     'Description="FILL"',
   'Dream Travel':
@@ -916,6 +937,7 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
+    'Preparation=1 ' +
     'Cost=6 ' +
     'Description="FILL"',
   'Fate Link':
@@ -928,6 +950,7 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=wisdom,-6 ' +
+    'Preparation=2 ' +
     'Cost=3,2/rd ' +
     'Description="FILL"',
   'Mindlink':
@@ -940,6 +963,7 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=intelligence,-6 ' +
+    'Preparation=1 ' +
     'Cost=3,8/rd ' +
     'Description="FILL"',
   'Probe':
@@ -964,6 +988,7 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=constitution,-4 ' +
+    'Preparation=3 ' +
     'Cost=33 ' +
     'Description="FILL"',
   'Tower Of Iron Will':
@@ -1054,6 +1079,7 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
+    'Preparation=1 ' +
     'Cost=3,2/rd ' +
     'Description="FILL"',
   'Intellect Fortress':
@@ -1126,6 +1152,7 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
+    'Preparation=2 ' +
     'Cost=4,3/rd ' +
     'Description="FILL"',
   'Repugnance':
@@ -1144,12 +1171,14 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
+    'Preparation=1 ' +
     'Cost=3,5/tn ' +
     'Description="FILL"',
   'Sound Link':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
+    'Preparation=1 ' +
     'Cost=3,4/tn ' +
     'Description="FILL"',
   'Synaptic Static':
@@ -1162,12 +1191,14 @@ DarkSun2E.POWERS = {
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
+    'Preparation=1 ' +
     'Cost=3,4/tn ' +
     'Description="FILL"',
   'Telempathic Projection':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-2 ' +
+    'Preparation=1 ' +
     'Cost=3,4/rd ' +
     'Description="FILL"',
   'Thought Shield':
@@ -1192,6 +1223,7 @@ DarkSun2E.POWERS = {
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
+    'Preparation=5 ' +
     'Cost=10 ' +
     'Description="FILL"',
   'Empower':
@@ -1204,24 +1236,28 @@ DarkSun2E.POWERS = {
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-8 ' +
+    'Preparation=10 ' +
     'Cost=50,5/rd ' +
     'Description="FILL"',
   'Psychic Surgery':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
+    'Preparation=10 ' +
     'Cost=3,10/tn ' +
     'Description="FILL"',
   'Split Personality':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
+    'Preparation=1 ' +
     'Cost=40,6/rd ' +
     'Description="FILL"',
   'Ultrablast':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-10 ' +
+    'Preparation=3 ' +
     'Cost=75 ' +
     'Description="FILL"',
   'Cannibalize':
@@ -1234,12 +1270,14 @@ DarkSun2E.POWERS = {
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
+    'Preparation=1 ' +
     'Cost=8 ' +
     'Description="FILL"',
   'Enhancement':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
+    'Preparation=5 ' +
     'Cost=30,8/rd ' +
     'Description="FILL"',
   'Gird':
@@ -1252,18 +1290,21 @@ DarkSun2E.POWERS = {
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=varies,-3 ' +
+    'Preparation=1 ' +
     'Cost=5,1/rd ' +
     'Description="FILL"',
   'Magnify':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
+    'Preparation=5 ' +
     'Cost=25,1/rd ' +
     'Description="FILL"',
   'Martial Trance':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
+    'Preparation=1 ' +
     'Cost=7 ' +
     'Description="FILL"',
   'Prolong':
@@ -1276,6 +1317,7 @@ DarkSun2E.POWERS = {
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
+    'Preparation=1 ' +
     'Cost=20,3/rd ' +
     'Description="FILL"',
   'Psionic Sense':
@@ -1294,12 +1336,14 @@ DarkSun2E.POWERS = {
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
+    'Preparation=1 ' +
     'Cost=0 ' +
     'Description="FILL"',
   'Retrospection':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
+    'Preparation=10 ' +
     'Cost=120 ' +
     'Description="FILL"',
   'Splice':
@@ -1312,6 +1356,7 @@ DarkSun2E.POWERS = {
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
+    'Preparation=3 ' +
     'Cost=20,20/rd ' +
     'Description="FILL"',
   'Wrench':
@@ -1516,7 +1561,7 @@ DarkSun2E.identityRules = function(rules, alignments, classes, races) {
 DarkSun2E.magicRules = function(rules, schools, spells, disciplines, powers) {
   QuilvynUtils.checkAttrTable(disciplines, []);
   QuilvynUtils.checkAttrTable
-    (powers, ['Discipline', 'Type', 'Score', 'Cost', 'Description']);
+    (powers, ['Discipline', 'Type', 'Score', 'Preparation', 'Cost', 'Description']);
   OldSchool.magicRules(rules, schools, spells);
   for(var d in disciplines) {
     DarkSun2E.choiceRules(rules, 'Discipline', d, disciplines[d]);
@@ -1526,12 +1571,13 @@ DarkSun2E.magicRules = function(rules, schools, spells, disciplines, powers) {
   }
   QuilvynRules.validAllocationRules
     (rules, 'discipline', 'psionicDisciplineCount', 'Sum "^disciplines\\."');
-  rules.defineRule('notPsionicist',
-    'level', '=', '1',
-    'levels.Psionicist', '=', '0'
-  );
   rules.defineRule
-    ('features.Wild Talent', 'notPsionicist', '=', 'source==1 ? 1 : null');
+    ('features.Wild Talent', 'wildTalent', '=', 'source ? 1 : null');
+  rules.defineRule('psionicStrengthPoints', 'magicNotes.wildTalent', '+=', null);
+  rules.defineRule('magicNotes.wildTalent',
+    'features.Wild Talent', '?', null,
+    'level', '=', '4 * (source - 1)'
+  );
   rules.defineRule
     ('psionicDisciplineCount', 'magicNotes.wildTalent', '+=', '1');
   rules.defineRule('psionicDevotionCount', 'magicNotes.wildTalent', '+=', '1');
@@ -1601,6 +1647,7 @@ DarkSun2E.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Discipline'),
       QuilvynUtils.getAttrValue(attrs, 'Type'),
       QuilvynUtils.getAttrValueArray(attrs, 'Score'),
+      QuilvynUtils.getAttrValue(attrs, 'Preparation'),
       QuilvynUtils.getAttrValueArray(attrs, 'Cost'),
       QuilvynUtils.getAttrValue(attrs, 'Description')
     );
@@ -1924,12 +1971,13 @@ DarkSun2E.languageRules = function(rules, name) {
  * Defines in #rules# the rules associated with psionic power #name# from
  * discipline #discipline#, which has type #type# ('Science', 'Devotion', or
  * 'Defense'), score #score# (either an ability name or a tuple consisting of
- * an ability name and a modifier), cost #cost# (either a single value or a
- * two-value tuple with initial and maintenance costs). #description# is a brief
- * description of the power's effects.
+ * an ability name and a modifier), requires #preparation# time to prepare
+ * (may be undefined if no prep required), cost #cost# (either a single value
+ * or a two-value tuple with initial and maintenance costs). #description# is
+ * a brief description of the power's effects.
  */
 DarkSun2E.powerRules = function(
-  rules, name, discipline, type, score, cost, description
+  rules, name, discipline, type, score, preparation, cost, description
 ) {
   if(!name) {
     console.log('Empty power name');
@@ -1963,8 +2011,14 @@ DarkSun2E.powerRules = function(
     (score.length==1 ? '' : score[1]>=0 ? '+' + score[1] : score[1]) +
     ' (%{' + score[0] + (score.length>1 ? '+' + score[1] : '') + '})' + '; ' +
     cost[0] + (cost.length>1 ? '+' + cost[1] : '') + ' PSP';
+  if(preparation)
+    testAndCost += '; Prep ' + preparation;
   rules.defineChoice
     ('notes', 'powers.' + name + ':(' + testAndCost + ') ' + description);
+  rules.defineRule('magicNotes.wildTalent',
+    'powers.' + name, '+',
+      cost[0] + (cost.length>1 ? (cost[1]+'').replace(/\/.*/, '') : 0) * 4
+  );
 };
 
 /*
@@ -2116,6 +2170,8 @@ DarkSun2E.initialEditorElements = function() {
   for(var i = 0; i < result.length; i++) {
     if(result[i][0] in OldSchool.ABILITIES)
       result[i][3] = abilityChoices;
+    else if(result[i][0] == 'weaponSpecialization')
+      result[i][3] = ['None'].concat(QuilvynUtils.getKeys(DarkSun2E.WEAPONS));
   }
   var index = result.findIndex(x => x[0] == 'alignment');
   result.splice(index, 0, ['element', 'Element', 'select-one', ['Air', 'Earth', 'Fire', 'Water']]);
