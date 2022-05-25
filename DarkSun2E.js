@@ -610,7 +610,8 @@ DarkSun2E.POWERS = {
     'Score=constitution,-4 ' +
     'Preparation=2 ' +
     'Cost=16,10/rd ' +
-    'Description="R500\' Changes speed and direction of wind, up to 10 MPH and degrees"',
+    'Description=' +
+      '"R500\' Changes speed and direction of wind, up to 10 MPH and degrees"',
   'Create Sound':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
@@ -622,7 +623,8 @@ DarkSun2E.POWERS = {
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=7,5/rd ' +
-    'Description="R3\' Barrier reduces damage from missiles, flames, breath, and gas"',
+    'Description=' +
+      '"R3\' Barrier reduces damage from missiles, flames, breath, and gas"',
   'Levitation':
     'Discipline=Psychokinesis ' +
     'Type=Devotion ' +
@@ -653,280 +655,288 @@ DarkSun2E.POWERS = {
     'Type=Science ' +
     'Score=constitution,-4 ' +
     'Cost=15,4/rd ' +
-    'Description="FILL"',
+    'Description="Self gains one attribute of affinity animal"',
   'Complete Healing':
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution ' +
+    'Preparation="1 dy" ' +
     'Cost=30 ' +
-    'Description="FILL"',
+    'Description="Self healed of all ailments, wounds, and normal disease"',
   'Death Field':
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution,-8 ' +
     'Preparation=3 ' +
     'Cost=40 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R20\' All in range lose specified number of HP (Death save neg)"',
   'Energy Containment':
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution,-2 ' +
     'Cost=10 ' +
-    'Description="FILL"',
+    'Description="Specified energy type attacks on self reflected as light"',
   'Life Draining':
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution,-3 ' +
     'Cost=11,5/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Transfers HP from touched to self, raising self HP up to %{hitPoints+10}"',
   'Metamorphosis':
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution,-6 ' +
     'Preparation=5 ' +
     'Cost=21,1/tn ' +
-    'Description="FILL"',
+    'Description="Self transforms into object of approximately same mass"',
   'Shadow-form':
     'Discipline=Psychometabolism ' +
     'Type=Science ' +
     'Score=constitution,-6 ' +
     'Cost=12,3/rd ' +
-    'Description="FILL"',
+    'Description="Self transforms into shadow"',
   'Absorb Disease':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=12 ' +
-    'Description="FILL"',
+    'Description="Transfers disease from touched to self"',
   'Adrenalin Control':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=8,4/rd ' +
-    'Description="FILL"',
+    'Description="Self gains 1d6 Strength, Dexterity, or Constitution"',
   'Aging':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-7 ' +
     'Cost=15 ' +
-    'Description="FILL"',
+    'Description="Touched ages 1d4+1 yr (Polymorph save 1d4 yr)"',
   'Biofeedback':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Cost=6,3/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains -1 AC, damage from attacks on self reduced by 2 HP"',
   'Body Control':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
     'Cost=7,5/tn ' +
-    'Description="FILL"',
+    'Description="Self becomes comfortable in extreme environment"',
   'Body Equilibrium':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=2,2/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self can walk on water or fragile surfaces, takes no damage from falling"',
   'Body Weaponry':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=9,4/rd ' +
-    'Description="FILL"',
+    'Description="Self arm becomes chosen weapon"',
   'Catfall':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=dexterity,-2 ' +
     'Cost=4 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self drops 30\' w/out damage; takes half damage from longer fall"',
   'Cause Decay':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Cost=4 ' +
-    'Description="FILL"',
+    'Description="Touched object decays or rusts"',
   'Cell Adjustment':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=5,20/rd ' +
-    'Description="FILL"',
+    'Description="Cures touched of disease"',
   'Chameleon Power':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-1 ' +
     'Cost=6,3/rd ' +
-    'Description="FILL"',
+    'Description="Self skin and clothes blend into background"',
   'Chemical Simulation':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
     'Preparation=1 ' +
     'Cost=9,6/rd ' +
-    'Description="FILL"',
+    'Description="Self touch causes acid effects"',
   'Displacement':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=6,3/rd ' +
-    'Description="FILL"',
+    'Description="Self gains -2 AC"',
   'Double Pain':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=7 ' +
-    'Description="FILL"',
+    'Description="Touched takes double damage for 1 tn"',
   'Ectoplasmic Form':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
     'Preparation=1 ' +
     'Cost=9,9/rd ' +
-    'Description="FILL"',
+    'Description="Self becomes insubstantial"',
   'Enhanced Strength':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=2,1/rd ' +
-    'Description="FILL"',
+    'Description="Self strength increases"',
   'Expansion':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Cost=6,1/rd ' +
-    'Description="FILL"',
+    'Description="Self dimension increased 50%-400%"',
   'Flesh Armor':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Cost=8,4/rd ' +
-    'Description="FILL"',
+    'Description="Self skin becomes armor"',
   'Graft Weapon':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-5 ' +
     'Cost=10,1/rd ' +
-    'Description="FILL"',
+    'Description="Self weapon gains +1 attack and damage"',
   'Heightened Senses':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution ' +
     'Cost=5,1/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains increased notice, tracking, hearing, poison detection, and touch identification"',
   'Immovability':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-5 ' +
     'Cost=9,6/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self moved only by combined strength of %{(constitution-5)*10}"',
   'Lend Health':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-1 ' +
     'Cost=4 ' +
-    'Description="FILL"',
+    'Description="Transfers HP from self to touched"',
   'Mind Over Body':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=0,10/dy ' +
-    'Description="FILL"',
+    'Description="Self needs no food, water, or sleep"',
   'Reduction':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Cost=1,1/rd ' +
-    'Description="FILL"',
+    'Description="Reduces self dimension down to 1\'"',
   'Share Strength':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
     'Cost=6,2/rd ' +
-    'Description="FILL"',
+    'Description="Transfers strength from self to touched"',
   'Suspend Animation':
     'Discipline=Psychometabolism ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Preparation=5 ' +
     'Cost=12 ' +
-    'Description="FILL"',
+    'Description="Self appears dead"',
   'Banishment':
     'Discipline=Psychoportation ' +
     'Type=Science ' +
     'Score=intelligence,-1 ' +
     'Cost=30,10/rd ' +
-    'Description="FILL"',
+    'Description="R5\' Target banished to pocket dimension"',
   'Probability Travel':
     'Discipline=Psychoportation ' +
     'Type=Science ' +
     'Score=intelligence ' +
     'Preparation=2 ' +
     'Cost=20,8/hr ' +
-    'Description="FILL"',
+    'Description="Self travel astral plane"',
   'Summon Planar Creature':
     'Discipline=Psychoportation ' +
     'Type=Science ' +
     'Score=intelligence,-4 ' +
     'Preparation=12 ' +
     'Cost=45/90 ' +
-    'Description="FILL"',
+    'Description="R200\' Brings and controls creature from another plane"',
   'Teleport':
     'Discipline=Psychoportation ' +
     'Type=Science ' +
     'Score=intelligence ' +
     'Cost=10 ' +
-    'Description="FILL"',
+    'Description="Transfer self to familiar location"',
   'Teleport Other':
     'Discipline=Psychoportation ' +
     'Type=Science ' +
     'Score=intelligence,-2 ' +
     'Cost=20 ' +
-    'Description="FILL"',
+    'Description="R10\' Transfers target to familiar location"',
   'Astral Projection':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
     'Preparation=1 ' +
     'Cost=6,2/hr ' +
-    'Description="FILL"',
+    'Description="Self astral copy travels astral plane"',
   'Dimensional Door':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=constitution,-1 ' +
     'Cost=4,2/rd ' +
-    'Description="FILL"',
+    'Description="R50\' Creates portal that teleports passers"',
   'Dimension Walk':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Preparation=2 ' +
     'Cost=8,4/tn ' +
-    'Description="FILL"',
+    'Description="Self travels quickly through parallel dimension"',
   'Dream Travel':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Cost=1 ' +
-    'Description="FILL"',
+    'Description="R500 miles Self and companions travel during sleep"',
   'Teleport Trigger':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=intelligence,1 ' +
     'Cost=0,2/hr ' +
-    'Description="FILL"',
+    'Description="Trigger teleports self to safe location"',
   'Time Shift':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
     'Cost=16 ' +
-    'Description="FILL"',
+    'Description="Self sees three rounds into the future"',
   'Time/Space Anchor':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
     'Score=intelligence ' +
     'Cost=5,1/rd ' +
-    'Description="FILL"',
+    'Description="Self cannot be involuntarily teleported"',
   'Domination':
     'Discipline=Telepathy ' +
     'Type=Science ' +
@@ -1148,7 +1158,7 @@ DarkSun2E.POWERS = {
     'Score=wisdom ' +
     'Cost=10,3/hr ' +
     'Description="FILL"',
-  'Psychich Messenger':
+  'Psychic Messenger':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
