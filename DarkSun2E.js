@@ -899,7 +899,7 @@ DarkSun2E.POWERS = {
     'Score=intelligence ' +
     'Preparation=1 ' +
     'Cost=6,2/hr ' +
-    'Description="Self astral copy travels astral plane"',
+    'Description="Astral copy of self travels astral plane"',
   'Dimensional Door':
     'Discipline=Psychoportation ' +
     'Type=Devotion ' +
@@ -942,439 +942,457 @@ DarkSun2E.POWERS = {
     'Type=Science ' +
     'Score=wisdom,-4 ' +
     'Cost=6,6/rd ' +
-    'Description="FILL"',
+    'Description="R30\' Self controls target\'s actions (Spell save neg)"',
   'Ejection':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
-    'Preparation=1 ' +
     'Cost=6 ' +
-    'Description="FILL"',
+    'Description="Forceably breaks psionic contact; may cause side effects"',
   'Fate Link':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=constitution,-5 ' +
+    'Preparation=1 ' +
     'Cost=3,5/tn ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self share pain and HP loss w/target (Death save to avoid shared death)"',
   'Mass Domination':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=wisdom,-6 ' +
     'Preparation=2 ' +
-    'Cost=3,2/rd ' +
-    'Description="FILL"',
+    'Cost=3,2/rd+ ' +
+    'Description="R40\' Self controls 5 targets\' actions (Spell save neg)"',
   'Mindlink':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
     'Cost=3,8/rd ' +
-    'Description="FILL"',
+    'Description="Self converses telepathically w/target"',
   'Mindwipe':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=intelligence,-6 ' +
     'Preparation=1 ' +
     'Cost=3,8/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched suffers -1 intelligence, wisdom, and level (Spell save neg)"',
   'Probe':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
     'Cost=3,9/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R2\' Self gains access to all of target\'s memories (Spell save neg)"',
   'Psychic Crush':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
     'Cost=7 ' +
-    'Description="FILL"',
+    'Description="R50\' Inflicts 1d8 HP (Paralyzation save neg)"',
   'Superior Invisibility':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=intelligence,-5 ' +
     'Cost=3,5/rd ' +
-    'Description="FILL"',
+    'Description="Self invisible produces no sound or smell"',
   'Switch Personality':
     'Discipline=Telepathy ' +
     'Type=Science ' +
     'Score=constitution,-4 ' +
     'Preparation=3 ' +
     'Cost=33 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self exchanges minds with touched, both become comatose (System Shock neg) and lose 1 constitution/dy (Con neg)"',
   'Tower Of Iron Will':
     'Discipline=Telepathy ' +
     'Type=Defense ' +
     'Score=wisdom,-2 ' +
     'Cost=6 ' +
-    'Description="FILL"',
+    'Description="R3\' Creates psionic defense"',
   'Attraction':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Cost=3,8/rd ' +
-    'Description="FILL"',
+    'Description="R200\' Target overwhelmingly drawn to chosen item"',
   'Aversion':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Cost=3,8/tn ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R200\' Target overwhelmingly repelled by chosen item for 1 tn"',
   'Awe':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=charisma,-2 ' +
     'Cost=3,4/rd ' +
-    'Description="FILL"',
+    'Description="Targets cowed by self, will flee or obey"',
   'Conceal Thoughts':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Cost=5,3/rd ' +
-    'Description="FILL"',
+    'Description="Self becomes shielded from mental probing"',
   'Contact':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Cost=3,1/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self links to known target (psionicist neg, others resist -2), can use with other telepathic powers"',
   'Daydream':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Cost=3,3/rd ' +
-    'Description="FILL"',
+    'Description="Target loses focus (intelligence 14 neg, concentration neg)"',
   'Ego Whip':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=4 ' +
-    'Description="FILL"',
+    'Description="Target becomes dazed for 1d4 rd"',
   'Empathy':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Cost=1,1/rd ' +
-    'Description="FILL"',
+    'Description="Self senses desires and emotions of target"',
   'ESP':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Cost=3,6/rd ' +
-    'Description="FILL"',
+    'Description="Self reads target\'s thoughts"',
   'False Sensory Input':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=intelligence,-3 ' +
     'Cost=3,4/rd ' +
-    'Description="FILL"',
+    'Description="Modifies target\'s sensory input"',
   'Id Insinuation':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Cost=5 ' +
-    'Description="FILL"',
+    'Description="Target becomes unable to act for 1d4 rd"',
   'Identity Penetration':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=3,6/rd ' +
-    'Description="FILL"',
+    'Description="Self learns target\'s true identity"',
   'Incarnation Awareness':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Cost=3,13/rd ' +
-    'Description="FILL"',
+    'Description="Self learns about target\'s past lives"',
   'Inflict Pain':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
     'Preparation=1 ' +
     'Cost=3,2/rd ' +
-    'Description="FILL"',
+    'Description="Target suffers -4 attacks (Paralyzation save neg)"',
   'Intellect Fortress':
     'Discipline=Telepathy ' +
     'Type=Defense ' +
     'Score=wisdom,-3 ' +
     'Cost=4 ' +
-    'Description="FILL"',
+    'Description="R3\' Protects from psionic attacks"',
   'Invincible Foes':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=3,5/rd ' +
-    'Description="FILL"',
+    'Description="Target believes any damage is fatal"',
   'Invisibility':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=intelligence,-5 ' +
     'Cost=3,2/rd ' +
-    'Description="FILL"',
+    'Description="Self invisible to contacted minds"',
   'Life Detection':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=intelligence,-2 ' +
     'Cost=3,3/rd ' +
-    'Description="FILL"',
+    'Description="R100\' Self detects living creatures"',
   'Mental Barrier':
     'Discipline=Telepathy ' +
     'Type=Defense ' +
     'Score=wisdom,-2 ' +
     'Cost=3 ' +
-    'Description="FILL"',
+    'Description="Protects self from unwanted mental contact"',
   'Mind Bar':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=intelligence,-2 ' +
     'Cost=6,4/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains 75% resistance to mental magic, immunity to possession"',
   'Mind Blank':
     'Discipline=Telepathy ' +
     'Type=Defense ' +
     'Score=wisdom,-7 ' +
     'Cost=0,0 ' +
-    'Description="FILL"',
+    'Description="Protects self from psionic attacks"',
   'Mind Thrust':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-2 ' +
     'Cost=2 ' +
-    'Description="FILL"',
+    'Description="Target loses 1 power for 2d6 dy"',
   'Phobia Amplification':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-2 ' +
     'Cost=3,4/rd ' +
-    'Description="FILL"',
+    'Description="Target suffers overwhelming fear"',
+  'Post-Hypnotic Suggestion':
+    'Discipline=Telepathy ' +
+    'Type=Devotion ' +
+    'Score=intelligence,-3 ' +
+    'Cost=0,1 ' +
+    'Description=' +
+      '"Plants suggestion in target (intelligence &lt; 7 or &gt; 17 neg)"',
   'Psionic Blast':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
     'Cost=10 ' +
-    'Description="FILL"',
+    'Description="Target believes 80% of HP are lost (Death save neg)"',
   'Psychic Impersonation':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Cost=10,3/hr ' +
-    'Description="FILL"',
+    'Description="Self mimic target\'s aura and thoughts"',
   'Psychic Messenger':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
     'Preparation=2 ' +
     'Cost=4,3/rd ' +
-    'Description="FILL"',
+    'Description="R200 mi Sends auditory and visual message"',
   'Repugnance':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
     'Cost=3,8/rd ' +
-    'Description="FILL"',
+    'Description="R200\' Makes target wish to destroy chosen item"',
   'Send Thoughts':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=intelligence,-1 ' +
     'Cost=3,2/rd ' +
-    'Description="FILL"',
+    'Description="Target receives self thoughts"',
   'Sight Link':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Preparation=1 ' +
     'Cost=3,5/tn ' +
-    'Description="FILL"',
+    'Description="Self sees through target\'s eyes"',
   'Sound Link':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Preparation=1 ' +
     'Cost=3,4/tn ' +
-    'Description="FILL"',
+    'Description="Self hears through target\'s ears"',
   'Synaptic Static':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=intelligence,-4 ' +
     'Cost=15,10/rd ' +
-    'Description="FILL"',
+    'Description="90\' diameter interferes w/psionic activity"',
   'Taste Link':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=constitution,-2 ' +
     'Preparation=1 ' +
     'Cost=3,4/tn ' +
-    'Description="FILL"',
+    'Description="Self tastes through target\'s tongue"',
   'Telempathic Projection':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom,-2 ' +
     'Preparation=1 ' +
     'Cost=3,4/rd ' +
-    'Description="FILL"',
+    'Description="Modifies emotions in 10\' radius"',
   'Thought Shield':
     'Discipline=Telepathy ' +
     'Type=Defense ' +
     'Score=wisdom,-3 ' +
     'Cost=1 ' +
-    'Description="FILL"',
+    'Description="Protects self from psionic attacks"',
   'Truthear':
     'Discipline=Telepathy ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Cost=4,2/rd ' +
-    'Description="FILL"',
+    'Description="Self detects lies"',
   'Appraise':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=intelligence,-4 ' +
     'Cost=14 ' +
-    'Description="FILL"',
+    'Description="Self determines likelihood of action success"',
   'Aura Alteration':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-4 ' +
     'Preparation=5 ' +
     'Cost=10 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Masks touched\'s alignment or level or removes curse or quest"',
   'Empower':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-12 ' +
     'Cost=150 ' +
-    'Description="FILL"',
+    'Description="Imbues touched object with intelligence and psionic power"',
   'Psychic Clone':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-8 ' +
     'Preparation=10 ' +
     'Cost=50,5/rd ' +
-    'Description="FILL"',
+    'Description="Extracts self psyche into insubstantial form"',
   'Psychic Surgery':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
     'Preparation=10 ' +
     'Cost=3,10/tn ' +
-    'Description="FILL"',
+    'Description="Repairs psychic damage to touched"',
   'Split Personality':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-5 ' +
     'Preparation=1 ' +
     'Cost=40,6/rd ' +
-    'Description="FILL"',
+    'Description="Self can use two powers each rd"',
   'Ultrablast':
     'Discipline=Metapsionic ' +
     'Type=Science ' +
     'Score=wisdom,-10 ' +
     'Preparation=3 ' +
     'Cost=75 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Inflicts unconsciousness (Paralyzation save neg) and loss of psionic power (Paralyzation save neg) in 50\' radius"',
   'Cannibalize':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=constitution ' +
     'Cost=0 ' +
-    'Description="FILL"',
+    'Description="Self trades constitution points for 8x PSP, recovers 1/wk"',
   'Convergence':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom ' +
     'Preparation=1 ' +
     'Cost=8 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R10\' Creates joint psionic defense among multiple psionicists"',
   'Enhancement':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Preparation=5 ' +
     'Cost=30,8/rd ' +
-    'Description="FILL"',
+    'Description="Doubles power scores in chosen discipline"',
   'Gird':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=intelligence,-3 ' +
     'Cost=0 ' +
-    'Description="FILL"',
+    'Description="Maintains chosen powers w/out concentration"',
   'Intensify':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=varies,-3 ' +
     'Preparation=1 ' +
     'Cost=5,1/rd ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self trades psionic increase in intelligence, wisdom, or constitution for equal decrease in the others"',
   'Magnify':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
     'Preparation=5 ' +
     'Cost=25,1/rd ' +
-    'Description="FILL"',
+    'Description="Doubles effects of chosen power"',
   'Martial Trance':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Preparation=1 ' +
     'Cost=7 ' +
-    'Description="FILL"',
+    'Description="Trance grants +1 telepathy scores"',
   'Prolong':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=constitution,-4 ' +
     'Cost=5,2/rd ' +
-    'Description="FILL"',
+    'Description="Increases range and area of powers by 50%"',
   'Psionic Inflation':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
     'Preparation=1 ' +
     'Cost=20,3/rd ' +
-    'Description="FILL"',
+    'Description="Double cost of psionic powers in 100\' radius"',
   'Psionic Sense':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-3 ' +
     'Cost=4,1/rd ' +
-    'Description="FILL"',
+    'Description="R200\' Self detects psionic activity"',
   'Psychic Drain':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-6 ' +
     'Cost=13 ' +
-    'Description="FILL"',
+    'Description="Self drains sleeping targets\' constitution, intelligence, or wisdom for x10 PSP to power psionic powers"',
   'Receptacle':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-5 ' +
     'Preparation=1 ' +
     'Cost=0 ' +
-    'Description="FILL"',
+    'Description="Stores PSP for later use"',
   'Retrospection':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Preparation=10 ' +
     'Cost=120 ' +
-    'Description="FILL"',
+    'Description="Self and two converged gain historical information"',
   'Splice':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=intelligence,-2 ' +
     'Cost=5,1/rd ' +
-    'Description="FILL"',
+    'Description="Allows simultaneous use of multiple powers"',
   'Stasis Field':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=constitution,-3 ' +
     'Preparation=3 ' +
     'Cost=20,20/rd ' +
-    'Description="FILL"',
+    'Description="Slows time in %{levels.Psionicist}\' radius"',
   'Wrench':
     'Discipline=Metapsionic ' +
     'Type=Devotion ' +
     'Score=wisdom,-4 ' +
     'Cost=15,8/rd ' +
-    'Description="FILL"'
+    'Description="Forces target into single plane"'
 };
 DarkSun2E.RACES = {
   'Dwarf':
@@ -1902,7 +1920,7 @@ DarkSun2E.classRulesExtra = function(rules, name) {
     rules.defineRule('psionicStrengthPoints',
       'magicNotes.wisdomPsionicStrengthPoints', '=', null,
       'magicNotes.constitutionPsionicStrengthPointsBonus', '+', null,
-      'magicNotes.intelligencePsionicStrengthPointsBonus', '+', null,
+      'magicNotes.intelligencePsionicStrengthPointsBonus', '+', null
     );
   } else if(name == 'Templar') {
     rules.defineRule('featureNotes.enterBuilding',
@@ -2316,9 +2334,6 @@ DarkSun2E.ruleNotes = function() {
     'Quilvyn is not approved or endorsed by Wizards of the Coast. Portions ' +
     'of the materials used are property of Wizards of the Coast. ©Wizards of ' +
     'the Coast LLC.\n' +
-    '</p><p>\n' +
-    'Advanced Dungeons & Dragons Players Handbook © 2012 Wizards of the ' +
-    'Coast LLC.\n' +
     '</p><p>\n' +
     'Advanced Dungeons & Dragons 2nd Edition Player\'s Handbook © 1989, ' +
     '1995, 2013 Wizards of the Coast LLC.\n' +
