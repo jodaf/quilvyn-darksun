@@ -65,8 +65,6 @@ function DarkSun35(baseRules) {
     'prestige:Prestige Levels,bag,prestiges', 'npc:NPC Levels,bag,npcs');
 
   DarkSun35.ALIGNMENTS = Object.assign({}, rules.basePlugin.ALIGNMENTS);
-  DarkSun35.ANIMAL_COMPANIONS =
-    Object.assign( {}, rules.basePlugin.ANIMAL_COMPANIONS);
   DarkSun35.ARMORS = Object.assign({}, rules.basePlugin.ARMORS);
   DarkSun35.NPC_CLASSES = Object.assign({}, rules.basePlugin.NPC_CLASSES);
   DarkSun35.FAMILIARS = Object.assign({}, rules.basePlugin.FAMILIARS);
@@ -77,21 +75,15 @@ function DarkSun35(baseRules) {
   DarkSun35.GOODIES = Object.assign({}, rules.basePlugin.GOODIES);
   DarkSun35.LANGUAGES =
     Object.assign({}, rules.basePlugin.LANGUAGES, DarkSun35.LANGUAGES_ADDED);
-  DarkSun35.DEITIES['None'] =
+  DarkSun35.DEITIES.None =
     'Domain="' + QuilvynUtils.getKeys(DarkSun35.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join('","') + '"';
   DarkSun35.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
   DarkSun35.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
   DarkSun35.SKILLS =
     Object.assign({}, rules.basePlugin.SKILLS, DarkSun35.SKILLS_ADDED);
   DarkSun35.SPELLS = Object.assign({}, SRD35.SPELLS, DarkSun35.SPELLS_ADDED);
-  delete DarkSun35.SPELLS['Bless Water'];
-  delete DarkSun35.SPELLS['Control Water'];
-  delete DarkSun35.SPELLS['Create Water'];
-  delete DarkSun35.SPELLS['Curse Water'];
-  delete DarkSun35.SPELLS['Flame Strike'];
-  delete DarkSun35.SPELLS['Fire Storm'];
-  delete DarkSun35.SPELLS['Water Breathing'];
-  delete DarkSun35.SPELLS['Water Walking'];
+  for(var s in DarkSun35)
+    delete DarkSun35.SPELLS[s];
   for(var s in DarkSun35.SPELLS_LEVELS) {
     var levels = DarkSun35.SPELLS_LEVELS[s];
     if(!(s in DarkSun35.SPELLS)) {
@@ -133,7 +125,67 @@ DarkSun35.RANDOMIZABLE_ATTRIBUTES =
   SRD35.RANDOMIZABLE_ATTRIBUTES.concat(DarkSun35.RANDOMIZABLE_ATTRIBUTES_ADDED);
 
 DarkSun35.ALIGNMENTS = Object.assign({}, SRD35.ALIGNMENTS);
-DarkSun35.ANIMAL_COMPANIONS = Object.assign({}, SRD35.ANIMAL_COMPANIONS);
+DarkSun35.ANIMAL_COMPANIONS = {
+  // 'Carru':'FILL',
+  'Dire Rat':SRD35.ANIMAL_COMPANIONS['Dire Rat'],
+  'Eagle':SRD35.ANIMAL_COMPANIONS.Eagle,
+  // 'Erdlu':'FILL',
+  // 'Jankx':'FILL',
+  // 'Jhakar':'FILL',
+  // "Kes'trekel":'FILL',
+  // 'Kivit':'FILL',
+  // 'Lesser Boneclaw':'FILL',
+  'Medium Viper':SRD35.ANIMAL_COMPANIONS['Medium Viper'],
+  'Owl':SRD35.ANIMAL_COMPANIONS.Owl,
+  // 'Slit Spawn':'FILL',
+  'Small Viper':SRD35.ANIMAL_COMPANIONS['Small Viper'],
+
+  // 'Athasian Shark':'FILL Level=4',
+  // 'Bull Carru':'FILL Level=4',
+  'Cheetah':SRD35.ANIMAL_COMPANIONS.Cheetah,
+  'Constrictor':SRD35.ANIMAL_COMPANIONS['Constrictor'],
+  // 'Crodlu':'FILL Level=4',
+  'Dire Bat':SRD35.ANIMAL_COMPANIONS['Dire Bat'],
+  // 'Erdland':'FILL Level=4',
+  // 'Giant Lizard':'FILL Level=4',
+  // 'Heavy Crodlu':'FILL Level=4',
+  // 'Medium Jhakar':'FILL Level=4',
+  // 'Kluzd':'FILL Level=4',
+  'Large Viper':SRD35.ANIMAL_COMPANIONS['Large Viper'],
+  'Leopard':SRD35.ANIMAL_COMPANIONS.Leopard,
+  // 'Monitor Lizard':'FILL Level=4',
+  // 'Rasclinn':'FILL Level=4',
+
+  // 'Heavy Warmount Crodlu':'FILL Level=7',
+  'Huge Viper':SRD35.ANIMAL_COMPANIONS['Huge Viper'],
+  // 'Inix':'FILL Level=7',
+  // 'Kalin':'FILL Level=7',
+  // 'Kluzd 7':'FILL Level=7',
+  'Lion':SRD35.ANIMAL_COMPANIONS.Lion,
+  // 'Lirr':'FILL Level=7',
+  // 'Pterrax':'FILL Level=7',
+  // 'Puddingfish':'FILL Level=7',
+  // 'Subterranean Lizard':'FILL Level=7',
+  // 'Takis':'FILL Level=7',
+  'Tiger':SRD35.ANIMAL_COMPANIONS.Tiger,
+
+  // "Cha'thrang":'FILL Level=10',
+  'Dire Lion':SRD35.ANIMAL_COMPANIONS['Dire Lion'],
+  // 'Hatori':'FILL Level=10',
+  'Giant Constrictor':SRD35.ANIMAL_COMPANIONS['Giant Constrictor'],
+  // 'Huge Athasian Shark':'FILL Level=10',
+  // 'Minotaur Lizrd':'FILL Level=10',
+
+  // 'Athasian Sloth':'FILL Level=13',
+  // 'Large Lirr':'FILL Level=13',
+  // 'Ruktoi':'FILL Level=13',
+
+  // 'Dire Athasian Shark':'FILL Level=16',
+  'Dire Tiger':SRD35.ANIMAL_COMPANIONS['Dire Tiger']
+  // 'Gargantuan Hatori':'FILL Level=16',
+  // 'White Slit Horror':'FILL Level=16',
+  // 'Slimahacc':'FILL Level=16',
+};
 DarkSun35.ARMORS = Object.assign({}, SRD35.ARMORS);
 DarkSun35.MONARCHS = {
   'Abalach-Re':'Domain=Chaos,Charm',
@@ -150,7 +202,8 @@ DarkSun35.MONARCHS = {
 };
 DarkSun35.CLASSES = {
   'Barbarian':
-    SRD35.CLASSES['Barbarian'],
+    SRD35.CLASSES.Barbarian
+    .replace('Features=', 'Features="3:Wasteland Trapsense",'),
   'Bard':
     'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/2 Reflex=1/2 Will=1/2 ' +
     'Features=' +
@@ -172,13 +225,15 @@ DarkSun35.CLASSES = {
       '"Sense Motive","Sleight Of Hand","Speak Language",Tumble,' +
       '"Use Magic Device","Use Psionic Device","Use Rope"',
   'Cleric':
-    SRD35.CLASSES['Cleric'] + ' ' +
+    SRD35.CLASSES.Cleric + ' ' +
     'Selectables=' +
       QuilvynUtils.getKeys(DarkSun35.PATHS).filter(x => x.match(/Domain$/)).map(x => '"deityDomains =~ \'' + x.replace(' Domain', '') + '\' ? 1:' + x + '"').join(','),
   'Druid':
-    SRD35.CLASSES['Druid'],
+    SRD35.CLASSES.Druid
+    .replace('Weapon Proficiency (', 'Weapon Proficiency (Alak, Blowgun')
+    .replace("Resist Nature's Lure", "Nature's Speech"),
   'Fighter':
-    SRD35.CLASSES['Fighter'],
+    SRD35.CLASSES.Fighter,
   'Gladiator':
     'HitDie=d12 Attack=1 SkillPoints=4 Fortitude=1/2 Reflex=1/2 Will=1/3 ' +
     'Features=' +
@@ -204,13 +259,13 @@ DarkSun35.CLASSES = {
     'Skills=' +
       'Balance,Bluff,Climb,Craft,Intimidate,Jump,Perform,Profession,' +
       '"Sense Motive",Spot,Tumble',
-  //'Psion': as Expanded Psionic Handbook
-  //'Psychic Warrior': as Expanded Psionic Handbook
+  //TODO 'Psion': as Expanded Psionic Handbook
+  //TODO 'Psychic Warrior': as Expanded Psionic Handbook
   'Ranger':
-    SRD35.CLASSES['Ranger'],
+    SRD35.CLASSES.Ranger,
   'Rogue':
-    SRD35.CLASSES['Rogue']
-    .replace('Features=', 'Features="Weapon Proficiency (Bard\'s Friend/Blowgun/Garrote/Small Macahuitl/Tonfa/Widow\'s Knife/Wrist Razor)",')
+    SRD35.CLASSES.Rogue
+    .replace('Weapon Proficiency ( ', "Weapon Proficiency (Bard's Friend/Blowgun/Garrote/Small Macahuitl/Tonfa/Widow's Knife/Wrist Razor,")
     .replace('Selectables=', 'Selectables="10:Dune Trader","10:False Vulnerability","10:Looter\'s Luck",10:Notoriety,"10:Silver Tongue",'),
   'Templar':
     'HitDie=d10 Attack=3/4 SkillPoints=4 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
@@ -246,9 +301,9 @@ DarkSun35.CLASSES = {
       'Appraise,Bluff,Concentration,Craft,Diplomacy,Forgery,' +
       '"Gather Information",Heal,Intimidate,Knowledge,Literacy,Profession,' +
       '"Sense Motive",Spellcraft,Spot',
-  //'Wilder': as Expanded Psionic Handbook
+  //TODO 'Wilder': as Expanded Psionic Handbook
   'Wizard':
-    SRD35.CLASSES['Wizard']
+    SRD35.CLASSES.Wizard
 };
 DarkSun35.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
 DarkSun35.PRESTIGE_CLASSES = {
@@ -297,10 +352,10 @@ DarkSun35.PRESTIGE_CLASSES = {
       '"spellSlots.C3 >= 1 || spellSlots.D3 >= 1" ' +
     'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Elemental Affiliation","1:Energy Reistance",' +
-      '"2:Elemental Focus","3:Additional Domain","4:Elemental Shield",' +
-      '"5:Ignore Element","6:Spontaneous Domain Spells","7:Summon Elemental",' +
-      '"9:Power Element","10:Element Immunity" ' +
+      '"1:Caster Level Bonus","1:Elemental Affiliation",' +
+      '"1:Energy Resistance","2:Elemental Focus","3:Additional Domain",' +
+      '"4:Elemental Shield","5:Ignore Element","6:Spontaneous Domain Spells",' +
+      '"7:Summon Elemental","9:Power Element","10:Element Immunity" ' +
     'Skills=' +
       'Concentration,Craft,Heal,"Knowledge (Religion)","Knowledge (Planes)",' +
       'Profession,Spellcraft',
@@ -659,19 +714,19 @@ DarkSun35.FEATS_ADDED = {
   'Active Glands':
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'"',
+      '"race =~ \'Thri-kreen\'"',
   'Advanced Antennae':
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'"',
+      '"race =~ \'Thri-kreen\'"',
   'Blend':
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'"',
+      '"race =~ \'Thri-kreen\'"',
   'Blessed By The Ancestors':
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'"',
+      '"race =~ \'Thri-kreen\'"',
   'Cannibalism Ritual':
     'Type=Racial ' +
     'Require=' +
@@ -684,21 +739,21 @@ DarkSun35.FEATS_ADDED = {
   'Elfeater':
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'"',
+      '"race =~ \'Thri-kreen\'"',
   "Improved Gyth'sa":
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'",' +
+      '"race =~ \'Thri-kreen\'",' +
       '"constitution >= 13"',
   'Tikchak':
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'",' +
+      '"race =~ \'Thri-kreen\'",' +
       '"level >= 5"',
   'Tokchak':
     'Type=Racial ' +
     'Require=' +
-      '"race =~ \'Thri-Kreen\'"',
+      '"race =~ \'Thri-kreen\'"',
   'Artisan':
     'Type=Regional ' +
     'Require=' +
@@ -814,6 +869,7 @@ DarkSun35.FEATURES_ADDED = {
   'Mercy':'Section=combat Note="No nonlethal attack penalty"',
   'Mindblank':'Section=save Note="Immune to divination and mental effects"',
   'Mental Resistance':'Section=save Note="+2 vs. telepathy and charm"',
+  "Nature's Speech":'Section=skill Note="Can speak with all animals"',
   'No Mercy':
     'Section=combat Note="Performs coup de grace as a standard action"',
   'Notoriety':
@@ -848,13 +904,14 @@ DarkSun35.FEATURES_ADDED = {
   'Superior Feint':'Section=combat Note="Free action feint 1/rd"',
   'Taunt':
     'Section=combat ' +
-    'Note="R30\' Inflicts -%{(source+4)//6>?1)} attack, damage, and saves vs. fear and charm on foes for 5 rd"',
+    'Note="R30\' Inflicts -%V attack, damage, and saves vs. fear and charm on foes for 5 rd"',
   'Team Strike':
     'Section=combat ' +
     'Note="May distract foe to give ally +%V attack and +%Vd4 damage"',
   'Threatening Glare':'Section=combat Note="R30\' Gaze causes fear in creatures w/fewer HD (DC %{10+levels.Gladiator//2+charismaBonus} neg)"',
   'Trick':'Section=skill Note="R30\' Opposed bluff dazes %{levels.Gladiator//3-2} targets for 1 rd"',
   'Versatile':'Section=skill Note="Two chosen skills are class skills"',
+  'Wasteland Trapsense':'Section=skill Note="Use Trap Sense w/natural hazards"',
 
   // Prestige Classes
   'Additional Domain':'Section=feature Note="FILL"',
@@ -876,7 +933,7 @@ DarkSun35.FEATURES_ADDED = {
   'Elemental Focus':'Section=feature Note="FILL"',
   'Elemental Shield':'Section=feature Note="FILL"',
   'Empower Poison':'Section=feature Note="FILL"',
-  'Energy Reistance':'Section=feature Note="FILL"',
+  'Energy Resistance':'Section=feature Note="FILL"',
   'Extend Poison':'Section=feature Note="FILL"',
   'Fame':'Section=feature Note="FILL"',
   'Fast Talk':'Section=feature Note="FILL"',
@@ -893,11 +950,8 @@ DarkSun35.FEATURES_ADDED = {
   'Improved Signature Move':'Section=feature Note="FILL"',
   'Integrative Bargaining':'Section=feature Note="FILL"',
   'Legend':'Section=feature Note="FILL"',
-  'Linguist':'Section=feature Note="FILL"',
   'Maximize Poison':'Section=feature Note="FILL"',
-  'Mental Resistance':'Section=feature Note="FILL"',
   'Metamagic Raze':'Section=feature Note="FILL"',
-  'Mindblank':'Section=feature Note="FILL"',
   'Open Arms':'Section=feature Note="FILL"',
   'Painful Radius':'Section=feature Note="FILL"',
   'Poison Immunity':'Section=feature Note="FILL"',
@@ -913,7 +967,6 @@ DarkSun35.FEATURES_ADDED = {
   'Roar Of The Crowd':'Section=feature Note="FILL"',
   'Sacrifice':'Section=feature Note="FILL"',
   'Schoolmaster':'Section=feature Note="FILL"',
-  'Secular Authority':'Section=feature Note="FILL"',
   'Signature Move':'Section=feature Note="FILL"',
   'Smite Intruder':'Section=feature Note="FILL"',
   'Smite Opponents':'Section=feature Note="FILL"',
@@ -924,7 +977,6 @@ DarkSun35.FEATURES_ADDED = {
   'Sustenance':'Section=feature Note="FILL"',
   'Swift Strike':'Section=feature Note="FILL"',
   'Tainted Aura':'Section=feature Note="FILL"',
-  'Taunt':'Section=feature Note="FILL"',
   'Timeless Body':'Section=feature Note="FILL"',
   'Uncanny Stealth':'Section=feature Note="FILL"',
   'Weapon Mastery':'Section=feature Note="FILL"',
@@ -1118,8 +1170,8 @@ DarkSun35.FEATURES_ADDED = {
     'Section=ability Note="Half of alignment changes each morning"',
   'Beak Attack':'Section=combat Note="Attack with beak"',
   'Claustrophobic':'Section=feature Note="-2 all rolls in enclosed space"',
-  'Desert Camouflage':'Section=skill Note="+4 Hide (arid and desert areas)"',
-  'Dwarf Blood':'Section=feature Note="Dwarf for racial effects"',
+  'Desert Camouflage':'Section=skill Note="+4 Hide (arid and sandy areas)"',
+  'Dwarven Blood':'Section=feature Note="Dwarf for racial effects"',
   'Excellent Vision':'Section=skill Note="+6 Spot (daylight)"',
   'Elf Run':
     'Section=ability ' +
@@ -1127,8 +1179,8 @@ DarkSun35.FEATURES_ADDED = {
   'Extended Activity':
     'Section=feature Note="May perform 12 hrs hard labor w/out fatigue"',
   'Fast':'Section=ability Note="+10 Speed"',
-  'Flying':'Section=ability Note="90 Fly Speed"',
-  'Focused':'Section=feature Note="+2 all rolls related to focus"',
+  'Flying':'Section=ability Note="90\' Fly Speed"',
+  'Focused':'Section=feature Note="+1 all rolls related to focus"',
   'Giant Blood':'Section=feature Note="Giant for racial effects"',
   'Half-Elf Ability Adjustment':
     'Section=ability Note="+2 Dexterity/-2 Charisma"',
@@ -1136,7 +1188,9 @@ DarkSun35.FEATURES_ADDED = {
     'Section=ability ' +
     'Note="+8 Strength/-2 Dexterity/+4 Constitution/-4 Intelligence/-4 Wisdom/-4 Charisma"',
   'Imitator':'Section=skill Note="+2 Disguise (elf or human)"',
+  'Keen Senses':'Section=skill Note="+2 Listen/+2 Perform/+2 Search/+2 Spot"',
   'Leap':'Section=skill Note="+30 Jump"',
+  'Life Path':'Section=feature Note="Choice of favored class"',
   'Limited Darkvision':'Section=feature Note="30\' b/w vision in darkness"',
   'Monstrous Humanoid':
     'Section=save Note="Unaffected by spells that effect only humanoids"',
@@ -1144,11 +1198,14 @@ DarkSun35.FEATURES_ADDED = {
     'Section=ability Note="+4 Strength/+2 Constitution/-2 Charisma"',
   'Multiple Limbs':
     'Section=combat ' +
-    'Note="May use Multiweapon Fighting and Multiattck feats with all four arms"',
-  'Poison':'Section=combat Note="Bite for 1d6 Dex + paralysis (DC %{constitutionModifier+11} neg) 1/dy"',
+    'Note="May use Multiweapon Fighting and Multiattack feats with all four arms"',
+  'Poison':
+    'Section=combat ' +
+    'Note="Bite for 1d6 Dex + paralysis (DC %{constitutionModifier+11} neg) 1/dy"',
   'Poor Hearing':'Section=skill Note="-2 Listen"',
   'Precise':'Section=combat Note="+1 attack with slings and thrown"',
-  'Psi-Like Ability':'Section=magic Note="<i>Missive</i> at will"',
+  'Psi-Like Ability':
+    'Section=magic Note="Use <i>Missive</i> at will w/reptiles"',
   'Pterran Ability Adjustment':
     'Section=ability Note="-2 Dexterity/+2 Wisdom/+2 Charisma"',
   'Race Level Adjustment':'Section=ability Note="-%V Level"',
@@ -1157,10 +1214,11 @@ DarkSun35.FEATURES_ADDED = {
   'Rugged':'Section=save Note="Nonlethal DR 1/-"',
   'Sharp Senses':'Section=skill Note="+4 Listen/+4 smell and taste"',
   'Suspect':'Section=skill Note="-2 Diplomacy (other races)"',
-  'Thri-Kreen Ability Adjustment':
+  'Thri-kreen Ability Adjustment':
     'Section=ability ' +
     'Note="+2 Strength/+4 Dexterity/-2 Intelligence/+2 Wisdom/-4 Charisma"',
-  'Tireless':'Section=save Note="+4 extended physical action"'
+  'Tireless':'Section=save Note="+4 extended physical action"',
+  'Wildlander':'Section=skill Note="+2 Handle Animal/+2 Survival"'
 
 };
 DarkSun35.FEATURES = Object.assign({}, SRD35.FEATURES, DarkSun35.FEATURES_ADDED);
@@ -1342,7 +1400,7 @@ DarkSun35.RACES = {
   'Half-Elf':
     'Features=' +
       '"Half-Elf Ability Adjustment",' +
-      '"Alert Senses","Elven Blood",Imitator,"Low-Light Vision" ' +
+      '"Alert Senses","Elven Blood",Imitator,"Low-Light Vision",Wildlander ' +
     'Languages=Common,Elven',
   'Half-Giant':
     'Features=' +
@@ -1355,21 +1413,25 @@ DarkSun35.RACES = {
       '"Halfling Ability Adjustment",' +
       'Precise,"Resist Spells","Sharp Senses",Slow,Small,Spry,Suspect ' +
     'Languages=Halfling',
+  'Human':
+    SRD35.RACES.Human + ' ' +
+    'Languages=Common',
   'Mul':
     'Features=' +
       '"Mul Ability Adjustment",' +
-      '"Dwarf Blood","Extended Activity","Limited Darkvision",' +
+      '"Dwarven Blood","Extended Activity","Limited Darkvision",' +
       '"Race Level Adjustment",Rugged,Tireless ' +
     'Languages=Common',
   'Pterran':
     'Features=' +
       '"Pterran Ability Adjustment",' +
       '"Weapon Familiarity (Thanak)",' +
-      '"Bite Attack","Claw Attack","Poor Hearing","Psi-Like Ability" ' +
+      '"Bite Attack","Claw Attack","Life Path","Poor Hearing",' +
+      '"Psi-Like Ability" ' +
     'Languages=Sauran',
-  'Thri-Kreen':
+  'Thri-kreen':
     'Features=' +
-      '"Thri-Kreen Ability Adjustment",' +
+      '"Thri-kreen Ability Adjustment",' +
       '"Weapon Familiarity (Chatkcha/Gythka)",' +
       '"Bite Attack","Claw Attack",Darkvision,"Deflect Arrows",' +
       '"Desert Camouflage",Fast,Leap,"Monstrous Humanoid","Multiple Limbs",' +
@@ -1382,15 +1444,15 @@ DarkSun35.SKILLS_ADDED = {
   'Autohypnosis':
     'Ability=wisdom untrained=n',
   'Bluff':
-    SRD35.SKILLS['Bluff'].replace('Class=', 'Class=Wizard,'),
+    SRD35.SKILLS.Bluff.replace('Class=', 'Class=Wizard,'),
   'Diplomacy':
-    SRD35.SKILLS['Diplomacy'].replace('Druid,', ''),
+    SRD35.SKILLS.Diplomacy.replace('Druid,', ''),
   'Disguise':
-    SRD35.SKILLS['Disguise'].replace('Class=', 'Class=Wizard,'),
+    SRD35.SKILLS.Disguise.replace('Class=', 'Class=Wizard,'),
   'Escape Artist':
     SRD35.SKILLS['Escape Artist'].replace('Class=', 'Class=Barbarian,'),
   'Hide':
-    SRD35.SKILLS['Hide'].replace('Class=', 'Class=Druid,'),
+    SRD35.SKILLS.Hide.replace('Class=', 'Class=Druid,'),
   'Knowledge (Ancient History)':
     'Ability=intelligence untrained=n',
   'Knowledge (Warcraft)':
@@ -1402,7 +1464,7 @@ DarkSun35.SKILLS_ADDED = {
   'Psicraft':
     'Ability=intelligence untrained=n',
   'Swim':
-    SRD35.SKILLS['Swim'] + ' ' + 'Class=',
+    SRD35.SKILLS.Swim + ' ' + 'Class=',
   'Use Psionic Device':
     'Ability=charisma untrained=n Class=Rogue'
 };
@@ -2142,54 +2204,6 @@ DarkSun35.SPELLS_ADDED = {
     'School=Divination ' +
     'Level=Psion4 ' +
     'Description="FILL"',
-  'Cast Missiles':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Deflect Strike':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psionic Draw':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Tattoo Animation':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Wild Leap':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Antidote Simulation':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Return Missile':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Share Strength':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Accelerate':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Death Field':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Shadow Jump':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Nerve Manipulation':
-    'School=Divination ' +
-    'Level=Psion5 ' +
-    'Description="FILL"',
   'Poison Manipulation':
     'School=Divination ' +
     'Level=Psion6 ' +
@@ -2228,17 +2242,21 @@ DarkSun35.SPELLS_ADDED = {
     'Level=Madness2 ' +
     'Description="FILL"'
 };
+DarkSun35.SPELLS_DELETED = {
+  'Bless Water':'',
+  'Control Water':'',
+  'Create Water':'',
+  'Curse Water':'',
+  'Flame Strike':'',
+  'Fire Storm':'',
+  'Water Breathing':'',
+  'Water Walking':''
+};
 DarkSun35.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, DarkSun35.SPELLS_ADDED
 );
-delete DarkSun35.SPELLS['Bless Water'];
-delete DarkSun35.SPELLS['Control Water'];
-delete DarkSun35.SPELLS['Create Water'];
-delete DarkSun35.SPELLS['Curse Water'];
-delete DarkSun35.SPELLS['Flame Strike'];
-delete DarkSun35.SPELLS['Fire Storm'];
-delete DarkSun35.SPELLS['Water Breathing'];
-delete DarkSun35.SPELLS['Water Walking'];
+for(var s in DarkSun35)
+  delete DarkSun35.SPELLS[s];
 DarkSun35.SPELLS_LEVELS = {
   'Acid Fog':'"Ill Winds6"',
   'Air Walk':'"Soaring Spirit4"',
@@ -2487,9 +2505,6 @@ DarkSun35.identityRules = function(
   );
 
   // Level adjustments for powerful races
-  rules.defineRule('abilityNotes.raceLevelAdjustment',
-    'race', '=', 'source.match(/Aarakocra|Mul/) ? 1 : source.match(/Half-Giant|Thri-Kreen/) ? 2 : null'
-  );
   rules.defineRule('level', '', '^', '1');
   rules.defineRule('experienceNeededLevel',
     'level', '=', null,
@@ -2773,6 +2788,9 @@ DarkSun35.classRulesExtra = function(rules, name) {
     rules.defineRule
       ('skillNotes.smuggler', classLevel, '+=', 'Math.floor(source / 2)');
   } else if(name == 'Gladiator') {
+    rules.defineRule('combatNotes.taunt',
+      classLevel, '+=', 'Math.min(Math.floor((source + 4) / 6), 1)'
+    );
     rules.defineRule('combatNotes.combatStance.1',
       'features.Combat Stance', '?', null,
       classLevel, '=', 'source<6 ? "standard" : source<12 ? "move" : "swift"'
@@ -3016,21 +3034,27 @@ DarkSun35.raceRules = function(
  */
 DarkSun35.raceRulesExtra = function(rules, name) {
   var raceLevel =
-    name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '') + 'Level';
+    name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '') +
+    'Level';
   if(name.includes('Aarakocra')) {
-    rules.defineRule('combatNotes.naturalArmor', raceLevel, '=', '1');
+    rules.defineRule('abilityNotes.raceLevelAdjustment', raceLevel, '=', '1');
+    rules.defineRule('combatNotes.naturalArmor', raceLevel, '+=', '1');
     rules.choiceRules(rules, 'Weapon', 'Beak', 'Level=1 Category=Un Damage=d2');
     rules.choiceRules(rules, 'Weapon', 'Claw', 'Level=1 Category=Un Damage=d3');
     rules.defineRule('weapons.Beak', 'combatNotes.beakAttack', '=', '1');
     rules.defineRule('weapons.Claw', 'combatNotes.clawAttack', '=', '1');
   } else if(name.includes('Half-Giant')) {
+    rules.defineRule('abilityNotes.raceLevelAdjustment', raceLevel, '=', '2');
     rules.defineRule('combatNotes.naturalArmor', raceLevel, '=', '2');
+  } else if(name.includes('Mul')) {
+    rules.defineRule('abilityNotes.raceLevelAdjustment', raceLevel, '=', '1');
   } else if(name.includes('Pterran')) {
     rules.choiceRules(rules, 'Weapon', 'Bite', 'Level=1 Category=Un Damage=d4');
     rules.choiceRules(rules, 'Weapon', 'Claw', 'Level=1 Category=Un Damage=d3');
     rules.defineRule('weapons.Bite', 'combatNotes.biteAttack', '=', '1');
     rules.defineRule('weapons.Claw', 'combatNotes.clawAttack', '=', '1');
-  } else if(name.includes('Thri-Kreen')) {
+  } else if(name.includes('Thri-kreen')) {
+    rules.defineRule('abilityNotes.raceLevelAdjustment', raceLevel, '=', '2');
     rules.defineRule('combatNotes.naturalArmor', raceLevel, '=', '2');
     rules.choiceRules(rules, 'Weapon', 'Bite', 'Level=1 Category=Un Damage=d4');
     rules.choiceRules(rules, 'Weapon', 'Claw', 'Level=1 Category=Un Damage=d3');
