@@ -414,8 +414,8 @@ DarkSun35.PRESTIGE_CLASSES = {
     'HitDie=d6 Attack=3/4 SkillPoints=8 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Features=' +
       '"1:Open Arms","1:Fast Talk",2:Contact,"3:Distributive Bargaining",' +
-      '4:Dazzle,4:Linguist,5:Agent,"6:Improved Fast Talk",' +
-      '"7:Integrative Bargaining",8:Taunt,9:Allies ' +
+      '4:Dazzle,4:Linguist (Dune Trader),5:Agent,"6:Improved Fast Talk",' +
+      '"7:Integrative Bargaining",8:Taunt (Dune Trader),9:Allies ' +
     'Skills=' +
       'Appraise,Bluff,Craft,"Decipher Script",Diplomacy,Disguise,Forgery,' +
       '"Gather Information",Hide,Intimidate,Listen,"Move Silently",' +
@@ -427,10 +427,9 @@ DarkSun35.PRESTIGE_CLASSES = {
       '"spellSlots.C3 >= 1 || spellSlots.D3 >= 1" ' +
     'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Elemental Affiliation",' +
-      '"1:Energy Resistance","2:Elemental Focus","3:Additional Domain",' +
-      '"4:Elemental Shield","5:Ignore Element","6:Spontaneous Domain Spells",' +
-      '"7:Summon Elemental","9:Power Element","10:Element Immunity" ' +
+      '"1:Caster Level Bonus","1:Energy Resistance","2:Elemental Focus",' +
+      '"3:Additional Domain","4:Elemental Shield","5:Ignore Element",' +
+      '"6:Spontaneous Domain Spells","7:Summon Elemental","9:Power Element" ' +
     'Skills=' +
       'Concentration,Craft,Heal,"Knowledge (Religion)","Knowledge (Planes)",' +
       'Profession,Spellcraft',
@@ -455,7 +454,7 @@ DarkSun35.PRESTIGE_CLASSES = {
     'Features=' +
       '"1:Armor Proficiency (Light)","1:Weapon Proficiency (Simple)",' +
       '"1:Blaze Trail","1:Hard March","2:Swift Strike","3:Uncanny Stealth",' +
-      '"4:Favored Terrain","5:Swift Strike","6:Bonus Feat" ' +
+      '"4:Favored Terrain","6:Master Scout Feat Bonus" ' +
     'Skills=' +
       'Balance,Climb,Craft,"Handle Animal",Hide,Jump,"Knowledge (Nature)",' +
       'Listen,"Move Silently",Spot,Survival,"Use Rope"',
@@ -989,72 +988,112 @@ DarkSun35.FEATURES_ADDED = {
   'Wasteland Trapsense':'Section=skill Note="Use Trap Sense w/natural hazards"',
 
   // Prestige Classes
-  'Additional Domain':'Section=feature Note="FILL"',
-  'Agent':'Section=feature Note="FILL"',
-  'Allies':'Section=feature Note="FILL"',
-  'Animal Companion':'Section=feature Note="FILL"',
+  'Additional Domain':'Section=magic Note="Access to third domain"',
+  'Agent':'Section=feature Note="Leadership features w/score %V"',
+  'Allies':
+    'Section=feature ' +
+    'Note="Receives favors from connected organization or powerful individual"',
   'Arch Defiler Bonus Feats':'Section=feature Note="%V Arch Defiler feats"',
-  'Blaze Trail':'Section=feature Note="FILL"',
-  'Casting Time Metamagic':'Section=feature Note="FILL"',
-  'Contact':'Section=feature Note="FILL"',
-  'Crowd Support':'Section=feature Note="FILL"',
+  'Blaze Trail':
+    'Section=ability,feature ' +
+    'Note="+5 Speed/+5 Speed in favored terrain",' +
+         '"Guide %V companions at full speed"',
+  'Casting Time Metamagic':
+    'Section=magic ' +
+    'Note="Double casting time to apply metamagic feat w/out using higher spell slot %V/dy"',
+  'Contact':'Section=feature Note="Can call in favor %V/wk"',
+  'Crowd Support':
+    'Section=combat Note="+%V attack and damage when viewed by %1 spectators"',
   'Damage Reduction':'Section=feature Note="FILL"',
-  'Dazzle':'Section=feature Note="FILL"',
+  'Dazzle':
+    'Section=skill ' +
+    'Note="R90\' Opposed bluff inflicts -1 attack, ability, skill, and save on %V targets"',
   'Discipline Insight':'Section=feature Note="FILL"',
-  'Distributive Bargaining':'Section=feature Note="FILL"',
+  'Distributive Bargaining':
+    'Section=feature,skill ' +
+    'Note="%V% discount on purchased goods","+%V or +%1 on house-linked skill"',
   'Dosage':'Section=feature Note="FILL"',
-  'Element Immunity':'Section=feature Note="FILL"',
-  'Elemental Affiliation':'Section=feature Note="FILL"',
-  'Elemental Focus':'Section=feature Note="FILL"',
+  'Elemental Focus':'Section=magic Note="+%V DC on %1 spells"',
   'Elemental Shield':'Section=feature Note="FILL"',
   'Empower Poison':'Section=feature Note="FILL"',
-  'Energy Resistance':'Section=feature Note="FILL"',
+  'Energy Resistance':'Section=save Note="+%1 vs %2 damage"',
   'Extend Poison':'Section=feature Note="FILL"',
-  'Fame':'Section=feature Note="FILL"',
+  'Fame':'Section=feature Note="Increased Reputation effects"',
   'Fast Talk':'Section=feature Note="FILL"',
   'Favored Terrain':'Section=feature Note="FILL"',
   'Fearless Presence':'Section=feature Note="FILL"',
-  'Finishing Move':'Section=feature Note="FILL"',
+  'Finishing Move':
+    'Section=combat Note="May perform coup de grace as free action"',
   'Forethought':'Section=feature Note="FILL"',
-  'Grove Master Spells':'Section=feature Note="FILL"',
-  'Guarded Lands':'Section=feature Note="FILL"',
-  'Hard March':'Section=feature Note="FILL"',
+  'Grove Master Spells':'Section=magic Note="%V in guarded lands"',
+  'Guarded Lands':
+    'Section=feature Note="Detect defilement on 20\' sq mile protected area"',
+  'Hard March':
+    'Section=save Note="+%V Fortitude (forced march) for self and 1 companion"',
   'Identify Poison':'Section=feature Note="FILL"',
-  'Ignore Element':'Section=feature Note="FILL"',
-  'Improved Fast Talk':'Section=feature Note="FILL"',
-  'Improved Signature Move':'Section=feature Note="FILL"',
-  'Integrative Bargaining':'Section=feature Note="FILL"',
-  'Legend':'Section=feature Note="FILL"',
+  'Ignore Element':'Section=feature Note="Unaffected by %V for %1 rd 1/dy"',
+  'Improved Fast Talk':
+    'Section=skill Note="Make rushed Diplomacy check at -5 penalty"',
+  'Improved Signature Move':
+    'Section=combat ' +
+    'Note="Select second Signature Move effect or double existing effect"',
+  'Integrative Bargaining':
+    'Section=feature Note="Improved Distributive Bargaining effects"',
+  'Legend':
+    'Section=feature ' +
+    'Note="Increased Reputation effects/NPC initial attitude improves 1 step"',
+  'Linguist (Dune Trader)':
+    'Section=skill ' +
+    'Note="DC 15 or 25 Int or Decipher Script check to understand unknown language"',
+  'Master Scout Bonus Feats':'Section=feature Note="1 Master Scout feat"',
   'Maximize Poison':'Section=feature Note="FILL"',
-  'Metamagic Raze':'Section=feature Note="FILL"',
-  'Open Arms':'Section=feature Note="FILL"',
-  'Painful Radius':'Section=feature Note="FILL"',
+  'Metamagic Raze':
+    'Section=magic ' +
+    'Note="Trade 5\' increase in defiling radius for 1 level metamagic spell reduction"',
+  'Open Arms':'Section=skill Note="+%V Diplomacy"',
+  'Painful Radius':'Section=magic Note="+1 penalty w/in defiling radius"',
   'Poison Immunity':'Section=feature Note="FILL"',
   'Poison Secret':'Section=feature Note="FILL"',
   'Poison Use':'Section=feature Note="FILL"',
   "Poisoner's Fortitude":'Section=feature Note="FILL"',
-  'Power Element':'Section=feature Note="FILL"',
+  'Power Element':'Section=magic Note="%V spells inflict +%1 damage"',
   'Psilogism':'Section=feature Note="FILL"',
   'Psionic Acumen':'Section=feature Note="FILL"',
   'Psionic Rationalization':'Section=feature Note="FILL"',
   'Quicken Poison':'Section=feature Note="FILL"',
-  'Reputation':'Section=feature Note="FILL"',
-  'Roar Of The Crowd':'Section=feature Note="FILL"',
-  'Sacrifice':'Section=feature Note="FILL"',
+  'Reputation':
+    'Section=feature,skill ' +
+    'Note="+%V Leadershp score",' +
+         '"+%V Bluff/+%V Diplomacy/+%V Gather Information/+%V Intimidate"',
+  'Roar Of The Crowd':
+    'Section=combat Note="Successful attack give +1 attack in same rd"',
+  'Sacrifice':
+    'Section=magic ' +
+    'Note="Trade -1 HP for negating each 5\' of defilement of guarded lands"',
   'Schoolmaster':'Section=feature Note="FILL"',
-  'Signature Move':'Section=feature Note="FILL"',
-  'Smite Intruder':'Section=feature Note="FILL"',
+  'Signature Move':
+    'Section=combat ' +
+    'Note="+2 choice of disarm, sunder, trip, or combat Bluff and Sense Motive, or +1 AC when fighting defensively"',
+  'Smite Intruder':'Section=combat Note="+%V attack; +%1 damage %2/dy"',
   'Smite Opponents':'Section=feature Note="FILL"',
   'Spell Channeling':'Section=feature Note="FILL"',
   'Spell-Like Abilities':'Section=feature Note="FILL"',
-  'Spontaneous Domain Spells':'Section=feature Note="FILL"',
-  'Summon Elemental':'Section=feature Note="FILL"',
-  'Sustenance':'Section=feature Note="FILL"',
-  'Swift Strike':'Section=feature Note="FILL"',
-  'Tainted Aura':'Section=feature Note="FILL"',
+  'Spontaneous Domain Spells':
+    'Section=magic ' +
+    'Note="Cast domain, <i>Cure</i>, or <i>Inflict</i> spell in place of known spell"',
+  'Summon Elemental':'Section=magic Note="Summon %V elemental %1/dy"',
+  'Sustenance':
+    'Section=feature Note="Need no food or water while on guarded lands"',
+  'Swift Strike':'Section=combat Note="+%Vd6 damage vs. flat-footed foe"',
+  'Tainted Aura':
+    'Section=skill ' +
+    'Note="R%1\' -%V Bluff/-%V Diplomacy/-%V Gather Information/-%V Handle Animal/+%V Intimidation"',
+  'Taunt (Dune Trader)':
+    'Section=combat Note="Target can attack only self for 1 rd (DC %V Wis neg)"',
   'Timeless Body':'Section=feature Note="FILL"',
-  'Uncanny Stealth':'Section=feature Note="FILL"',
-  'Weapon Mastery':'Section=feature Note="FILL"',
+  'Uncanny Stealth':
+    'Section=skill Note="No Hide or Move Silently penalty at normal speed%1"',
+  'Weapon Mastery':'Section=combat Note="+2 damage w/focused weapon"',
   'Wild Shape':'Section=feature Note="FILL"',
 
   // Feats
@@ -1168,7 +1207,8 @@ DarkSun35.FEATURES_ADDED = {
   'Improved Hidden Talent':
     'Section=feature Note="FILL"',
   'Jump Charge':
-    'Section=feature Note="FILL"',
+    'Section=combat ' +
+    'Note="Jumping 10\' as part of charge multiplies psionic damage by 1.5"',
   'Pterran Telepathy':
     'Section=magic Note="Use <i>Missive</i> to communicate w/all humanoids"',
   'Agonizing Radius':'Section=magic Note="+1 penalty w/in defiling radius"',
@@ -2915,6 +2955,156 @@ DarkSun35.classRulesExtra = function(rules, name) {
       classLevel, '=', 'Math.floor((source + 3) / 4)'
     );
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+    rules.defineRule
+      ('magicNotes.castingTimeMetamagic', classLevel, '=', 'source<7 ? 1 : 2');
+    rules.defineRule('skillNotes.taintedAura',
+      classLevel, '=', 'Math.floor((source + 1) / 2)'
+    );
+    rules.defineRule('skillNotes.taintedAura.1', classLevel, '=', 'source * 5');
+  } else if(name == 'Arena Champion') {
+    rules.defineRule('combatNotes.crowdSupport',
+      classLevel, '=', 'Math.floor((source + 3) / 4)'
+    );
+    rules.defineRule('combatNotes.crowdSupport.1',
+      classLevel, '=', 'level<5 ? 10 : level<9 ? 50 : 100'
+    );
+    rules.defineRule('featuretNotes.reputation',
+      classLevel, '=', '1',
+      'featureNotes.fame', '+', '1',
+      'featureNotes.legend', '+', '1'
+    );
+    rules.defineRule('skilltNotes.reputation',
+      classLevel, '=', '1',
+      'featureNotes.fame', '+', '1'
+    );
+  } else if(name == 'Dune Trader') {
+    rules.defineRule('combatNotes.taunt(DuneTrader)',
+      classLevel, '=', '10 + source',
+      'charismaModifier', '+', null
+    );
+    rules.defineRule('featureNotes.agent',
+      classLevel, '=', null,
+      'charismaModifier', '+', null
+    );
+    rules.defineRule
+      ('featureNotes.contact', classLevel, '=', 'Math.floor((source + 2) / 4)');
+    rules.defineRule('featureNotes.distributiveBargaining',
+      classLevel, '=', '10',
+      'featureNotes.integrativeBargaining', '+', '10'
+    );
+    rules.defineRule('skillNotes.distributiveBargaining',
+      classLevel, '=', '1',
+      'featureNotes.integrativeBargaining', '+', '1'
+    );
+    rules.defineRule('skillNotes.distributiveBargaining.1',
+      classLevel, '=', '2',
+      'featureNotes.integrativeBargaining', '+', '2'
+    );
+    rules.defineRule
+      ('skillNotes.openArms', classLevel, '=', 'Math.floor(source / 2)');
+    rules.defineRule
+      ('skillNotes.dazzle', classLevel, '=', 'Math.floor((source - 1) / 3)');
+  } else if(name == 'Elementalist') {
+    rules.defineRule('featureNotes.ignoreElement',
+      'magicNotes.energyResistance.2', '=', null
+    );
+    rules.defineRule('featureNotes.ignoreElement.1',
+      'features.Ignore Element', '?', null,
+      classLevel, '=', null
+    );
+    rules.defineRule('magicNotes.elementalFocus',
+      classLevel, '=', 'Math.floor((source + 1) / 3)'
+    );
+    rules.defineRule('magicNotes.elementalFocus.1',
+      'features.Elemental Focus', '?', null,
+      'saveNotes.energyResistance.2', '=', null
+    );
+    rules.defineRule('magicNotes.powerElement',
+      'saveNotes.energyResistance.2', '=', 'source.charAt(0).toUpperCase() + source.substring(1)'
+    );
+    rules.defineRule('magicNotes.powerElement.1',
+      'features.Power Element', '?', null,
+      classLevel, '=', null
+    );
+    rules.defineRule('magicNotes.summonElemental',
+      'saveNotes.energyResistance.2', '=', null
+    );
+    rules.defineRule('magicNotes.summonElemental.1',
+      'features.Summon Elemental', '?', null,
+      classLevel, '=', 'source<9 ? 1 : 2'
+    );
+    rules.defineRule('saveNotes.energyResistance.1',
+      'features.Energy Resistance', '?', null,
+      classLevel, '=', 'source<4 ? 10 : source<7 ? 30 : source<10 ? 30 : "Immune"'
+    );
+    rules.defineRule('saveNotes.energyResistance.2',
+      'features.Energy Resistance', '?', null,
+      'deity', '=', 'source=="Air" ? "sonic" : ' +
+                    'source=="Rain" ? "electricity" : ' +
+                    'source=="Water" ? "cold" : ' +
+                    '"EarthSilt".includes(source) ? "acid" : "fire"'
+    );
+    rules.defineRule('selectableFeatureCount.Cleric',
+      'magicNotes.additionalDomain', '+', '1'
+    );
+  } else if(name == 'Grove Master') {
+    rules.defineRule('combatNotes.smiteIntruder',
+      'charismaModifier', '=', 'Math.max(source, 0)'
+    );
+    rules.defineRule('combatNotes.smiteIntruder.1',
+      'features.Smite Intruder', '?', null,
+      classLevel, '=', null
+    );
+    rules.defineRule('combatNotes.smiteIntruder.2',
+      'features.Smite Intruder', '?', null,
+      classLevel, '=', 'source<7 ? 1 : 2'
+    );
+    rules.defineRule('companionMasterLevel', 'levels.Grove Master', '+=', null);
+    rules.defineRule('magicNotes.groveMasterSpells',
+      classLevel, '=',
+        '("<i>Invisibility</i> " + source<6 ? "1" : "2") + "/dy" + ' +
+        '(source<4 ? "" : ", <i>Teleport</i> 1/dy") + ' +
+        '(source<5 ? "" : ", <i>Nondetection</i> 1/dy") + ' +
+        '(source<8 ? "" : ", <i>Greater Teleport</i> 2/dy") + ' +
+        '(source<9 ? "" : ", <i>Improved Invisibility</i> 1/dy")'
+    );
+    rules.defineRule('magicNotes.wildShape',
+      'levels.Grove Master', '^=', '"small-medium"'
+    );
+    rules.defineRule
+      ('magicNotes.wildShape.1', 'levels.Grove Master', '+=', null);
+    rules.defineRule('magicNotes.wildShape.2',
+      'levels.Druid', '=', 'null',
+      'magicNotes.wildShape.3', '=',
+         'source < 5 ? null : ' +
+         'source == 5 ? 1 : ' +
+         'source == 6 ? 2 : ' +
+         'source < 10 ? 3 : ' +
+         'source < 14 ? 4 : ' +
+         'source < 18 ? 5 : 6'
+    );
+    rules.defineRule('magicNotes.wildShape.3',
+      'levels.Druid', '=', null,
+      'levels.Grove Master', '+=', null
+    );
+  } else if(name == 'Master Scout') {
+    feats = [
+      'Endurance', 'Great Fortitude', 'Iron Will', 'Lightning Reflexes',
+      'Mobility', 'Toughness'
+    ];
+    rules.defineRule('combatNotes.swiftStrike',
+      classLevel, '=', 'Math.floor((source + 1) / 3)'
+    );
+    rules.defineRule('featCount.Master Scout',
+      'featureNotes.masterScoutBonusFeats', '=', '1'
+    );
+    rules.defineRule('featureNotes.blazeTrail', classLevel, '=', null);
+    rules.defineRule
+      ('saveNotes.hardMarch', 'wisdomModifier', '=', 'Math.max(source, 0)');
+    rules.defineRule('skillNotes.uncannyStealth.1',
+      'features.Uncanny Stealth', '?', null,
+      classLevel, '=', 'source<7 ? "" : ", -10 when running or charging"'
+    );
   }
 
   if(feats != null && allFeats != null) {
