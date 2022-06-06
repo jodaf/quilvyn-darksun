@@ -126,65 +126,140 @@ DarkSun35.RANDOMIZABLE_ATTRIBUTES =
 
 DarkSun35.ALIGNMENTS = Object.assign({}, SRD35.ALIGNMENTS);
 DarkSun35.ANIMAL_COMPANIONS = {
-  // 'Carru':'FILL',
+  'Carru':
+    'Str=22 Dex=10 Con=17 Int=2 Wis=10 Cha=3 HD=3 AC=12 Attack=7 ' +
+    'Dam=1d6+6,1d8+3 Size=L',
   'Dire Rat':SRD35.ANIMAL_COMPANIONS['Dire Rat'],
   'Eagle':SRD35.ANIMAL_COMPANIONS.Eagle,
-  // 'Erdlu':'FILL',
-  // 'Jankx':'FILL',
-  // 'Jhakar':'FILL',
-  // "Kes'trekel":'FILL',
-  // 'Kivit':'FILL',
-  // 'Lesser Boneclaw':'FILL',
+  'Erdlu':
+    'Str=12 Dex=14 Con=13 Int=2 Wis=12 Cha=3 HD=2 AC=13 Attack=2 Dam=1d4+1 ' +
+    'Size=M',
+   'Jankx':
+    'Str=6 Dex=19 Con=13 Int=1 Wis=10 Cha=8 HD=1 AC=16 Attack=6 Dam=1d2-2 ' +
+    'Size=T',
+  'Jhakar':
+    'Str=6 Dex=17 Con=11 Int=3 Wis=12 Cha=8 HD=1 AC=16 Attack=6 Dam=1d6-2 ' +
+    'Size=S',
+  "Kes'trekel":
+    'Str=12 Dex=12 Con=13 Int=1 Wis=10 Cha=8 HD=1 AC=15 Attack=3 Dam=1d3+1 ' +
+    'Size=T',
+  'Kivit':
+    'Str=3 Dex=16 Con=10 Int=2 Wis=12 Cha=9 HD=1 AC=15 Attack=5 ' +
+    'Dam=2@1d2-4,1d3-4 Size=T',
+  'Lesser Boneclaw':
+    'Str=6 Dex=14 Con=10 Int=1 Wis=10 Cha=4 HD=1 AC=16 Attack=3 Dam=1d4-2 ' +
+    'Size=S',
   'Medium Viper':SRD35.ANIMAL_COMPANIONS['Medium Viper'],
   'Owl':SRD35.ANIMAL_COMPANIONS.Owl,
-  // 'Slit Spawn':'FILL',
+  'Slit Spawn':
+    'Str=11 Dex=14 Con=12 Int=1 Wis=12 Cha=3 HD=2 AC=14 Attack=3 Dam=1d8 ' +
+    'Size=M',
   'Small Viper':SRD35.ANIMAL_COMPANIONS['Small Viper'],
 
-  // 'Athasian Shark':'FILL Level=4',
-  // 'Bull Carru':'FILL Level=4',
+  'Athasian Shark':
+    'Str=18 Dex=15 Con=13 Int=2 Wis=12 Cha=2 HD=7 AC=17 Attack=8 Dam=1d8+6 ' +
+    'Size=L Level=4',
+  'Bull Carru':
+    'Str=24 Dex=8 Con=18 Int=2 Wis=8 Cha=3 HD=6 AC=13 Attack=10 ' +
+    'Dam=1d6+7,1d8+3 Size=L Level=4',
   'Cheetah':SRD35.ANIMAL_COMPANIONS.Cheetah,
   'Constrictor':SRD35.ANIMAL_COMPANIONS['Constrictor'],
-  // 'Crodlu':'FILL Level=4',
+  'Crodlu':
+    'Str=22 Dex=19 Con=18 Int=2 Wis=13 Cha=7 HD=5 AC=17 Attack=8 ' +
+    'Dam=2@1d6+6,1d8+3 Size=L Level=4',
   'Dire Bat':SRD35.ANIMAL_COMPANIONS['Dire Bat'],
-  // 'Erdland':'FILL Level=4',
-  // 'Giant Lizard':'FILL Level=4',
-  // 'Heavy Crodlu':'FILL Level=4',
-  // 'Medium Jhakar':'FILL Level=4',
-  // 'Kluzd':'FILL Level=4',
+  'Erdland':
+    'Str=12 Dex=14 Con=13 Int=2 Wis=12 Cha=3 HD=2 AC=13 Attack=2 ' +
+    'Dam=2@1d4+1,1d6 Size=M Level=4',
+  'Giant Lizard':
+    'Str=18 Dex=17 Con=20 Int=1 Wis=10 Cha=9 HD=3 AC=16 Attack=5 ' +
+    'Dam=1d8+6 Size=L Level=4',
+  'Heavy Crodlu':
+    'Str=22 Dex=19 Con=18 Int=2 Wis=13 Cha=7 HD=5 AC=17 Attack=8 ' +
+    'Dam=2@1d6+6,1d8+3 Size=L Level=4',
+  'Medium Jhakar':
+    'Str=6 Dex=17 Con=11 Int=3 Wis=12 Cha=8 HD=6 AC=16 Attack=6 Dam=1d6-2 ' +
+    'Size=S Level=4',
+  'Kluzd':
+    'Str=12 Dex=17 Con=12 Int=1 Wis=12 Cha=2 HD=4 AC=15 Attack=5 Dam=1d8+1 ' +
+    'Size=L Level=4',
   'Large Viper':SRD35.ANIMAL_COMPANIONS['Large Viper'],
   'Leopard':SRD35.ANIMAL_COMPANIONS.Leopard,
-  // 'Monitor Lizard':'FILL Level=4',
-  // 'Rasclinn':'FILL Level=4',
+  'Monitor Lizard':SRD35.ANIMAL_COMPANIONS['Monitor Lizard'],
+  'Rasclinn':
+    'Str=6 Dex=17 Con=11 Int=1 Wis=12 Cha=14 HD=1 AC=18 Attack=4 ' +
+    'Dam=2@1d4-2,1d4-2 Size=S Level=4',
 
-  // 'Heavy Warmount Crodlu':'FILL Level=7',
+  'Heavy Warmount Crodlu':
+    'Str=24 Dex=17 Con=20 Int=2 Wis=13 Cha=7 HD=6 AC=18 Attack=10 ' +
+    'Dam=2@1d8+7,1d8+3 Size=L Level=7',
   'Huge Viper':SRD35.ANIMAL_COMPANIONS['Huge Viper'],
-  // 'Inix':'FILL Level=7',
-  // 'Kalin':'FILL Level=7',
-  // 'Kluzd 7':'FILL Level=7',
+  'Inix':
+    'Str=19 Dex=15 Con=16 Int=2 Wis=12 Cha=6 HD=6 AC=17 Attack=7 ' +
+    'Dam=1d8+6 Size=L Level=7',
+  'Kalin':
+    'Str=18 Dex=16 Con=14 Int=2 Wis=10 Cha=4 HD=7 AC=16 Attack=9 ' +
+    'Dam=2@1d6+2,2d6+4 Size=L Level=7',
+  'Kluzd 7HD':
+    'Str=12 Dex=17 Con=12 Int=1 Wis=12 Cha=2 HD=7 AC=15 Attack=5 Dam=1d8+1 ' +
+    'Size=L Level=7',
   'Lion':SRD35.ANIMAL_COMPANIONS.Lion,
-  // 'Lirr':'FILL Level=7',
-  // 'Pterrax':'FILL Level=7',
-  // 'Puddingfish':'FILL Level=7',
-  // 'Subterranean Lizard':'FILL Level=7',
-  // 'Takis':'FILL Level=7',
+  'Lirr':
+    'Str=13 Dex=12 Con=14 Int=1 Wis=12 Cha=11 HD=5 AC=14 Attack=4 ' +
+    'Dam=2@1d4+1,1d10 Size=M Level=7',
+  'Pterrax':
+    'Str=19 Dex=13 Con=17 Int=1 Wis=12 Cha=13 HD=5 AC=13 Attack=6 ' +
+    'Dam=2@1d6+2,1d8+4 Size=L Level=7',
+  'Puddingfish':
+    'Str=26 Dex=15 Con=20 Int=1 Wis=10 Cha=2 HD=9 AC=15 Attack=13 Dam=2d6+12 ' +
+    'Size=H Level=7',
+  'Subterranean Lizard':
+    'Str=20 Dex=18 Con=22 Int=2 Wis=12 Cha=11 HD=6 AC=17 Attack=8 Dam=1d8+7 ' +
+    'Size=L Level=7',
+  'Takis':
+    'Str=22 Dex=12 Con=18 Int=2 Wis=12 Cha=6 HD=4 AC=15 Attack=8 ' +
+    'Dam=2@1d4+6,1d8+3,1d12+6 Size=L Level=7',
   'Tiger':SRD35.ANIMAL_COMPANIONS.Tiger,
 
-  // "Cha'thrang":'FILL Level=10',
+  "Cha'thrang":
+    'Str=20 Dex=12 Con=20 Int=2 Wis=14 Cha=6 HD=6 AC=21 Attack=9 Dam=1d8+5 ' +
+    'Size=M Level=10',
   'Dire Lion':SRD35.ANIMAL_COMPANIONS['Dire Lion'],
-  // 'Hatori':'FILL Level=10',
+  'Hatori':
+    'Str=26 Dex=13 Con=20 Int=2 Wis=13 Cha=9 HD=8 AC=16 Attack=12 Dam=2d8+12 ' +
+    'Size=H Level=10',
   'Giant Constrictor':SRD35.ANIMAL_COMPANIONS['Giant Constrictor'],
-  // 'Huge Athasian Shark':'FILL Level=10',
-  // 'Minotaur Lizrd':'FILL Level=10',
+  'Huge Athasian Shark':
+    'Str=22 Dex=15 Con=15 Int=2 Wis=12 Cha=2 HD=10 AC=17 Attack=11 Dam=2d8+9 ' +
+    'Size=H Level=10',
+  'Minotaur Lizrd':
+    'Str=28 Dex=15 Con=27 Int=1 Wis=13 Cha=11 HD=8 AC=16 Attack=13 ' +
+    'Dam=3d6+13 Size=H Level=10',
 
-  // 'Athasian Sloth':'FILL Level=13',
-  // 'Large Lirr':'FILL Level=13',
-  // 'Ruktoi':'FILL Level=13',
+  'Athasian Sloth':
+    'Str=22 Dex=16 Con=18 Int=1 Wis=12 Cha=11 HD=11 AC=18 Attack=13 ' +
+    'Dam=1d8+6 Size=L Level=13',
+  'Large Lirr':
+    'Str=13 Dex=12 Con=14 Int=1 Wis=12 Cha=11 HD=11 AC=14 Attack=4 ' +
+    'Dam=2@1d4+1,1d10 Size=M Level=7',
+  'Ruktoi':
+    'Str=28 Dex=13 Con=20 Int=1 Wis=12 Cha=7 HD=12 AC=17 Attack=16 ' +
+    'Dam=2d6+13 Size=H Level=7',
 
-  // 'Dire Athasian Shark':'FILL Level=16',
-  'Dire Tiger':SRD35.ANIMAL_COMPANIONS['Dire Tiger']
-  // 'Gargantuan Hatori':'FILL Level=16',
-  // 'White Slit Horror':'FILL Level=16',
-  // 'Slimahacc':'FILL Level=16',
+  'Dire Athasian Shark':
+    'Str=23 Dex=14 Con=17 Int=4 Wis=12 Cha=10 HD=18 AC=20 Attack=17 ' +
+    'Dam=3d6+9 Size=H Level=16',
+  'Dire Tiger':SRD35.ANIMAL_COMPANIONS['Dire Tiger'],
+  'Gargantuan Hatori':
+    'Str=34 Dex=13 Con=24 Int=2 Wis=13 Cha=9 HD=17 AC=18 Attack=20 ' +
+    'Dam=3d6+18 Size=H Level=16', // Size=G
+  'White Slit Horror':
+    'Str=35 Dex=11 Con=25 Int=2 Wis=14 Cha=7 HD=16 AC=12 Attack=20 ' +
+    'Dam=10@1d8+12 Size=H Level=16', // Size=G
+  'Slimahacc':
+    'Str=29 Dex=12 Con=22 Int=2 Wis=16 Cha=7 HD=16 AC=19 Attack=20 ' +
+    'Dam=2d8+13 Size=H Level=16'
+
 };
 DarkSun35.ARMORS = Object.assign({}, SRD35.ARMORS);
 DarkSun35.MONARCHS = {
