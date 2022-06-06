@@ -337,7 +337,8 @@ DarkSun35.CLASSES = {
   //TODO 'Psion': as Expanded Psionic Handbook
   //TODO 'Psychic Warrior': as Expanded Psionic Handbook
   'Ranger':
-    SRD35.CLASSES.Ranger,
+    SRD35.CLASSES.Ranger
+    .replace('Features=', 'Features="Favored Terrain",'),
   'Rogue':
     SRD35.CLASSES.Rogue
     .replace('Weapon Proficiency ( ', "Weapon Proficiency (Bard's Friend/Blowgun/Garrote/Small Macahuitl/Tonfa/Widow's Knife/Wrist Razor,")
@@ -468,6 +469,9 @@ DarkSun35.PRESTIGE_CLASSES = {
       '"3:Extend Poison","4:Mental Resistance","5:Empower Poison",' +
       '"5:Damage Reduction","7:Poisoner\'s Fortitude","7:Maximize Poison",' +
       '8:Mindblank,"9:Quicken Poison","10:Poison Immunity" ' +
+    'Selectables=' +
+      '"Poison Dealer",Poisonbane,"Poison Resistance","Scorpion\'s Touch",' +
+      '"Smokestick Application" ' +
     'Skills=' +
       'Appraise,Bluff,Concentration,Craft,"Decipher Script",Diplomacy,' +
       'Disguise,"Gather Information",Heal,Hide,Intimidate,' +
@@ -493,8 +497,9 @@ DarkSun35.PRESTIGE_CLASSES = {
       '"baseAttack >= 5","skills.Diplomacy >= 2" ' +
     'HitDie=d10 Attack=1 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/3 ' +
     'Features=' +
-      '"1:Secular Authority","1:Spell-Like Abilities","1:Smite Opponents",' +
-      '"2:Fearless Presence","3:Bonus Feat","5:Spell Channeling" ' +
+      '"1:Secular Authority","1:Spell-Like Abilities","1:Smite Opponent",' +
+      '"2:Fearless Presence","3:Templar Knight Feat Bonus",' +
+      '"5:Spell Channeling" ' +
     'Skills=' +
       'Bluff,Climb,Concentration,Craft,Diplomacy,"Handle Animal",Heal,' +
       'Intimidate,Jump,"Knowledge (Religion)","Knowledge (Warcraft)",' +
@@ -1004,7 +1009,7 @@ DarkSun35.FEATURES_ADDED = {
   'Contact':'Section=feature Note="Can call in favor %V/wk"',
   'Crowd Support':
     'Section=combat Note="+%V attack and damage when viewed by %1 spectators"',
-  'Damage Reduction':'Section=feature Note="FILL"',
+  'Damage Reduction':'Section=combat Note="DR %V/-"',
   'Dazzle':
     'Section=skill ' +
     'Note="R90\' Opposed bluff inflicts -1 attack, ability, skill, and save on %V targets"',
@@ -1012,16 +1017,21 @@ DarkSun35.FEATURES_ADDED = {
   'Distributive Bargaining':
     'Section=feature,skill ' +
     'Note="%V% discount on purchased goods","+%V or +%1 on house-linked skill"',
-  'Dosage':'Section=feature Note="FILL"',
+  'Dosage':'Section=feature Note="Poison preparation yields double dose"',
   'Elemental Focus':'Section=magic Note="+%V DC on %1 spells"',
   'Elemental Shield':'Section=feature Note="FILL"',
-  'Empower Poison':'Section=feature Note="FILL"',
+  'Empower Poison':
+    'Section=skill Note="Increase poison cost by 50% for +50% effect"',
   'Energy Resistance':'Section=save Note="+%1 vs %2 damage"',
-  'Extend Poison':'Section=feature Note="FILL"',
+  'Extend Poison':
+    'Section=skill ' +
+    'Note="Increase poison cost by 25% to alter onset time by 1 hr"',
   'Fame':'Section=feature Note="Increased Reputation effects"',
   'Fast Talk':'Section=feature Note="FILL"',
-  'Favored Terrain':'Section=feature Note="FILL"',
-  'Fearless Presence':'Section=feature Note="FILL"',
+  'Favored Terrain':
+    'Section=feature Note="Choose terrain type instead of favored enemy"',
+  'Fearless Presence':
+    'Section=save Note="Immune vs. fear; R10\' Allies +4 vs. fear"',
   'Finishing Move':
     'Section=combat Note="May perform coup de grace as free action"',
   'Forethought':'Section=feature Note="FILL"',
@@ -1030,7 +1040,7 @@ DarkSun35.FEATURES_ADDED = {
     'Section=feature Note="Detect defilement on 20\' sq mile protected area"',
   'Hard March':
     'Section=save Note="+%V Fortitude (forced march) for self and 1 companion"',
-  'Identify Poison':'Section=feature Note="FILL"',
+  'Identify Poison':'Section=skill Note="Safely identify any poison"',
   'Ignore Element':'Section=feature Note="Unaffected by %V for %1 rd 1/dy"',
   'Improved Fast Talk':
     'Section=skill Note="Make rushed Diplomacy check at -5 penalty"',
@@ -1046,21 +1056,24 @@ DarkSun35.FEATURES_ADDED = {
     'Section=skill ' +
     'Note="DC 15 or 25 Int or Decipher Script check to understand unknown language"',
   'Master Scout Bonus Feats':'Section=feature Note="1 Master Scout feat"',
-  'Maximize Poison':'Section=feature Note="FILL"',
+  'Maximize Poison':
+    'Section=skill Note="Increase poison cost by 75% to maximize effects"',
   'Metamagic Raze':
     'Section=magic ' +
     'Note="Trade 5\' increase in defiling radius for 1 level metamagic spell reduction"',
   'Open Arms':'Section=skill Note="+%V Diplomacy"',
   'Painful Radius':'Section=magic Note="+1 penalty w/in defiling radius"',
-  'Poison Immunity':'Section=feature Note="FILL"',
-  'Poison Secret':'Section=feature Note="FILL"',
-  'Poison Use':'Section=feature Note="FILL"',
-  "Poisoner's Fortitude":'Section=feature Note="FILL"',
+  'Poison Immunity':'Section=save Note="Immune vs. poison"',
+  'Poison Secret':'Section=feature Note="%V selections"',
+  "Poisoner's Fortitude":
+    'Section=save Note="Trade -2 Wis for +4 Fortitude vs. poison"',
   'Power Element':'Section=magic Note="%V spells inflict +%1 damage"',
   'Psilogism':'Section=feature Note="FILL"',
   'Psionic Acumen':'Section=feature Note="FILL"',
   'Psionic Rationalization':'Section=feature Note="FILL"',
-  'Quicken Poison':'Section=feature Note="FILL"',
+  'Quicken Poison':
+     'Section=skill ' +
+     'Note="Double poison cost to reduce secondary effects onset to 1 rd"',
   'Reputation':
     'Section=feature,skill ' +
     'Note="+%V Leadershp score",' +
@@ -1075,9 +1088,12 @@ DarkSun35.FEATURES_ADDED = {
     'Section=combat ' +
     'Note="+2 choice of disarm, sunder, trip, or combat Bluff and Sense Motive, or +1 AC when fighting defensively"',
   'Smite Intruder':'Section=combat Note="+%V attack; +%1 damage %2/dy"',
-  'Smite Opponents':'Section=feature Note="FILL"',
-  'Spell Channeling':'Section=feature Note="FILL"',
-  'Spell-Like Abilities':'Section=feature Note="FILL"',
+  'Smite Opponent':
+    'Section=combat Note="+%1 attack/+%2 damage vs. evil foe %V/dy"',
+  'Spell Channeling':'Section=magic Note="Deliver touch spells via weapon%1"',
+  'Spell-Like Abilities':
+    'Section=magic ' +
+    'Note="Cast <i>Defiler Scent</i>, <i>Detect Magic</i>, <i>Slave Scent</i> %{wisdomModifier+3}/dy"',
   'Spontaneous Domain Spells':
     'Section=magic ' +
     'Note="Cast domain, <i>Cure</i>, or <i>Inflict</i> spell in place of known spell"',
@@ -1090,11 +1106,10 @@ DarkSun35.FEATURES_ADDED = {
     'Note="R%1\' -%V Bluff/-%V Diplomacy/-%V Gather Information/-%V Handle Animal/+%V Intimidation"',
   'Taunt (Dune Trader)':
     'Section=combat Note="Target can attack only self for 1 rd (DC %V Wis neg)"',
-  'Timeless Body':'Section=feature Note="FILL"',
+  'Templar Knight Bonus Feats':'Section=feature Note="%V Fighter Feats"',
   'Uncanny Stealth':
     'Section=skill Note="No Hide or Move Silently penalty at normal speed%1"',
   'Weapon Mastery':'Section=combat Note="+2 damage w/focused weapon"',
-  'Wild Shape':'Section=feature Note="FILL"',
 
   // Feats
   'Ancestral Knowledge (Blue Age)':
@@ -2377,18 +2392,20 @@ DarkSun35.SPELLS_LEVELS = {
   'Air Walk':'"Soaring Spirit4"',
   'Animal Messenger':'"Ruinous Swarm1"',
   'Animate Dead':'"Dead Heart3"',
-  "Bear's Endurance":'"Earthen Embrace2"',
+  "Bear's Endurance":'"Earthen Embrace2",T2',
+  'Bestow Curse':'T3',
   'Black Tentacles':'"Soul Slayer4"',
   'Blade Barrier':'"Broken Sands6"',
   'Bless Weapon':'Glory2',
   'Bolt Of Glory':'Glory6',
   'Bolts Of Bedevilment':'Madness5',
   'Brain Spider':'Mind7',
+  "Bull's Strength":'T2',
   'Burning Hands':'"Fiery Wrath1","Smoldering Spirit1"',
   'Call Lightning':'"Sky Blitz3"',
   'Call Lightning Storm':'"Sky Blitz5"',
   'Calm Emotions':'Charm2',
-  'Cause Fear':'"Drowning Despair1"',
+  'Cause Fear':'"Drowning Despair1",T1',
   'Chain Lightning':'"Sky Blitz7"',
   'Charm Monster':'Charm5',
   'Charm Person':'Charm1',
@@ -2397,7 +2414,7 @@ DarkSun35.SPELLS_LEVELS = {
   'Circle Of Death':'"Soul Slayer7"',
   'Cloudkill':'"Ill Winds5"',
   'Color Spray':'"Sun Flare1"',
-  'Command':'"Rolling Thunder1"',
+  'Command':'"Rolling Thunder1",T1',
   'Comprehend Languages':'Mind1',
   'Cone Of Cold':'"Cold Malice5"',
   'Confusion':'Madness4',
@@ -2406,25 +2423,33 @@ DarkSun35.SPELLS_LEVELS = {
   'Control Weather':'"Sky Blitz6"',
   'Control Winds':'"Furious Storm5"',
   'Creeping Doom':'"Ruinous Swarm7"',
+  'Cure Critical Wounds':'T4',
+  'Cure Light Wounds':'T1',
+  'Cure Moderate Wounds':'T2',
+  'Cure Serious Wounds':'T3',
   'Daylight':'"Sun Flare2"',
-  'Death Knell':'"Dead Heart1"',
+  'Death Knell':'"Dead Heart1",T2',
   'Delayed Blast Fireball':'"Smoldering Spirit6"',
   'Demand':'Charm8,Nobility8',
   'Destruction':'"Decaying Touch7"',
   'Detect Secret Doors':'"Lights Revelation1"',
+  'Detect Magic':'T1',
   'Detect Thoughts':'Mind2',
   'Discern Lies':'"Lights Revelation4",Mind4,Nobility4',
   'Discern Location':'"Lights Revelation8"',
   'Disintegrate':'"Decaying Touch6"',
+  'Dispel Magic':'T3',
   'Disrupt Undead':'Glory1',
-  'Divine Favor':'Nobility1',
+  'Divine Favor':'Nobility1,T1',
+  'Divine Power':'T4',
   'Dominate Monster':'Charm9',
+  'Doom':'T1',
   'Earthquake':'"Mountains Fury7"',
   'Elemental Storm':'"Smoldering Spirit7"',
   'Energy Drain':'"Cold Malice9"',
   'Enervation':'"Cold Malice4"',
   'Enthrall':'Nobility2',
-  'Entropic Shield':'"Desert Mirage1"',
+  'Entropic Shield':'"Desert Mirage1",T1',
   'Faerie Fire':'"Burning Eyes1"',
   'Feather Fall':'"Soaring Spirit1"',
   'Find The Path':'"Burning Eyes6","Lights Revelation6"',
@@ -2437,18 +2462,21 @@ DarkSun35.SPELLS_LEVELS = {
   'Fog Cloud':'"Living Waters2"',
   'Foresight':'"Lights Revelation9"',
   'Flesh To Stone':'"Earthen Embrace6","Mountains Fury6"',
+  'Freedom Of Movement':'T4',
   'Freezing Sphere':'"Cold Malice7"',
   'Gate':'Glory9',
   'Geas/Quest':'Charm6,Nobility6',
   'Giant Vermin':'"Ruinous Swarm4"',
   'Glitterdust':'"Desert Mirage2"',
   'Greater Command':'Nobility5,"Rolling Thunder5"',
+  'Greater Magic Weapon':'T4',
   'Greater Shout':'"Rolling Thunder7"',
   'Greater Teleport':'"Soaring Spirit6"',
   'Gust Of Wind':'"Furious Storm1"',
   'Harm':'"Soul Slayer6"',
   'Heat Metal':'"Mountains Fury2"',
   'Heroism':'Charm4',
+  'Hold Person':'T2',
   'Holy Smite':'Glory4',
   'Holy Sword':'Glory5',
   'Horrid Wilting':'"Cold Malice8","Desert Mirage8"',
@@ -2456,14 +2484,19 @@ DarkSun35.SPELLS_LEVELS = {
   'Imprisonment':'"Earthen Embrace9"',
   'Incendiary Cloud':'"Ill Winds8","Smoldering Spirit8","Sun Flare8"',
   'Infestation':'"Ruinous Swarm6"',
+  'Inflict Critical Wounds':'T4',
+  'Inflict Light Wounds':'T1',
+  'Inflict Moderate Wounds':'T2',
+  'Inflict Serious Wounds':'T3',
   'Insanity':'Charm7,Madness7',
   'Insect Plague':'"Ruinous Swarm5"',
-  'Invisibility Purge':'"Lights Revelation3"',
+  'Invisibility Purge':'"Lights Revelation3",T3',
   'Iron Body':'"Earthen Embrace8"',
   'Legend Lore':'"Lights Revelation7"',
   'Lesser Confusion':'Madness1',
   'Magic Stone':'"Earthen Embrace1","Mountains Fury1"',
-  'Magic Vestment':'Nobility3',
+  'Magic Weapon':'T1',
+  'Magic Vestment':'Nobility3,T3',
   'Mind Blank':'Mind8',
   'Mislead':'"Desert Mirage6"',
   'Move Earth':'"Forged Stone6"',
@@ -2474,19 +2507,21 @@ DarkSun35.SPELLS_LEVELS = {
   'Prismatic Sphere':'"Desert Mirage9"',
   'Prismatic Spray':'"Sun Flare7"',
   'Prismatic Wall':'"Desert Mirage7","Sun Flare9"',
+  'Protection From Energy':'T3',
   'Pyrotechnics':'"Ill Winds2","Smoldering Spirit2"',
   'Quench':'"Sky Blitz4"',
-  'Rage':'Madness3',
+  'Rage':'Madness3,T2',
   'Rainbow Pattern':'"Sun Flare4"',
   'Ray Of Enfeeblement':'"Soul Slayer1"',
   'Repel Metal Or Stone':'"Forged Stone8","Mountains Fury5"',
   'Repel Vermin':'"Ruinous Swarm3"',
   'Repulsion':'Nobility7',
-  'Resist Energy':'"Fiery Wrath3"',
+  'Resist Energy':'"Fiery Wrath3",T2',
   'Reverse Gravity':'"Soaring Spirit8"',
   'Rusting Grasp':'"Decaying Touch2"',
-  'Searing Light':'Glory3,"Sun Flare3"',
+  'Searing Light':'Glory3,"Sun Flare3",T3',
   'Secure Shelter':'"Earthen Embrace3"',
+  'Shield Of Faith':'T1',
   'Shocking Grasp':'"Sky Blitz1"',
   'Shout':'"Rolling Thunder4"',
   'Slay Living':'"Soul Slayer5"',
@@ -2494,7 +2529,7 @@ DarkSun35.SPELLS_LEVELS = {
   'Soften Earth And Stone':'"Forged Stone2"',
   'Soul Bind':'"Soul Slayer9"',
   'Sound Burst':'"Rolling Thunder2"',
-  'Speak With Dead':'"Dead Heart2"',
+  'Speak With Dead':'"Dead Heart2",T3',
   'Spider Climb':'"Soaring Spirit2"',
   'Spike Stones':'"Forged Stone4","Mountains Fury3"',
   'Statue':'"Forged Stone7"',
@@ -2513,6 +2548,7 @@ DarkSun35.SPELLS_LEVELS = {
   'Transmute Mud To Rock':'"Forged Stone5"',
   'Trap The Soul':'"Soul Slayer8"',
   'True Seeing':'"Burning Eyes5","Lights Revelation5"',
+  'True Strike':'T1',
   'Vampiric Touch':'"Dead Heart4"',
   'Wall Of Stone':'"Earthen Embrace4"',
   'Weird':'Madness9,Mind9',
@@ -3092,6 +3128,9 @@ DarkSun35.classRulesExtra = function(rules, name) {
       'Endurance', 'Great Fortitude', 'Iron Will', 'Lightning Reflexes',
       'Mobility', 'Toughness'
     ];
+    rules.defineRule('combatNotes.favoredEnemy',
+      'levels.Master Scout', '+=', 'Math.floor(source / 4)'
+    );
     rules.defineRule('combatNotes.swiftStrike',
       classLevel, '=', 'Math.floor((source + 1) / 3)'
     );
@@ -3101,9 +3140,39 @@ DarkSun35.classRulesExtra = function(rules, name) {
     rules.defineRule('featureNotes.blazeTrail', classLevel, '=', null);
     rules.defineRule
       ('saveNotes.hardMarch', 'wisdomModifier', '=', 'Math.max(source, 0)');
+    rules.defineRule('skillNotes.favoredEnemy',
+      'levels.Master Scout', '+=', 'Math.floor(source / 4)'
+    );
     rules.defineRule('skillNotes.uncannyStealth.1',
       'features.Uncanny Stealth', '?', null,
       classLevel, '=', 'source<7 ? "" : ", -10 when running or charging"'
+    );
+  } else if(name == 'Poisonmaster') {
+    rules.defineRule
+      ('combatNotes.damageReduction', 'classLevel', '=', 'source<10 ? 3 : 6');
+    rules.defineRule('featureNotes.poisonSecret',
+      classLevel, '=', 'Math.min(Math.floor(source / 2), 4)'
+    );
+    rules.defineRule('selectableFeatureCount.Poisonmaster',
+      'featureNotes.poisonSecret', '=', null
+    );
+  } else if(name == 'Templar Knight') {
+    rules.defineRule('combatNotes.smiteOpponent',
+      classLevel, '+=', '1 + Math.floor(source / 5)'
+    );
+    rules.defineRule('combatNotes.smiteOpponent.1',
+      'features.Smite Opponent', '?', null,
+      'charismaModifier', '=', 'Math.max(source, 0)'
+    );
+    rules.defineRule('combatNotes.smiteOpponent.2',
+      'features.Smite Opponent', '?', null,
+      'levels.Templar Knight', '+=', null
+    );
+    rules.defineRule
+      ('featCount.Fighter', classLevel, '+=', 'Math.floor(source / 3)');
+    rules.defineRule('magicNotes.spellChanneling.1',
+      'features.Spell Channeling', '?', null,
+      classLevel, '=', 'source<10 ? "" : " to all hit in rd"'
     );
   }
 
