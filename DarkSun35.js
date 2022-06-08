@@ -1027,7 +1027,7 @@ DarkSun35.FEATURES_ADDED = {
     'Section=skill ' +
     'Note="Increase poison cost by 25% to alter onset time by 1 hr"',
   'Fame':'Section=feature Note="Increased Reputation effects"',
-  'Fast Talk':'Section=feature Note="FILL"',
+  'Fast Talk':'Section=skill Note="Retry failed Bluff and Diplomacy at -5"',
   'Favored Terrain':
     'Section=feature Note="Choose terrain type instead of favored enemy"',
   'Fearless Presence':
@@ -1505,6 +1505,224 @@ DarkSun35.DEITIES = {
     'Domain=' +
       '"Desert Mirage","Drowning Despair","Sky Blitz","Living Waters"'
 };
+DarkSun35.POWERS_ADDED = {
+  'Aura Reading':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Bioflexibility':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Cast Missiles':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Cause Sleep':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Cryokinesis':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Deflect Strike':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psionic Detect Poison':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Ghost Writing':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Hush':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Photosynthesis':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psionic Draw':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psychic Tracking':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Tattoo Animation':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Trail Of Destruction':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Wild Leap':
+    'School=Divination ' +
+    'Level=Psion1 ' +
+    'Description="FILL"',
+  'Psionic Alter Self':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Psionic Calm Emotions':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Concentrate Water':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Detect Life':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Molecular Binding':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Pheromone Discharge':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Return Missile':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Sensory Suppression':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Sever The Tie':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Watcher Ward':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Antidote Simulation':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Beacon':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Psionic Blink':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Psionic Lighten Load':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Mass Manipulation':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Nerve Manipulation':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Psionic Sight':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Detonate':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Magnetize':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Repugnance':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Shadow Jump':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Electroerosion':
+    'School=Divination ' +
+    'Level=Psion5 ' +
+    'Description="FILL"',
+  'Dimensional Screen':
+    'School=Divination ' +
+    'Level=Psion6 ' +
+    'Description="FILL"',
+  'Incorporeality':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Mindflame':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Share Strength':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Aging':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Death Field':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Accelerate':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Complete Healing':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Poison Simulation':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Psionic Teleport Object':
+    'School=Divination ' +
+    'Level=Psion7 ' +
+    'Description="FILL"',
+  'Psionic Locale':
+    'School=Divination ' +
+    'Level=Psion2 ' +
+    'Description="FILL"',
+  'Detect Moisture':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Truthear':
+    'School=Divination ' +
+    'Level=Psion3 ' +
+    'Description="FILL"',
+  'Cosmic Awareness':
+    'School=Divination ' +
+    'Level=Psion9 ' +
+    'Description="FILL"',
+  'Pocket Dimension':
+    'School=Divination ' +
+    'Level=Psion5 ' +
+    'Description="FILL"',
+  'Hallucination':
+    'School=Divination ' +
+    'Level=Psion4 ' +
+    'Description="FILL"',
+  'Poison Manipulation':
+    'School=Divination ' +
+    'Level=Psion6 ' +
+    'Description="FILL"'
+};
 DarkSun35.RACES = {
   'Aarakocra':
     'Features=' +
@@ -1604,63 +1822,72 @@ DarkSun35.SPELLS_ADDED = {
   'Acid Rain':
     'School=Conjuration ' +
     'Level="Decaying Touch4" ' +
-    'Description="FILL"',
+    'Description="R$RM\' 20\' cu inflicts 4d4 HP acid/rd for %{lvl} rd"',
   'Air Lens':
     'School=Transmutation ' +
     'Level=T5,"Sun Flare5" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Ranged touch inflicts 2d6+%{lvl} HP fire for conc or %{lvl} rd"',
   'Allegiance Of The Land':
     'School=Evocation ' +
     'Level=D6 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains %{lvl} temporary HP and energy resistance 15 for %{lvl} rd"',
   'Awaken Water Spirits':
     'School=Transmutation ' +
     'Level=D6,"Living Waters6" ' +
-    'Description="FILL"',
+    'Description="Touched body of water becomes sentient"',
   'Backlash':
     'School=Abjuration ' +
     'Level=D1,W2 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' 40\' radius inflicts %{lvl//2<?5}d6+%{lvl//2<?5} HP on next defiler within %{lvl} dy; affected must make successful Concentration to complete spell"',
   'Banish Tyr-Storm':
     'School=Abjuration ' +
     'Level=W6 ' +
-    'Description="FILL"',
+    'Description="R$RL\' Self redirecty Tyr-storm for conc or %{lvl} min"',
   'Battlefield Healing':
     'School=Conjuration ' +
     'Level=T2 ' +
-    'Description="FILL"',
+    'Description="$RS Stabilizes %{lvl} targets in 30\' radius"',
   'Black Cairn':
     'School=Divination ' +
     'Level=D1,T1 ' +
-    'Description="FILL"',
+    'Description="R$RL\' Self sense direction of specified corpse"',
   'Blazing Wreath':
     'School=Evocation ' +
     'Level="Smoldering Spirit9" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains DR 15/magic, immunity to fire, and flames that inflict 2d8 HP fire in 10\' radius for %{lvl*10} min"',
   'Bless Element':
     'School=Transmutation ' +
     'Level=C1 ' +
-    'Description="FILL"',
+    'Description="Touched element becomes holy, inflict 2d4 HP on vulnerable"',
   'Blindscorch':
     'School=Evocation ' +
     'Level="Smoldering Spirit4" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Target suffers %{lvl<10} HP fire and permanent blindness (Fort half HP only)"',
   "Boneclaw's Cut":
     'School=Necromancy ' +
     'Level=D3,W3 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Target suffers %{lvl//4} cuts that inflict 2 HP/rd for 10 rd (Cure spell or Heal ends)"',
   'Boneharden':
     'School=Transmutation ' +
     'Level=D2,W2 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touch bone weapon hardens or creature suffers -4 Dex for %{lvl} min"',
   'Braxatskin':
     'School=Transmutation ' +
     'Level=C6,D5,W6 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains +5 natural armor and DR 10/metal, suffers -2 Dexterity and +20% arcane spell failure for %{lvl} min"',
   'Breeze Lore':
     'School=Divination ' +
     'Level="Ill Winds3" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self notice and track by scent, gain +4 Sense Motive for %{lvl*10} min"',
   'Cerulean Hail':
     'School=Conjuration ' +
     'Level=W5,"Cold Malice6" ' +
@@ -2121,224 +2348,7 @@ DarkSun35.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level=D3,W3 ' +
     'Description="FILL"',
-  //
-  'Aura Reading':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Bioflexibility':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Cast Missiles':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Cause Sleep':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Cryokinesis':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Deflect Strike':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psionic Detect Poison':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Ghost Writing':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Hush':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Photosynthesis':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psionic Draw':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psychic Tracking':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Tattoo Animation':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Trail Of Destruction':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Wild Leap':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psionic Alter Self':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Psionic Calm Emotions':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Concentrate Water':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Detect Life':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Molecular Binding':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Pheromone Discharge':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Return Missile':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Sensory Suppression':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Sever The Tie':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Watcher Ward':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Antidote Simulation':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Beacon':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Psionic Blink':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Psionic Lighten Load':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Mass Manipulation':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Nerve Manipulation':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Psionic Sight':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Detonate':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Magnetize':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Repugnance':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Shadow Jump':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Electroerosion':
-    'School=Divination ' +
-    'Level=Psion5 ' +
-    'Description="FILL"',
-  'Dimensional Screen':
-    'School=Divination ' +
-    'Level=Psion6 ' +
-    'Description="FILL"',
-  'Incorporeality':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Mindflame':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Share Strength':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Aging':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Death Field':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Accelerate':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Complete Healing':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Poison Simulation':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Psionic Teleport Object':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Psionic Locale':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Detect Moisture':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Truthear':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Cosmic Awareness':
-    'School=Divination ' +
-    'Level=Psion9 ' +
-    'Description="FILL"',
-  'Pocket Dimension':
-    'School=Divination ' +
-    'Level=Psion5 ' +
-    'Description="FILL"',
-  'Hallucination':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Poison Manipulation':
-    'School=Divination ' +
-    'Level=Psion6 ' +
-    'Description="FILL"',
-  //
+
   'Bolt Of Glory':
     'School=Evocation ' +
     'Level=Glory6 ' +
@@ -2371,6 +2381,7 @@ DarkSun35.SPELLS_ADDED = {
     'School=Enchantment ' +
     'Level=Madness2 ' +
     'Description="FILL"'
+
 };
 DarkSun35.SPELLS_DELETED = {
   'Bless Water':'',
