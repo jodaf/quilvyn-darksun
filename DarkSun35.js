@@ -1845,11 +1845,11 @@ DarkSun35.SPELLS_ADDED = {
   'Banish Tyr-Storm':
     'School=Abjuration ' +
     'Level=W6 ' +
-    'Description="R$RL\' Self redirecty Tyr-storm for conc or %{lvl} min"',
+    'Description="R$RL\' Self redirect Tyr-storm for conc or %{lvl} min"',
   'Battlefield Healing':
     'School=Conjuration ' +
     'Level=T2 ' +
-    'Description="$RS Stabilizes %{lvl} targets in 30\' radius"',
+    'Description="Stabilizes %{lvl} targets in 30\' radius"',
   'Black Cairn':
     'School=Divination ' +
     'Level=D1,T1 ' +
@@ -1862,12 +1862,12 @@ DarkSun35.SPELLS_ADDED = {
   'Bless Element':
     'School=Transmutation ' +
     'Level=C1 ' +
-    'Description="Touched element becomes holy, inflict 2d4 HP on vulnerable"',
+    'Description="Touched element becomes holy, inflicts 2d4 HP on vulnerable"',
   'Blindscorch':
     'School=Evocation ' +
     'Level="Smoldering Spirit4" ' +
     'Description=' +
-      '"R$RM\' Target suffers %{lvl<10} HP fire and permanent blindness (Fort half HP only)"',
+      '"R$RM\' Target suffers %{lvl<?10} HP fire and permanent blindness (Fort half HP only)"',
   "Boneclaw's Cut":
     'School=Necromancy ' +
     'Level=D3,W3 ' +
@@ -1877,7 +1877,7 @@ DarkSun35.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level=D2,W2 ' +
     'Description=' +
-      '"Touch bone weapon hardens or creature suffers -4 Dex for %{lvl} min"',
+      '"Touched bone weapon hardens or creature suffers -4 Dex for %{lvl} min"',
   'Braxatskin':
     'School=Transmutation ' +
     'Level=C6,D5,W6 ' +
@@ -1887,147 +1887,159 @@ DarkSun35.SPELLS_ADDED = {
     'School=Divination ' +
     'Level="Ill Winds3" ' +
     'Description=' +
-      '"Self notice and track by scent, gain +4 Sense Motive for %{lvl*10} min"',
+      '"Self gains ability to notice and track by scent, gains +4 Sense Motive for %{lvl*10} min"',
   'Cerulean Hail':
     'School=Conjuration ' +
     'Level=W5,"Cold Malice6" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' 20\' radius inflicts %{lvl<?15}d6 (Ref half), panics in 60\' radius (Will neg)"',
   'Cerulean Shock':
     'School=Evocation ' +
     'Level=W2 ' +
-    'Description="FILL"',
+    'Description="R$RS\' Target suffers %{2+(lvl*2)//4}d6 upon leaving square"',
   'Channel Stench':
     'School=Conjuration ' +
     'Level="Ill Winds1" ' +
-    'Description="FILL"',
+    'Description="15\' cone nauseates for 1d6 rd (Fort sickens; 5 HD immune)"',
   'Claws Of The Tembo':
     'School=Conjuration ' +
     'Level=D3,R3,W4 ' +
-    'Description="FILL"',
+    'Description="Self gains 2 claw attacks/rd that inflict 1d%{features.Large ? 8 : features.Small ? 4 : 6} HP and drain 1d4 HP additional (Fort no drain) for ${lvl} rd"',
   'Cleansing Flame':
     'School=Evocation ' +
     'Level=C5,D5,W6 ' +
-    'Description="FILL"',
+    'Description="R$RS\' Target defiler or servant suffers %{lvl<?10}d6 HP"',
   'Clear Water':
     'School=Transmutation ' +
     'Level=D2,"Living Waters1" ' +
-    'Description="FILL"',
-  'Clear-River':
+    'Description="Touched %{lvl} gallons of water doubles effectiveness"',
+  'Clear-river':
     'School=Evocation ' +
     'Level=D3,W3 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"50\' cone deflects missiles and pulls objects from grasp (Ref neg)"',
   'Clues Of Ash':
     'School=Divination ' +
     'Level="Burning Eyes2" ' +
-    'Description="FILL"',
+    'Description="Self views the final %{lvl} minutes of touched debris"',
   'Coat Of Mists':
     'School=Conjuration ' +
     'Level="Desert Mirage4",D5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched gains fire resistance 5, becomes comfortable up to 140F for 1 dy"',
   "Confessor's Flame":
     'School=Evocation ' +
     'Level="Burning Eyes8",T7 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' Targets respond to questions as desired or suffer 1+d12 fire for 1 min"',
   'Conflagration':
     'School=Evocation ' +
     'Level="Fiery Wrath9" ' +
-    'Description="FILL"',
+    'Description="R$RM\' 20\' radius inflicts 10d6 + 2d6/rd for %{lvl} rd"',
   'Conservation':
     'School=Abjuration ' +
     'Level=D2,W3 ' +
-    'Description="FILL"',
+    'Description="R$RM\' 40\' radius bars defilement (Will neg) for %{lvl} dy"',
   'Control Tides':
     'School=Transmutation ' +
     'Level=C4,D4,"Drowning Despair3",W6,T6 ' +
-    'Description="FILL"',
+    'Description="R$RL\' Lowers or raises silt or water for %{lvl*10} min"',
   'Conversion':
     'School=Abjuration ' +
     'Level=D5 ' +
-    'Description="FILL"',
+    'Description="Removes defilement from touched spellcaster"',
   'Cooling Canopy':
     'School=Conjuration ' +
     'Level=C1,D1,R1,W1 ' +
-    'Description="FILL"',
+    'Description="R$RS\' Target shaded for 12 hr"',
   'Create Element':
     'School=Conjuration ' +
     'Level=C0 ' +
-    'Description="FILL"',
+    'Description="R$RS\' Creates a small amount of caster\'s element"',
   'Create Oasis':
     'School=Conjuration ' +
     'Level=D6 ' +
-    'Description="FILL"',
+    'Description="%{50*(lvl-10)}\' radius becomes plant- and water-filled"',
   'Crusade':
     'School=Enchantment ' +
     'Level=T7 ' +
-    'Description="FILL"',
+    'Description="Allies in 20\' radius gain +4 attack, damage, and save, plus 2d8 temporary HP for %{lvl} rd"',
   'Curse Element':
     'School=Transmutation ' +
     'Level=C1 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched element becomes unholy, inflicts 2d4 HP on vulnerable"',
   'Curse Of The Black Sands':
     'School=Transmutation ' +
     'Level=C4,D3,"Broken Sands2" ' +
-    'Description="FILL"',
+    'Description="R$RS\' Target leaves oily tracks (Will neg) for %{lvl} dy"',
   'Curse Of The Choking Sands':
     'School=Transmutation ' +
     'Level="Desert Mirage3" ' +
-    'Description="FILL"',
+    'Description="R$RS\' Target drink transfoms to sand for %{lvl} dy"',
   'Death Mark':
     'School=Necromancy ' +
     'Level=W2,"Soul Slayer2" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Target sickened and loses Dex AC bonus for %{lvl} min"',
   'Death Whip':
     'School=Necromancy ' +
     'Level=W3,"Soul Slayer3" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched whip inflicts 1d2 temporary Strength damage for conc or %{lvl} rd"',
   'Dedication':
     'School=Enchantment ' +
     'Level=W3,T3 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched needs no sleep and half rations, gains +1 rolls while working on activity for 1 dy"',
   'Defiler Scent':
     'School=Divination ' +
     'Level=D0,T0 ' +
-    'Description="FILL"',
+    'Description="Self detects defilers in 20\' radius"',
   'Detect Element':
     'School=Divination ' +
     'Level=C0 ' +
-    'Description="FILL"',
+    'Description="Self detects element in 60\' cone for conc or %{lvl} min"',
   'Drown On Dry Land':
     'School=Transmutation ' +
     'Level="Drowning Despair6" ' +
-    'Description="FILL"',
+    'Description="R$RS\' Target can breathe only water for %{lvl} hr"',
   'Echo Of The Lirr':
     'School=Evocation ' +
     'Level=D2,R2 ' +
-    'Description="FILL"',
+    'Description="30\' cone stuns (Will neg) for 1d3 rd"',
   'Elemental Armor':
     'School=Transmutation ' +
     'Level=C4 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched armor gains +1 AC and elemental quality for %{lvl} min"',
   'Elemental Chariot':
     'School=Transmutation ' +
     'Level=C7 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched chariot gives DR 10/magic vs. ranged and +4 attack and +5 damage on ranged for %{lvl*10} min"',
   'Greater Elemental Chariot':
     'School=Transmutation ' +
     'Level=C9,"Soaring Spirit9" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched chariot gives DR 10/magic vs. ranged, +4 attack and +5 damage on ranged, and elemental ability for %{lvl} hr"',
   'Elemental Storm':
     'School=Evocation ' +
     'Level=C8,D7,"Smoldering Spirit7" ' +
-    'Description="FILL"',
+    'Description="R$RM\' %{lvl*20}\' cu inflicts %{lvl<?20}d6 HP (Ref half)"',
   'Elemental Strike':
     'School=Evocation ' +
     'Level=C5,D4,"Fiery Wrath5",T5 ' +
-    'Description="FILL"',
+    'Description="R$RM\' 10\' cylinder inflicts %{lvl<?15}d6 HP (Ref half)"',
   'Elemental Weapon':
     'School=Transmutation ' +
     'Level=C4 ' +
-    'Description="FILL"',
+    'Description=' +
+       '"Touched weapon gains +1 attack and damage plus elemental enhancement for %{lvl} min"',
   'Eye Of The Storm':
     'School=Abjuration ' +
     'Level=W2,C3,D3,"Furious Storm2",R2 ' +
-    'Description="FILL"',
+    'Description="Air in 30\' radius becomes calm for %{lvl} hr"',
   'Fire Track':
     'School=Divination ' +
     'Level="Burning Eyes4" ' +
@@ -2200,7 +2212,7 @@ DarkSun35.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level=W5,"Broken Sands4" ' +
     'Description="FILL"',
-  'Sand Flow':
+  'Sandflow':
     'School=Transmutation ' +
     'Level="Broken Sands5",T5,W5 ' +
     'Description="FILL"',
