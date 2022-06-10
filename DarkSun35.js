@@ -2239,198 +2239,222 @@ DarkSun35.SPELLS_ADDED = {
   'Sand Pit':
     'School=Transmutation ' +
     'Level=W3,C3,"Broken Sands1",T3 ' +
-    'Description="FILL"',
+    'Description="R$RS\' Excavates 30\' radius, 50\' deep for conc"',
   'Sand Spray':
     'School=Evocation ' +
     'Level=W4,C4,"Broken Sands3",T3 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"60\' cone inflicts 2d6 HP lethal plus 2d6 HP nonlethal and blinds for 1d6 min (Ref half HP and bind 1 rd)"',
   'Sand Trap':
     'School=Transmutation ' +
     'Level=W5,"Broken Sands4" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RL\' 30\' target sand area triggers trap in %{100+lvl*10}\' radius, causing noise, damage, or slipping for %{lvl} dy"',
   'Sandflow':
     'School=Transmutation ' +
     'Level="Broken Sands5",T5,W5 ' +
-    'Description="FILL"',
+    'Description="R$RL\' Slowly digs 7500\' cu sand"',
   'Sands Of Time':
     'School=Transmutation ' +
     'Level=C7,"Decaying Touch5",W6 ' +
-    'Description="FILL"',
+    'Description="Erodes or restores touched item"',
   'Sandstone':
     'School=Transmutation ' +
     'Level="Forged Stone1",W2 ' +
-    'Description="FILL"',
+    'Description="Converts %{5*lvl}\' sand or gravel to sandstone"',
   'Scapegoat':
     'School=Enchantment ' +
     'Level=W5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' Creatures w/in 20\' become hostile to target (Will neg) for %{lvl} min"',
   'Shining Sands':
     'School=Transmutation ' +
     'Level=W6,"Desert Mirage5" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Sand in 20\' radius reflects sunlight inward or outward, blinding for %{lvl} hr (Fort neg)"',
   'Shroud Of Darkness':
     'School=Necromancy ' +
     'Level=W6 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched cloak gives DR 5/magic, 60\' darkvision, +{charismaModifier} AC, and access to Black"',
   'Sirocco':
     'School=Evocation ' +
     'Level=D8,"Furious Storm6" ' +
-    'Description="FILL"',
+    'Description="R$RL\' Sand in 1000\' radius inflicts 2d8 HP for %{lvl} min"',
   'Skyfire':
     'School=Evocation ' +
     'Level=D5,W5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' 3 spheres inflict 1d6 HP bludgeoning (no save) and 3d6 HP fire (Ref half) in 5\' radius"',
   'Slave Scent':
     'School=Divination ' +
     'Level=W0 ' +
-    'Description="FILL"',
+    'Description="Self learns class of touched"',
   'Sparkrain':
     'School=Evocation ' +
     'Level=W5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Ranged touch dispels defensive force spells in 20\' radius"',
   'Spirit Of Flame':
     'School=Divination ' +
     'Level="Burning Eyes9" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Allows self to scry, cast spells, and teleport through fires in %{lvl*10} mile radius for %{lvl} hr"',
   'Sting Of The Gold Scorpion':
     'School=Necromancy ' +
     'Level=D2,R2,W2 ' +
-    'Description="FILL"',
+    'Description="Touched scorpion barb inflicts 1d6 temporary Strength on successful attack, then 1d4 temporary Stength 1 min later (Fort neg)"',
   'Storm Legion':
     'School=Transmutation ' +
     'Level=D9,"Furious Storm8" ' +
-    'Description="FILL"',
+    'Description="Self and %{lvl*7} HD others move via storm for %{lvl} hr"',
   'Summon Tyr-Storm':
     'School=Conjuration ' +
     'Level="Furious Storm6",W6 ' +
-    'Description="FILL"',
+    'Description="$RL\' diameter storm inflicts 2d8 HP/rd for 2d10 min"',
   'Sunstroke':
     'School=Evocation ' +
     'Level="Fiery Wrath4" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Ranged touch inflicts 4d4 HP nonlethal and fatigue (Fort half HP only) for %{lvl} rd"',
   'Surface Tension':
     'School=Transmutation ' +
     'Level="Drowning Despair2" ' +
-    'Description="FILL"',
+    'Description="R$RM\' Water in 20\' radius becomes cohesive for %{lvl} hr"',
   'Surface Walk':
     'School=Transmutation ' +
     'Level=C3,D3,R3,T3 ' +
-    'Description="FILL"',
+    'Description="{lvl} touched can traverse any surface for {lvl*10} min"',
   'Swarm Of Anguish':
     'School=Transmutation ' +
     'Level=D9,"Ruinous Swarm9" ' +
-    'Description="FILL"',
+    'Description="Self shapechanges into swarm of agony beetles for %{lvl} hr"',
   'Sweet Water':
     'School=Transmutation ' +
     'Level="Living Waters5" ' +
-    'Description="FILL"',
+    'Description="R$RL\' Water in 15\' radius becomes pure, gives +4 vs. poison, and heals 1d8 HP for 1 dy"',
   'Tempest':
     'School=Evocation ' +
     'Level=W9 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Violent storm obliterates creatures in 20\' radius (Ref neg)"',
   'Touch The Black':
     'School=Necromancy ' +
     'Level=W4 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"40\' radius inflicts %{lvl<?15}d6 HP cold (Fort half), -2 rolls for 1d4+1 rd"',
   'Unliving Identity':
     'School=Necromancy ' +
     'Level=C7,"Dead Heart5",W7 ' +
-    'Description="FILL"',
+    'Description="Touch zombie regains sentience"',
   'Vampiric Youthfulness':
     'School=Necromancy ' +
     'Level="Dead Heart9",W9 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Healthy touched ages 10 yr (Fort neg); self becomes 1 yr younger"',
   'Wakefulness':
     'School=Enchantment ' +
     'Level=W2 ' +
-    'Description="FILL"',
+    'Description="Touched cannot sleep for %{lvl} hr, exhausted afterwards"',
   'Watch Fire':
     'School=Divination ' +
     'Level="Burning Eyes7" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Allows self to scry through fires in %{lvl*10} mile radius for %{lvl} min"',
   'Water Light':
     'School=Transmutation ' +
     'Level="Sky Blitz9" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Other creatures in 30\' radius glow, 10\' radius inflicts 5d8 HP electricity each rd for %{lvl} rd"',
   'Water Shock':
     'School=Evocation ' +
     'Level="Sky Blitz2" ' +
     'Description=' +
-      '"Touched water inflicts %{lvl//2}d6 HP (Ref half) on next toucher w/in %{lvl} hr"',
+      '"Touched water inflicts %{lvl//2<?5}d6 HP (Ref half) when touched w/in %{lvl} hr"',
   'Water Trap':
     'School=Transmutation ' +
     'Level="Drowning Despair5" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"20\' diameter water pulls next toucher underneath (Ref neg) w/in %{lvl} dy"',
   'Waters Of Life':
     'School=Transmutation ' +
     'Level=D7,"Living Waters7" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Creates potion that transfers damage, blindness, poisoning, and infection from drinker to self (Fort heals in 1 hr)"',
   'Waterways':
     'School=Conjuration ' +
     'Level="Living Waters9" ' +
-    'Description="FILL"',
+    'Description="Self and %{lvl} others teleport via water for %{lvl} min"',
   'Whirlpool Of Doom':
     'School=Transmutation ' +
     'Level="Drowning Despair7","Earthen Embrace7" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' 20\' radius earth swallows those standing on it (Ref or 3 Swim checks neg) %{lvl} rd"',
   'Wild Lands':
     'School=Enchantment ' +
     'Level=D9 ' +
-    'Description="FILL"',
+    'Description="Target attracts animals from %{lvl} mile radius"',
   'Wind Trap':
     'School=Conjuration ' +
     'Level="Ill Winds9" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Trigger causes 50\' radius toxic cloud w/varying effects (Fort neg)"',
   'Wisdom Of The Sorcerer-King':
     'School=Transmutation ' +
     'Level=T6 ' +
-    'Description="FILL"',
+    'Description="Self gains metamagic feat on spell up to level 4"',
   "Worm's Breath":
     'School=Transmutation ' +
     'Level=C3,D3,"Living Waters3",R3,T3,W3 ' +
-    'Description="FILL"',
+    'Description="Touched creatures breathe via skin for %{2*lvl} hr total"',
   'Wrath Of The Sorcerer-King':
     'School=Divination ' +
     'Level=T4 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Self know crimes committed by creatures in 20\' radius"',
   'Zombie Berry':
     'School=Transmutation ' +
     'Level=D3,W3 ' +
-    'Description="FILL"',
+    'Description="Touched 1d4 zombie berries enslave consumers for %{lvl} dy"',
 
   // From Complete Divine
   'Bolt Of Glory':
     'School=Evocation ' +
     'Level=Glory6 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' Ranged touch inflicts up to %{lvl<?15}d6 HP on outsider"',
   'Bolts Of Bedevilment':
     'School=Enchantment ' +
     'Level=Madness5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Stuns target for 1d3 rd (Will neg) 1/rd for %{lvl} rd"',
   'Brain Spider':
     'School=Divination ' +
     'Level=Mind7 ' +
-    'Description="FILL"',
+    'Description="R$RL\' Self hears thoughts of 8 others for %{lvl} min"',
   'Crown Of Glory':
     'School=Evocation ' +
     'Level=Glory8 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains +4 Charisma, fascinates others in 120\' radius (Will or 8 HD neg) for %{lvl} min"',
   'Lesser Telepathic Bond':
     'School=Divination ' +
     'Level=Mind3 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R30\' Self communicates telepathically with willing target for %{lvl*10} min"',
   'Maddening Scream':
     'School=Enchantment ' +
     'Level=Madness8 ' +
-    'Description="FILL"',
+    'Description="Touched screams uncontollably for 1d4+1 rd"',
   'Probe Thoughts':
     'School=Divination ' +
     'Level=Mind6 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' Self answers 1 question/rd from target\'s thoughts (Fort neg) for conc"',
   'Touch Of Madness':
     'School=Enchantment ' +
     'Level=Madness2 ' +
-    'Description="FILL"'
+    'Description="Touched inactive (Will neg) for %{lvl} rd"'
 
   // Mentioned, not defined--seems carried over from 2E's Dark Sun: Dragon Kings
   // 'Proof Against Undeath':
