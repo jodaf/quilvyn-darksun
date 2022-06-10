@@ -82,10 +82,12 @@ function DarkSun35(baseRules) {
   DarkSun35.SKILLS =
     Object.assign({}, rules.basePlugin.SKILLS, DarkSun35.SKILLS_ADDED);
   DarkSun35.SPELLS = Object.assign({}, SRD35.SPELLS, DarkSun35.SPELLS_ADDED);
-  for(var s in DarkSun35)
-    delete DarkSun35.SPELLS[s];
   for(var s in DarkSun35.SPELLS_LEVELS) {
     var levels = DarkSun35.SPELLS_LEVELS[s];
+    if(levels == null) {
+      delete DarkSun35.SPELLS[s];
+      continue;
+    }
     if(!(s in DarkSun35.SPELLS)) {
       if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
         s = PHB35.SPELL_RENAMES[s];
@@ -163,7 +165,7 @@ DarkSun35.ANIMAL_COMPANIONS = {
     'Str=24 Dex=8 Con=18 Int=2 Wis=8 Cha=3 HD=6 AC=13 Attack=10 ' +
     'Dam=1d6+7,1d8+3 Size=L Level=4',
   'Cheetah':SRD35.ANIMAL_COMPANIONS.Cheetah,
-  'Constrictor':SRD35.ANIMAL_COMPANIONS['Constrictor'],
+  'Constrictor':SRD35.ANIMAL_COMPANIONS.Constrictor,
   'Crodlu':
     'Str=22 Dex=19 Con=18 Int=2 Wis=13 Cha=7 HD=5 AC=17 Attack=8 ' +
     'Dam=2@1d6+6,1d8+3 Size=L Level=4',
@@ -232,7 +234,7 @@ DarkSun35.ANIMAL_COMPANIONS = {
   'Huge Athasian Shark':
     'Str=22 Dex=15 Con=15 Int=2 Wis=12 Cha=2 HD=10 AC=17 Attack=11 Dam=2d8+9 ' +
     'Size=H Level=10',
-  'Minotaur Lizrd':
+  'Minotaur Lizard':
     'Str=28 Dex=15 Con=27 Int=1 Wis=13 Cha=11 HD=8 AC=16 Attack=13 ' +
     'Dam=3d6+13 Size=H Level=10',
 
@@ -1076,7 +1078,7 @@ DarkSun35.FEATURES_ADDED = {
      'Note="Double poison cost to reduce secondary effects onset to 1 rd"',
   'Reputation':
     'Section=feature,skill ' +
-    'Note="+%V Leadershp score",' +
+    'Note="+%V Leadership score",' +
          '"+%V Bluff/+%V Diplomacy/+%V Gather Information/+%V Intimidate"',
   'Roar Of The Crowd':
     'Section=combat Note="Successful attack give +1 attack in same rd"',
@@ -1440,12 +1442,7 @@ DarkSun35.PATHS = {
   'Strength Domain':SRD35.PATHS['Strength Domain'],
   'Trickery Domain':SRD35.PATHS['Trickery Domain'],
   'War Domain':SRD35.PATHS['War Domain'],
-  // From Spell Compendium
-  'Charm Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Charisma Boost"',
+  // From Complete Divine
   'Glory Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
@@ -1461,6 +1458,12 @@ DarkSun35.PATHS = {
     'Level=levels.Cleric ' +
     'Features=' +
       '"1:Mental Insight"',
+  // From Forgotten Realms Campaign Setting
+  'Charm Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Charisma Boost"',
   'Nobility Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
@@ -1819,10 +1822,12 @@ DarkSun35.SKILLS_ADDED = {
 DarkSun35.SKILLS = Object.assign({}, SRD35.SKILLS, DarkSun35.SKILLS_ADDED);
 DarkSun35.SPELLS_ADDED = {
   
+  // From Dark Sun 3
   'Acid Rain':
     'School=Conjuration ' +
     'Level="Decaying Touch4" ' +
-    'Description="R$RM\' 20\' cu inflicts 4d4 HP acid/rd for %{lvl} rd"',
+    'Description=' +
+      '"R$RM\' 20\' cu inflicts 4d4 HP acid/rd (Ref half) for %{lvl} rd"',
   'Air Lens':
     'School=Transmutation ' +
     'Level=T5,"Sun Flare5" ' +
@@ -1841,7 +1846,7 @@ DarkSun35.SPELLS_ADDED = {
     'School=Abjuration ' +
     'Level=D1,W2 ' +
     'Description=' +
-      '"R$RS\' 40\' radius inflicts %{lvl//2<?5}d6+%{lvl//2<?5} HP on next defiler within %{lvl} dy; affected must make successful Concentration to complete spell"',
+      '"R$RS\' 40\' radius inflicts %{lvl//2<?5}d6+%{lvl//2<?5} HP (Fort half) on next defiler within %{lvl} dy; affected must make successful Concentration to complete spell"',
   'Banish Tyr-Storm':
     'School=Abjuration ' +
     'Level=W6 ' +
@@ -1862,7 +1867,8 @@ DarkSun35.SPELLS_ADDED = {
   'Bless Element':
     'School=Transmutation ' +
     'Level=C1 ' +
-    'Description="Touched element becomes holy, inflicts 2d4 HP on vulnerable"',
+    'Description=' +
+      '"Touched element becomes holy (Will neg), inflicts 2d4 HP on vulnerable"',
   'Blindscorch':
     'School=Evocation ' +
     'Level="Smoldering Spirit4" ' +
@@ -1877,7 +1883,7 @@ DarkSun35.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level=D2,W2 ' +
     'Description=' +
-      '"Touched bone weapon hardens or creature suffers -4 Dex for %{lvl} min"',
+      '"Touched bone weapon hardens or creature suffers -4 Dex (Fort neg) for %{lvl} min"',
   'Braxatskin':
     'School=Transmutation ' +
     'Level=C6,D5,W6 ' +
@@ -1892,11 +1898,12 @@ DarkSun35.SPELLS_ADDED = {
     'School=Conjuration ' +
     'Level=W5,"Cold Malice6" ' +
     'Description=' +
-      '"R$RM\' 20\' radius inflicts %{lvl<?15}d6 (Ref half), panics in 60\' radius (Will neg)"',
+      '"R$RM\' 20\' radius inflicts %{lvl<?15}d6 HP (Ref half), panics in 60\' radius (Will neg)"',
   'Cerulean Shock':
     'School=Evocation ' +
     'Level=W2 ' +
-    'Description="R$RS\' Target suffers %{2+(lvl*2)//4}d6 upon leaving square"',
+    'Description=' +
+      '"R$RS\' Target suffers %{2+(lvl*2)//4}d6 HP (Fort half) upon leaving square"',
   'Channel Stench':
     'School=Conjuration ' +
     'Level="Ill Winds1" ' +
@@ -1904,7 +1911,8 @@ DarkSun35.SPELLS_ADDED = {
   'Claws Of The Tembo':
     'School=Conjuration ' +
     'Level=D3,R3,W4 ' +
-    'Description="Self gains 2 claw attacks/rd that inflict 1d%{features.Large ? 8 : features.Small ? 4 : 6} HP and drain 1d4 HP additional (Fort no drain) for ${lvl} rd"',
+    'Description=' +
+      '"Self gains 2 claw attacks/rd that inflict 1d%{features.Large ? 8 : features.Small ? 4 : 6} HP and drain 1d4 HP additional (Fort no drain) for ${lvl} rd"',
   'Cleansing Flame':
     'School=Evocation ' +
     'Level=C5,D5,W6 ' +
@@ -1931,11 +1939,11 @@ DarkSun35.SPELLS_ADDED = {
     'School=Evocation ' +
     'Level="Burning Eyes8",T7 ' +
     'Description=' +
-      '"R$RS\' Targets respond to questions as desired or suffer 1+d12 fire for 1 min"',
+      '"R$RS\' Targets respond to questions as desired or suffer 1+d12 HP fire for 1 min"',
   'Conflagration':
     'School=Evocation ' +
     'Level="Fiery Wrath9" ' +
-    'Description="R$RM\' 20\' radius inflicts 10d6 + 2d6/rd for %{lvl} rd"',
+    'Description="R$RM\' 20\' radius inflicts 10d6 + 2d6 HP/rd for %{lvl} rd"',
   'Conservation':
     'School=Abjuration ' +
     'Level=D2,W3 ' +
@@ -1951,7 +1959,7 @@ DarkSun35.SPELLS_ADDED = {
   'Cooling Canopy':
     'School=Conjuration ' +
     'Level=C1,D1,R1,W1 ' +
-    'Description="R$RS\' Target shaded for 12 hr"',
+    'Description="R$RS\' Target shaded (Will neg) for 12 hr"',
   'Create Element':
     'School=Conjuration ' +
     'Level=C0 ' +
@@ -1963,12 +1971,13 @@ DarkSun35.SPELLS_ADDED = {
   'Crusade':
     'School=Enchantment ' +
     'Level=T7 ' +
-    'Description="Allies in 20\' radius gain +4 attack, damage, and save, plus 2d8 temporary HP for %{lvl} rd"',
+    'Description=' +
+      '"Allies in 20\' radius gain +4 attack, damage, and save, plus 2d8 temporary HP for %{lvl} rd"',
   'Curse Element':
     'School=Transmutation ' +
     'Level=C1 ' +
     'Description=' +
-      '"Touched element becomes unholy, inflicts 2d4 HP on vulnerable"',
+      '"Touched element becomes unholy (Will neg), inflicts 2d4 HP on vulnerable"',
   'Curse Of The Black Sands':
     'School=Transmutation ' +
     'Level=C4,D3,"Broken Sands2" ' +
@@ -1976,12 +1985,13 @@ DarkSun35.SPELLS_ADDED = {
   'Curse Of The Choking Sands':
     'School=Transmutation ' +
     'Level="Desert Mirage3" ' +
-    'Description="R$RS\' Target drink transfoms to sand for %{lvl} dy"',
+    'Description=' +
+      '"R$RS\' Target drink transforms to sand (Will neg) for %{lvl} dy"',
   'Death Mark':
     'School=Necromancy ' +
     'Level=W2,"Soul Slayer2" ' +
     'Description=' +
-      '"R$RM\' Target sickened and loses Dex AC bonus for %{lvl} min"',
+      '"R$RM\' Target sickened and loses Dex AC bonus (Will neg) for %{lvl} min"',
   'Death Whip':
     'School=Necromancy ' +
     'Level=W3,"Soul Slayer3" ' +
@@ -1991,7 +2001,7 @@ DarkSun35.SPELLS_ADDED = {
     'School=Enchantment ' +
     'Level=W3,T3 ' +
     'Description=' +
-      '"Touched needs no sleep and half rations, gains +1 rolls while working on activity for 1 dy"',
+      '"Touched needs no sleep and half rations, gains +1 rolls while working on activity (Will neg) for 1 dy"',
   'Defiler Scent':
     'School=Divination ' +
     'Level=D0,T0 ' +
@@ -2003,7 +2013,8 @@ DarkSun35.SPELLS_ADDED = {
   'Drown On Dry Land':
     'School=Transmutation ' +
     'Level="Drowning Despair6" ' +
-    'Description="R$RS\' Target can breathe only water for %{lvl} hr"',
+    'Description=' +
+      '"R$RS\' Target can breathe only water (Fort neg) for %{lvl} hr"',
   'Echo Of The Lirr':
     'School=Evocation ' +
     'Level=D2,R2 ' +
@@ -2038,168 +2049,193 @@ DarkSun35.SPELLS_ADDED = {
        '"Touched weapon gains +1 attack and damage plus elemental enhancement for %{lvl} min"',
   'Eye Of The Storm':
     'School=Abjuration ' +
-    'Level=W2,C3,D3,"Furious Storm2",R2 ' +
+    'Level=W2,C3,D3,"Furious Storm2",R3 ' +
     'Description="Air in 30\' radius becomes calm for %{lvl} hr"',
   'Fire Track':
     'School=Divination ' +
-    'Level="Burning Eyes4" ' +
-    'Description="FILL"',
+    'Level="Burning Eyes4",T5 ' +
+    'Description=' +
+      '"R$RM\' Creates small flame that tracks specified target at 240\'/rd for %{lvl} rd"',
   'Firewater':
     'School=Transmutation ' +
     'Level="Sky Blitz1" ' +
-    'Description="FILL"',
+    'Description="R$RS\' Makes %{lvl} gallons of water intoxicating"',
   'Fissure':
     'School=Evocation ' +
     'Level="Broken Sands9","Mountains Fury9" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Ground fissure opens with elemental effects and remains until closed"',
   'Flame Harvest':
     'School=Evocation ' +
     'Level=D8,"Fiery Wrath7" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched 36 5\'x5\' areas inflict 8d8 HP fire when triggered (Ref half) w/in 1 month"',
   'Flash Flood':
     'School=Conjuration ' +
     'Level="Drowning Despair8",D9,"Living Waters8" ' +
-    'Description="FILL"',
+    'Description="R$RL\' Target river floods or deluge falls in 100\' radius"',
   "Fool's Feast":
     'School=Transmutation ' +
     'Level=T4 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Food for %{lvl} creatures cures sickness and disease, gives 1d8+%{lvl//2<?10} temporary HP, +1 attack and Will saves and immunity to poison and fear for 12 hr; self gains +4 skill checks w/consumers"',
   'Footsteps Of The Quarry':
     'School=Divination ' +
     'Level=R2,T2,W2 ' +
-    'Description="FILL"',
+    'Description="Self gains +20 Survival to track quarry"',
   'Ghostfire':
     'School=Necromancy ' +
     'Level=W4 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' %{2*lvl<?20}d4 HD of creatures w/up to 5 HD in 40\' radius slain (Fort neg)"',
   'Glass Storm':
     'School=Evocation ' +
     'Level="Broken Sands7" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Sand driven by 100 MPH winds in 50\' radius inflicts 2d8 HP/rd for %{lvl} rd"',
   'Gloomcloud':
     'School=Enchantment ' +
     'Level=W4 ' +
-    'Description="FILL"',
+    'Description="R$RS\' Target severely depressed (Will neg) for %{lvl} rd"',
   'Gray Beckoning':
     'School=Conjuration ' +
     'Level="Dead Heart6",W7 ' +
-    'Description="FILL"',
+    'Description="R$RM\' Summons %{lvl} gray zombies for %{lvl} min"',
   'Gray Rift':
     'School=Conjuration ' +
     'Level="Dead Heart8",T9,W9 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"30\'x15\' gray rift moves 30\'/rd, inflicts %{lvl*10<?150} HP on touched (Will half) for conc + 1d6 rd"',
   'Groundflame':
     'School=Conjuration ' +
     'Level=D5,W6 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' 20\' radius inflicts %{lvl<?15}d6 HP acid (Fort half)"',
   'Hand Of The Sorcerer-King':
     'School=Abjuration ' +
     'Level=T1 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Self gains +2 save vs. spells and spell-like abilities for %{lvl} min"',
   'Heartseeker':
     'School=Transmutation ' +
     'Level=C9,D9,"Forged Stone8" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched wooden weapon destroys self, killing target, after hit (Fort 108 HP)"',
   'Heat Lash':
     'School=Evocation ' +
     'Level=C1 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Inflicts 1d4+1 HP on target and knocks back 5\' (Fort half HP only)"',
   'Illusory Talent':
     'School=Illusion ' +
     'Level=W1 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Self and 1 other gain +10 Perform (Will observer neg) for %{lvl*10} min"',
   'Image Of The Sorcerer-King':
     'School=Necromancy ' +
     'Level=T3 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched frightened for 10 min (Will shaken 1 rd; 10+ HD neg)"',
   'Infestation':
     'School=Conjuration ' +
     'Level=C7,D6,"Ruinous Swarm6",W7 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' Creatures in 10\' radius infested w/choice of parasites that take effect after 1 dy"',
   "Klar's Heart":
     'School=Transmutation ' +
     'Level=D4,T5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Creatures in 20\' radius gain +4 Strength and %{lvl//2} temporary HP (Will neg) for %{lvl} rd"',
   'Legendary Stonecraft':
     'School=Transmutation ' +
     'Level="Forged Stone9" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Stops time and removes need for food and water for work in R$RL\' radius"',
   'Lighten Load':
     'School=Transmutation ' +
     'Level=C3 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Quadruples carrying capacity of touched targets for %{lvl*2} hr total"',
   'Liquid Lightning':
     'School=Evocation ' +
     'Level="Sky Blitz8" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched water inflicts %{lvl<?20}d6 HP (Ref half) on next toucher, plus half on those w/in 60\', w/in %{lvl} hr"',
   'Lungs Of Water':
     'School=Conjuration ' +
     'Level="Drowning Despair4" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' Target drowns in 3 rd (Fort neg; conscious breathing or Fort save extends 1 rd)"',
   'Mage Seeker':
     'School=Divination ' +
     'Level=W4,T4 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched object points direction to most powerful wizard to cross %{20+lvl*20}\' radius in past dy"',
   'Magic Trick':
     'School=Illusion ' +
     'Level=W2 ' +
-    'Description="FILL"',
+    'Description="Self gains +10 Bluff to disguise casting for %{lvl} min"',
   'Magma Tunnel':
     'School=Transmutation ' +
     'Level="Mountains Fury8",W9 ' +
-    'Description="FILL"',
+    'Description="Magma digs 10\'-30\'/rd, inflicting 10d6 HP, for %{lvl} min"',
   'Molten':
     'School=Transmutation ' +
     'Level="Broken Sands8" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RM\' %{lvl*5}\' cu heats, inflicting 4d8 HP, then 8d6 HP, then 10d6 HP (Ref half) for conc"',
   'Nurturing Seeds':
     'School=Abjuration ' +
     'Level=D0,R1 ' +
-    'Description="FILL"',
+    'Description="10 prepared seeds take root in infertile ground"',
   'Oil Spray':
     'School=Conjuration ' +
     'Level="Mountains Fury4" ' +
-    'Description="FILL"',
+    'Description="Oil covers 20\' radius, inflicts 2d8+%{lvl*2} if lit"',
   'Pact Of Darkness':
     'School=Necromancy ' +
     'Level=W9 ' +
-    'Description="FILL"',
+    'Description="R$RS\' Makes agreement with summoned shadow giant"',
   'Pact Of Water':
     'School=Necromancy ' +
     'Level="Living Waters4",T5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Makes contract between two touched, enforced by <i>Curse Of The Choking Sands</i> spell"',
   'Plant Renewal':
     'School=Transmutation ' +
-    'Level=D1 ' +
-    'Description="FILL"',
+    'Level=D1,R1 ' +
+    'Description="Revives touched wilted plant"',
   'Poisoned Gale':
     'School=Conjuration ' +
     'Level="Ill Winds7",T8 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R30\' Gust inflicts 2d8 HP to two abilities (Fort neg) for 1 rd"',
   'Protection From Time':
     'School=Abjuration ' +
     'Level=W8 ' +
-    'Description="FILL"',
+    'Description="Touched protected from aging for %{lvl//2} months"',
   'Quietstorm':
     'School=Evocation ' +
     'Level=W5 ' +
-    'Description="FILL"',
+    'Description="R$RS\' %{7+((lvl-10)//2)>?0} rays inflict 8d6 HP each"',
   'Ragestorm':
     'School=Evocation ' +
     'Level=C5,W5 ' +
-    'Description="FILL"',
+    'Description="R$RM\' 30\' radius storm inflicts 4d8 HP for %{lvl} rd"',
   'Rangeblade':
     'School=Illusion ' +
     'Level=C5,W5 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched weapon can strike at %{5+5*(lvl//2)}\' for %{lvl} rd"',
   'Rejuvenate':
     'School=Transmutation ' +
     'Level=C6,D5 ' +
-    'Description="FILL"',
+    'Description="$RS\' radius ground becomes fertile and grassy"',
   'Return To The Earth':
     'School=Necromancy ' +
     'Level=C2,D3,"Decaying Touch1",T2 ' +
-    'Description="FILL"',
+    'Description=' +
+      '"R$RS\' Target corpses decompose in 4 rd, corporeal undead suffer 1d12 HP for %{lvl} rd"',
   'Sand Pit':
     'School=Transmutation ' +
     'Level=W3,C3,"Broken Sands1",T3 ' +
@@ -2319,7 +2355,8 @@ DarkSun35.SPELLS_ADDED = {
   'Water Shock':
     'School=Evocation ' +
     'Level="Sky Blitz2" ' +
-    'Description="FILL"',
+    'Description=' +
+      '"Touched water inflicts %{lvl//2}d6 HP (Ref half) on next toucher w/in %{lvl} hr"',
   'Water Trap':
     'School=Transmutation ' +
     'Level="Drowning Despair5" ' +
@@ -2361,6 +2398,7 @@ DarkSun35.SPELLS_ADDED = {
     'Level=D3,W3 ' +
     'Description="FILL"',
 
+  // From Complete Divine
   'Bolt Of Glory':
     'School=Evocation ' +
     'Level=Glory6 ' +
@@ -2394,25 +2432,27 @@ DarkSun35.SPELLS_ADDED = {
     'Level=Madness2 ' +
     'Description="FILL"'
 
-};
-DarkSun35.SPELLS_DELETED = {
-  'Bless Water':'',
-  'Control Water':'',
-  'Create Water':'',
-  'Curse Water':'',
-  'Flame Strike':'',
-  'Fire Storm':'',
-  'Water Breathing':'',
-  'Water Walking':''
+  // Mentioned, not defined--seems carried over from 2E's Dark Sun: Dragon Kings
+  // 'Proof Against Undeath':
+  //   'School=Necromancy ' +
+  //   'Level=D2 ' +
+  //   'Description="Touched corpse dead up to %{lvl} dy cannot be animated"'
+
 };
 DarkSun35.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, DarkSun35.SPELLS_ADDED
 );
-for(var s in DarkSun35)
-  delete DarkSun35.SPELLS[s];
 DarkSun35.SPELLS_LEVELS = {
+  'Bless Water':null,
+  'Control Water':null,
+  'Create Water':null,
+  'Curse Water':null,
+  'Flame Strike':null,
+  'Fire Storm':null,
+  'Water Breathing':null,
+  'Water Walking':null,
   'Acid Fog':'"Ill Winds6"',
-  'Air Walk':'"Soaring Spirit4"',
+  'Air Walk':'"Soaring Spirit4",T4',
   'Animal Messenger':'"Ruinous Swarm1"',
   'Animate Dead':'"Dead Heart3"',
   "Bear's Endurance":'"Earthen Embrace2",T2',
@@ -2421,8 +2461,8 @@ DarkSun35.SPELLS_LEVELS = {
   'Blade Barrier':'"Broken Sands6"',
   'Bless Weapon':'Glory2',
   'Bolt Of Glory':'Glory6',
-  'Bolts Of Bedevilment':'Madness5',
   'Brain Spider':'Mind7',
+  'Break Enchantment':'T5',
   "Bull's Strength":'T2',
   'Burning Hands':'"Fiery Wrath1","Smoldering Spirit1"',
   'Call Lightning':'"Sky Blitz3"',
@@ -2438,7 +2478,7 @@ DarkSun35.SPELLS_LEVELS = {
   'Cloudkill':'"Ill Winds5"',
   'Color Spray':'"Sun Flare1"',
   'Command':'"Rolling Thunder1",T1',
-  'Comprehend Languages':'Mind1',
+  'Comprehend Languages':'Mind1,T1',
   'Cone Of Cold':'"Cold Malice5"',
   'Confusion':'Madness4',
   'Contagion':'"Decaying Touch3"',
@@ -2448,17 +2488,25 @@ DarkSun35.SPELLS_LEVELS = {
   'Creeping Doom':'"Ruinous Swarm7"',
   'Cure Critical Wounds':'T4',
   'Cure Light Wounds':'T1',
+  'Cure Minor Wounds':'T0',
   'Cure Moderate Wounds':'T2',
   'Cure Serious Wounds':'T3',
-  'Daylight':'"Sun Flare2"',
+  'Darkness':'D2',
+  'Daylight':'D3,"Sun Flare2"',
   'Death Knell':'"Dead Heart1",T2',
+  'Deathwatch':'T1',
+  'Deeper Darkness':'D3',
+  'Delay Poison':'T2',
   'Delayed Blast Fireball':'"Smoldering Spirit6"',
   'Demand':'Charm8,Nobility8',
   'Destruction':'"Decaying Touch7"',
   'Detect Secret Doors':'"Lights Revelation1"',
-  'Detect Magic':'T1',
+  'Detect Magic':'T0',
+  'Detect Poison':'T0',
   'Detect Thoughts':'Mind2',
-  'Discern Lies':'"Lights Revelation4",Mind4,Nobility4',
+  'Detect Undead':'D1,T1',
+  'Dimensional Anchor':'T4',
+  'Discern Lies':'"Lights Revelation4",Mind4,Nobility4,T3',
   'Discern Location':'"Lights Revelation8"',
   'Disintegrate':'"Decaying Touch6"',
   'Dispel Magic':'T3',
@@ -2468,10 +2516,10 @@ DarkSun35.SPELLS_LEVELS = {
   'Dominate Monster':'Charm9',
   'Doom':'T1',
   'Earthquake':'"Mountains Fury7"',
-  'Elemental Storm':'"Smoldering Spirit7"',
+  'Endure Elements':'T1',
   'Energy Drain':'"Cold Malice9"',
   'Enervation':'"Cold Malice4"',
-  'Enthrall':'Nobility2',
+  'Enthrall':'Nobility2,T2',
   'Entropic Shield':'"Desert Mirage1",T1',
   'Faerie Fire':'"Burning Eyes1"',
   'Feather Fall':'"Soaring Spirit1"',
@@ -2489,16 +2537,20 @@ DarkSun35.SPELLS_LEVELS = {
   'Freezing Sphere':'"Cold Malice7"',
   'Gate':'Glory9',
   'Geas/Quest':'Charm6,Nobility6',
+  'Gentle Repose':'D2',
   'Giant Vermin':'"Ruinous Swarm4"',
   'Glitterdust':'"Desert Mirage2"',
-  'Greater Command':'Nobility5,"Rolling Thunder5"',
+  'Glyph Of Warding':'T3',
+  'Greater Command':'Nobility5,"Rolling Thunder5",T4',
   'Greater Magic Weapon':'T4',
   'Greater Shout':'"Rolling Thunder7"',
   'Greater Teleport':'"Soaring Spirit6"',
+  'Guidance':'T0',
   'Gust Of Wind':'"Furious Storm1"',
   'Harm':'"Soul Slayer6"',
   'Heat Metal':'"Mountains Fury2"',
   'Heroism':'Charm4',
+  'Hide From Undead':'T1',
   'Hold Person':'T2',
   'Holy Smite':'Glory4',
   'Holy Sword':'Glory5',
@@ -2506,9 +2558,9 @@ DarkSun35.SPELLS_LEVELS = {
   'Ice Storm':'"Cold Malice3","Furious Storm4"',
   'Imprisonment':'"Earthen Embrace9"',
   'Incendiary Cloud':'"Ill Winds8","Smoldering Spirit8","Sun Flare8"',
-  'Infestation':'"Ruinous Swarm6"',
   'Inflict Critical Wounds':'T4',
   'Inflict Light Wounds':'T1',
+  'Inflict Minor Wounds':'T0',
   'Inflict Moderate Wounds':'T2',
   'Inflict Serious Wounds':'T3',
   'Insanity':'Charm7,Madness7',
@@ -2517,12 +2569,23 @@ DarkSun35.SPELLS_LEVELS = {
   'Iron Body':'"Earthen Embrace8"',
   'Legend Lore':'"Lights Revelation7"',
   'Lesser Confusion':'Madness1',
+  'Lesser Geas':'T4',
+  'Lesser Restoration':'T2',
+  'Light':'T0',
+  'Lightning Bolt':'T3',
+  'Locate Object':'T3',
+  'Magic Circle Against Evil':'T3',
+  'Magic Circle Against Good':'T3',
   'Magic Stone':'"Earthen Embrace1","Mountains Fury1"',
   'Magic Weapon':'T1',
   'Magic Vestment':'Nobility3,T3',
+  'Mark Of Justice':'D5,T5',
+  'Mending':'T0',
   'Mind Blank':'Mind8',
   'Mislead':'"Desert Mirage6"',
   'Move Earth':'"Forged Stone6"',
+  'Neutralize Poison':'T4',
+  'Nondetection':'D4',
   'Phantasmal Killer':'Madness6',
   'Power Word Blind':'"Decaying Touch8","Rolling Thunder8"',
   'Power Word Kill':'"Rolling Thunder9"',
@@ -2531,23 +2594,36 @@ DarkSun35.SPELLS_LEVELS = {
   'Prismatic Spray':'"Sun Flare7"',
   'Prismatic Wall':'"Desert Mirage7","Sun Flare9"',
   'Protection From Energy':'T3',
+  'Protection From Evil':'T1',
+  'Protection From Good':'T1',
   'Pyrotechnics':'"Ill Winds2","Smoldering Spirit2"',
   'Quench':'"Sky Blitz4"',
   'Rage':'Madness3,T2',
   'Rainbow Pattern':'"Sun Flare4"',
+  'Raise Dead':'D6',
   'Ray Of Enfeeblement':'"Soul Slayer1"',
+  'Read Magic':'T0',
+  'Remove Curse':'D3',
+  'Remove Disease':'T3',
+  'Remove Fear':'T1',
+  'Remove Paralysis':'D2,T2',
   'Repel Metal Or Stone':'"Forged Stone8","Mountains Fury5"',
   'Repel Vermin':'"Ruinous Swarm3"',
   'Repulsion':'Nobility7',
   'Resist Energy':'"Fiery Wrath3",T2',
+  'Resistance':'T0',
   'Reverse Gravity':'"Soaring Spirit8"',
+  'Righteous Might':'D5',
   'Rusting Grasp':'"Decaying Touch2"',
-  'Searing Light':'Glory3,"Sun Flare3",T3',
+  'Searing Light':'D3,Glory3,"Sun Flare3",T3',
   'Secure Shelter':'"Earthen Embrace3"',
+  'Sending':'T4',
   'Shield Of Faith':'T1',
   'Shocking Grasp':'"Sky Blitz1"',
   'Shout':'"Rolling Thunder4"',
+  'Silence':'T2',
   'Slay Living':'"Soul Slayer5"',
+  'Sleep':'D2',
   'Sleet Storm':'"Furious Storm3"',
   'Soften Earth And Stone':'"Forged Stone2"',
   'Soul Bind':'"Soul Slayer9"',
@@ -2556,6 +2632,7 @@ DarkSun35.SPELLS_LEVELS = {
   'Spider Climb':'"Soaring Spirit2"',
   'Spike Stones':'"Forged Stone4","Mountains Fury3"',
   'Statue':'"Forged Stone7"',
+  'Status':'T4',
   'Stinking Cloud':'"Ill Winds4"',
   'Stoneskin':'"Earthen Embrace5"',
   'Stone Shape':'"Forged Stone3"',
@@ -2568,20 +2645,27 @@ DarkSun35.SPELLS_LEVELS = {
   'Telepathic Bond':'Mind5',
   'Teleport':'"Soaring Spirit5"',
   'Time Stop':'"Decaying Touch9"',
+  'Tongues':'T4',
   'Transmute Mud To Rock':'"Forged Stone5"',
   'Trap The Soul':'"Soul Slayer8"',
   'True Seeing':'"Burning Eyes5","Lights Revelation5"',
   'True Strike':'T1',
+  'Undetectable Alignment':'T2',
   'Vampiric Touch':'"Dead Heart4"',
+  'Virtue':'T0',
   'Wall Of Stone':'"Earthen Embrace4"',
   'Weird':'Madness9,Mind9',
   'Whirlwind':'"Furious Storm7"',
-  'Wind Wall':'"Rolling Thunder3"',
+  'Wind Wall':'"Rolling Thunder3",T3',
   'Wind Walk':'"Soaring Spirit6"',
-  'Zone Of Truth':'"Lights Revelation2"'
+  'Zone Of Truth':'"Lights Revelation2",T2'
 };
 for(var s in DarkSun35.SPELLS_LEVELS) {
   var levels = DarkSun35.SPELLS_LEVELS[s];
+  if(levels == null) {
+    delete DarkSun35.SPELLS[s];
+    continue;
+  }
   if(!(s in DarkSun35.SPELLS)) {
     if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
       s = PHB35.SPELL_RENAMES[s];
@@ -3027,12 +3111,12 @@ DarkSun35.classRulesExtra = function(rules, name) {
     rules.defineRule('combatNotes.crowdSupport.1',
       classLevel, '=', 'level<5 ? 10 : level<9 ? 50 : 100'
     );
-    rules.defineRule('featuretNotes.reputation',
+    rules.defineRule('featuresNotes.reputation',
       classLevel, '=', '1',
       'featureNotes.fame', '+', '1',
       'featureNotes.legend', '+', '1'
     );
-    rules.defineRule('skilltNotes.reputation',
+    rules.defineRule('skillNotes.reputation',
       classLevel, '=', '1',
       'featureNotes.fame', '+', '1'
     );
@@ -3541,7 +3625,11 @@ DarkSun35.ruleNotes = function() {
     'of the materials used are property of Wizards of the Coast. ©Wizards of ' +
     'the Coast LLC.\n' +
     '</p><p>\n' +
-    'Dungeons & Dragons Dark Sun Campaign Setting © 2001 Wizards of ' +
+    'Dark Sun 3: Rules for Dark Sun Campaigns © 2009 athas.org.\n' +
+    '</p><p>\n' +
+    'Complete Divine © 2004 Wizards of the Coast, Inc.\n' +
+    '</p><p>\n' +
+    'Dungeons & Dragons Forgotten Realms Campaign Setting © 2001 Wizards of ' +
     'the Coast, Inc.\n' +
     '</p><p>\n' +
     "Dungeons & Dragons Player's Handbook v3.5 © 2003 Wizards of the Coast, " +
