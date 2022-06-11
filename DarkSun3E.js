@@ -1897,7 +1897,7 @@ DarkSun3E.DEITIES = {
     'Domain=' +
       '"Desert Mirage","Drowning Despair","Sky Blitz","Living Waters"'
 };
-DarkSun3E.POWERS_ADDED = {
+DarkSun3E.POWERS = {
   'Aura Reading':
     'School=Divination ' +
     'Level=Psion1 ' +
@@ -2113,6 +2113,107 @@ DarkSun3E.POWERS_ADDED = {
   'Poison Manipulation':
     'School=Divination ' +
     'Level=Psion6 ' +
+    'Description="FILL"',
+  // XPH
+  'Adapt Body':
+    'Type=Psychometabolism ' +
+    'Level=Psion5,Warrior5 ' +
+    'Points=9 ' +
+    'Description="FILL"',
+  'Affinity Field':
+    'Type=Psychometabolism ' +
+    'Level=Psion9 ' +
+    'Points=17 ' +
+    'Description="FILL"',
+  'Anchored Navigation':
+    'Type=Clairsentience ' +
+    'Level=Seer4 ' +
+    'Points=7 ' +
+    'Description="FILL"',
+  'Animal Affinity':
+    'Type=Psychometabolism ' +
+    'Level=Egoist2,Warrior2 ' +
+    'Points=3 ' +
+    'Description="FILL"',
+  'Apopsi':
+    'Type=Telepathy ' +
+    'Level=Psion9 ' +
+    'Points=17 ' +
+    'Description="FILL"',
+  'Assimilate':
+    'Type=Psychometabolism ' +
+    'Level=Psion9 ' +
+    'Points=17 ' +
+    'Description="FILL"',
+  'Astral Caravan':
+    'Type=Psychoportation ' +
+    'Level=Nomad3 ' +
+    'Points=5 ' +
+    'Description="FILL"',
+  'Astral Construct':
+    'Type=Metacreativity ' +
+    'Level=Shaper1 ' +
+    'Points=1 ' +
+    'Description="FILL"',
+  'Astral Seed':
+    'Type=Metacreativity ' +
+    'Level=Shaper8 ' +
+    'Points=15 ' +
+    'Description="FILL"',
+  'Astral Traveler':
+    'Type=Psychoportation ' +
+    'Level=Psion1,Warrior1 ' +
+    'Points=1 ' +
+    'Description="FILL"',
+  'Attraction':
+    'Type=Telepathy ' +
+    'Level=Psion1 ' +
+    'Points=1 ' +
+    'Description="FILL"',
+  'Aura Alteration':
+    'Type=Telepathy ' +
+    'Level=Psion6 ' +
+    'Points=11 ' +
+    'Description="FILL"',
+  'Aura Sight':
+    'Type=Clairsentience ' +
+    'Level=Psion4 ' +
+    'Points=7 ' +
+    'Description="FILL"',
+  'Aversion':
+    'Type=Telepathy ' +
+    'Level=Telepath2 ' +
+    'Points=3 ' +
+    'Description="FILL"',
+  'Baleful Teleport':
+    'Type=Psychoportation ' +
+    'Level=Nomad5 ' +
+    'Points=9 ' +
+    'Description="FILL"',
+  'Bend Reality':
+    'Type=Clairsentience ' +
+    'Level=Psion8 ' +
+    'Points=15 ' +
+    'Description="FILL"',
+  'Bestow Power':
+    'Type=Telepathy ' +
+    'Level=Psion2 ' +
+    'Points=3 ' +
+    'Description="FILL"',
+  'Biofeedback':
+    'Type=Psychometabolism ' +
+    'Level=Psion2,Warrior1 ' +
+    'Points=3 ' +
+    'Description="FILL"',
+  'Bite The Wolf':
+    'Type=Psychometabolism ' +
+    'Level=Warrior1 ' +
+    'Points=1 ' +
+    'Description="FILL"',
+  'Psionic Banishment':
+    'Type=Psychoportation ' +
+    'Level=Nomad6 ' +
+    'Points=11 ' +
     'Description="FILL"'
 };
 DarkSun3E.RACES = {
@@ -3508,9 +3609,50 @@ DarkSun3E.classRulesExtra = function(rules, name) {
       if(allFeats[feat].includes('psionic'))
         feats.push(feat);
     }
-    rules.defineRule('classRules.Gather Information',
+    rules.defineRule('classSkills.Gather Information',
       'psionFeatures.Clairsentience', '=' ,'1'
     );
+    rules.defineRule
+      ('classSkills.Listen', 'psionFeatures.Clairsentience', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Spot', 'psionFeatures.Clairsentience', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Bluff', 'psionFeatures.Metacreativity', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Disguise', 'psionFeatures.Metacreativity', '=' ,'1');
+    rules.defineRule('classSkills.Use Psionic Device',
+      'psionFeatures.Metacreativity', '=' ,'1'
+    );
+    rules.defineRule
+      ('classSkills.Autohypnosis', 'psionFeatures.Psychokinesis', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Disable Device', 'psionFeatures.Psychokinesis', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Intimidate', 'psionFeatures.Psychokinesis', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Autohypnosis', 'psionFeatures.Psychometabolism', '=' ,'1');
+    rules.defineRule('classSkills.Disable Device',
+      'psionFeatures.Psychometabolism', '=' ,'1'
+    );
+    rules.defineRule
+      ('classSkills.Intimidate', 'psionFeatures.Psychometabolism', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Climb', 'psionFeatures.Psychoportation', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Jump', 'psionFeatures.Psychoportation', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Ride', 'psionFeatures.Psychoportation', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Survival', 'psionFeatures.Psychoportation', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Swim', 'psionFeatures.Psychoportation', '=' ,'1');
+    rules.defineRule('classSkills.Bluff', 'psionFeatures.Telepathy', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Diplomacy', 'psionFeatures.Telepathy', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Gather Information', 'psionFeatures.Telepathy', '=' ,'1');
+    rules.defineRule
+      ('classSkills.Sense Motive', 'psionFeatures.Telepathy', '=' ,'1');
     rules.defineRule
       ('featCount.Psion', 'featureNotes.psionBonusFeats', '+=', null);
     rules.defineRule('magicRules.intelligenceBonusPowerPoints',
@@ -3531,6 +3673,7 @@ DarkSun3E.classRulesExtra = function(rules, name) {
     rules.defineRule('featureNotes.psionBonusFeats',
       classLevel, '=', '1 + Math.floor(source / 5)'
     );
+    rules.defineRule('selectableFeatureCount.Psion', classLevel, '=', '1');
   } else if(name == 'Psychic Warrior') {
     rules.defineRule('magicRules.wisdomBonusPowerPoints',
       classLevel, '?', null,
