@@ -24,7 +24,7 @@ following lines to the file plugins/plugins.js:
     };
 
     RULESETS['Dark Sun Campaign Setting using SRD v3.5 rules'] = {
-      url:'plugins/DarkSun35.js',
+      url:'plugins/DarkSun3E.js',
       group:'v3.5',
       require:'SRD35.js'
     };
