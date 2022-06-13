@@ -115,6 +115,22 @@ function DarkSun3E(baseRules) {
     rules, DarkSun3E.ALIGNMENTS, DarkSun3E.CLASSES, DarkSun3E.DEITIES, DarkSun3E.PATHS,
     DarkSun3E.RACES, DarkSun3E.PRESTIGE_CLASSES, DarkSun3E.NPC_CLASSES
   );
+  DarkSun3E.psionicsRules(rules, DarkSun3E.DISCIPLINES, DarkSun3E.POWERS);
+
+  // Add items to character sheet
+  rules.defineEditorElement
+    ('disciplines', 'Disciplines', 'set', 'disciplines', 'spells');
+  rules.defineEditorElement('powers', 'Powers', 'set', 'powers', 'spells');
+  rules.defineSheetElement('Disciplines', 'Spell Points+', null, '; ');
+  rules.defineSheetElement('Power Points', 'Disciplines+');
+  // defineSheetElement doesn't allow specification of columns; have to access
+  // viewers directly
+  var element = {
+    name:'Powers', format: '<b>Powers</b>:\n%V', before:'Spells',
+    separator: '\n', columns:'1L'
+  };
+  for(var v in rules.viewers)
+    rules.viewers[v].addElements(element);
 
   Quilvyn.addRuleSet(rules);
 
@@ -1898,323 +1914,728 @@ DarkSun3E.DEITIES = {
       '"Desert Mirage","Drowning Despair","Sky Blitz","Living Waters"'
 };
 DarkSun3E.POWERS = {
-  'Aura Reading':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Bioflexibility':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Cast Missiles':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Cause Sleep':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Cryokinesis':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Deflect Strike':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psionic Detect Poison':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Ghost Writing':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Hush':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Photosynthesis':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psionic Draw':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psychic Tracking':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Tattoo Animation':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Trail Of Destruction':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Wild Leap':
-    'School=Divination ' +
-    'Level=Psion1 ' +
-    'Description="FILL"',
-  'Psionic Alter Self':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Psionic Calm Emotions':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Concentrate Water':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Detect Life':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Molecular Binding':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Pheromone Discharge':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Return Missile':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Sensory Suppression':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Sever The Tie':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Watcher Ward':
-    'School=Divination ' +
-    'Level=Psion2 ' +
+  'Accellerate':
+    'Discipline=Psychometabolism ' +
+    'Level=Egoist4,Warrior3 ' +
+    'Cost=7,5 ' +
     'Description="FILL"',
   'Antidote Simulation':
-    'School=Divination ' +
-    'Level=Psion3 ' +
+    'Discipline=Psychometabolism ' +
+    'Level=Psion3,Warrior2 ' +
+    'Cost=5,3 ' +
+    'Description="FILL"',
+  'Aura Reading':
+    'Discipline=Clairsentience ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
   'Beacon':
-    'School=Divination ' +
+    'Discipline=Psychokinesis ' +
     'Level=Psion3 ' +
+    'Cost=5 ' +
     'Description="FILL"',
-  'Psionic Blink':
-    'School=Divination ' +
-    'Level=Psion3 ' +
+  'Bioflexibility':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
-  'Psionic Lighten Load':
-    'School=Divination ' +
-    'Level=Psion3 ' +
+  'Cast Missile':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
-  'Mass Manipulation':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Nerve Manipulation':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Psionic Sight':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Detonate':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Magnetize':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Repugnance':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Shadow Jump':
-    'School=Divination ' +
-    'Level=Psion4 ' +
-    'Description="FILL"',
-  'Electroerosion':
-    'School=Divination ' +
-    'Level=Psion5 ' +
-    'Description="FILL"',
-  'Dimensional Screen':
-    'School=Divination ' +
-    'Level=Psion6 ' +
-    'Description="FILL"',
-  'Incorporeality':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Mindflame':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Share Strength':
-    'School=Divination ' +
-    'Level=Psion2 ' +
-    'Description="FILL"',
-  'Aging':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Death Field':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Accelerate':
-    'School=Divination ' +
-    'Level=Psion4 ' +
+  'Cause Sleep':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
   'Complete Healing':
-    'School=Divination ' +
-    'Level=Psion7 ' +
+    'Discipline=Psychometabolism ' +
+    'Level=Egoist7 ' +
+    'Cost=13 ' +
     'Description="FILL"',
-  'Poison Simulation':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Psionic Teleport Object':
-    'School=Divination ' +
-    'Level=Psion7 ' +
-    'Description="FILL"',
-  'Psionic Locale':
-    'School=Divination ' +
+  'Concentrate Water':
+    'Discipline=Psychokinesis ' +
     'Level=Psion2 ' +
-    'Description="FILL"',
-  'Detect Moisture':
-    'School=Divination ' +
-    'Level=Psion3 ' +
-    'Description="FILL"',
-  'Truthear':
-    'School=Divination ' +
-    'Level=Psion3 ' +
+    'Cost=3 ' +
     'Description="FILL"',
   'Cosmic Awareness':
-    'School=Divination ' +
-    'Level=Psion9 ' +
+    'Discipline=Clairsentience ' +
+    'Level=Seer9 ' +
+    'Cost=17 ' +
     'Description="FILL"',
-  'Pocket Dimension':
-    'School=Divination ' +
+  'Cryokinesis':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Death Field':
+    'Discipline=Psychometabolism ' +
+    'Level=Egois3,Warrior3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Deflect Strike':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Detect Life':
+    'Discipline=Clairsentience ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Detect Moisture':
+    'Discipline=Clairsentience ' +
+    'Level=Seer3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Detonate':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Dimensional Screen':
+    'Discipline=Psychoportation ' +
+    'Level=Psion6 ' +
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Electroerosion':
+    'Discipline=Psychokinesis ' +
     'Level=Psion5 ' +
+    'Cost=9 ' +
+    'Description="FILL"',
+  'Ghost Writing':
+    'Discipline=Metacreativity ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
   'Hallucination':
-    'School=Divination ' +
+    'Discipline=Telepathy ' +
+    'Level=Telepath5 ' +
+    'Cost=9 ' +
+    'Description="FILL"',
+  'Hush':
+    'Discipline=Telepathy ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' + // Not specified
+    'Description="FILL"',
+  'Incorporeality':
+    'Discipline=Psychoportation ' +
+    'Level=Psion7 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Magnetizze':
+    'Discipline=Psychokinesis ' +
     'Level=Psion4 ' +
+    'Cost=7 ' +
     'Description="FILL"',
-  'Poison Manipulation':
-    'School=Divination ' +
-    'Level=Psion6 ' +
+  'Mass Manipulation':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion3 ' +
+    'Cost=5 ' +
     'Description="FILL"',
+  'Mindflame':
+    'Discipline=Telepathy ' +
+    'Level=Psion7 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Molecular Binding':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Nerve Manipulation':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion5,Warrior5 ' +
+    'Cost=9 ' +
+    'Description="FILL"',
+  'Pheromone Discharge':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Photosynthesis':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Pocket Dimension':
+    'Discipline=Metacreativity ' +
+    'Level=Shaper5 ' +
+    'Cost=9 ' +
+    'Description="FILL"',
+  'Poison Simulation':
+    'Discipline=Psychometabolism ' +
+    'Level=Egoist7,Warrior6 ' +
+    'Cost=13,11 ' +
+    'Description="FILL"',
+  'Psionic Alter Self':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Psionic Blink':
+    'Discipline=Psychoportation ' +
+    'Level=Psion3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Psionic Calm Emotions':
+    'Discipline=Telepathy ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Psionic Detect Poison':
+    'Discipline=Clairsentience ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Psionic Draw':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Psionic Lighten Load':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Psionic Locate':
+    'Discipline=Clairsentience ' +
+    'Level=Seer2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Psionic Sight':
+    'Discipline=Clairsentience ' +
+    'Level=Psion3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Psionic Teleport Object':
+    'Discipline=Psychoportation ' +
+    'Level=Nomad7 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Psychic Tracking':
+    'Discipline=Clairsentience ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Repugnance':
+    'Discipline=Telepathy ' +
+    'Level=Psion4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Return Missile':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion2,Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Sensory Suppression':
+    'Discipline=Telepathy ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Sever The Tie':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Shadow Jump':
+    'Discipline=Psychoportation ' +
+    'Level=Psion4,Warrior4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Share Strength':
+    'Discipline=Psychometabolism ' +
+    'Level=Egoist2,Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Tattoo Animation':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Trail Of Destruction':
+    'Discipline=Clairsentience ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' + // Not specified
+    'Description="FILL"',
+  'Truthear':
+    'Discipline=Clairsentience ' +
+    'Level=Seer3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  "Watcher's Ward":
+    'Discipline=Clairsentience ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Weather Prediction':
+    'Discipline=Clairsentience ' +
+    'Level=Psion2 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Wild Leap':
+    'Discipline=Psychoportation ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+
   // XPH
   'Adapt Body':
-    'Type=Psychometabolism ' +
+    'Discipline=Psychometabolism ' +
     'Level=Psion5,Warrior5 ' +
-    'Points=9 ' +
+    'Cost=9 ' +
     'Description="FILL"',
   'Affinity Field':
-    'Type=Psychometabolism ' +
+    'Discipline=Psychometabolism ' +
     'Level=Psion9 ' +
-    'Points=17 ' +
+    'Cost=17 ' +
     'Description="FILL"',
   'Anchored Navigation':
-    'Type=Clairsentience ' +
+    'Discipline=Clairsentience ' +
     'Level=Seer4 ' +
-    'Points=7 ' +
+    'Cost=7 ' +
     'Description="FILL"',
   'Animal Affinity':
-    'Type=Psychometabolism ' +
+    'Discipline=Psychometabolism ' +
     'Level=Egoist2,Warrior2 ' +
-    'Points=3 ' +
+    'Cost=3 ' +
     'Description="FILL"',
   'Apopsi':
-    'Type=Telepathy ' +
+    'Discipline=Telepathy ' +
     'Level=Psion9 ' +
-    'Points=17 ' +
+    'Cost=17 ' +
     'Description="FILL"',
   'Assimilate':
-    'Type=Psychometabolism ' +
+    'Discipline=Psychometabolism ' +
     'Level=Psion9 ' +
-    'Points=17 ' +
+    'Cost=17 ' +
     'Description="FILL"',
   'Astral Caravan':
-    'Type=Psychoportation ' +
+    'Discipline=Psychoportation ' +
     'Level=Nomad3 ' +
-    'Points=5 ' +
+    'Cost=5 ' +
     'Description="FILL"',
   'Astral Construct':
-    'Type=Metacreativity ' +
+    'Discipline=Metacreativity ' +
     'Level=Shaper1 ' +
-    'Points=1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
   'Astral Seed':
-    'Type=Metacreativity ' +
+    'Discipline=Metacreativity ' +
     'Level=Shaper8 ' +
-    'Points=15 ' +
+    'Cost=15 ' +
     'Description="FILL"',
   'Astral Traveler':
-    'Type=Psychoportation ' +
+    'Discipline=Psychoportation ' +
     'Level=Psion1,Warrior1 ' +
-    'Points=1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
   'Attraction':
-    'Type=Telepathy ' +
+    'Discipline=Telepathy ' +
     'Level=Psion1 ' +
-    'Points=1 ' +
+    'Cost=1 ' +
     'Description="FILL"',
   'Aura Alteration':
-    'Type=Telepathy ' +
+    'Discipline=Telepathy ' +
     'Level=Psion6 ' +
-    'Points=11 ' +
+    'Cost=11 ' +
     'Description="FILL"',
   'Aura Sight':
-    'Type=Clairsentience ' +
+    'Discipline=Clairsentience ' +
     'Level=Psion4 ' +
-    'Points=7 ' +
+    'Cost=7 ' +
     'Description="FILL"',
   'Aversion':
-    'Type=Telepathy ' +
+    'Discipline=Telepathy ' +
     'Level=Telepath2 ' +
-    'Points=3 ' +
+    'Cost=3 ' +
     'Description="FILL"',
   'Baleful Teleport':
-    'Type=Psychoportation ' +
+    'Discipline=Psychoportation ' +
     'Level=Nomad5 ' +
-    'Points=9 ' +
+    'Cost=9 ' +
     'Description="FILL"',
   'Bend Reality':
-    'Type=Clairsentience ' +
+    'Discipline=Clairsentience ' +
     'Level=Psion8 ' +
-    'Points=15 ' +
+    'Cost=15 ' +
     'Description="FILL"',
   'Bestow Power':
-    'Type=Telepathy ' +
+    'Discipline=Telepathy ' +
     'Level=Psion2 ' +
-    'Points=3 ' +
+    'Cost=3 ' +
     'Description="FILL"',
   'Biofeedback':
-    'Type=Psychometabolism ' +
+    'Discipline=Psychometabolism ' +
     'Level=Psion2,Warrior1 ' +
-    'Points=3 ' +
+    'Cost=3,1 ' +
     'Description="FILL"',
   'Bite The Wolf':
-    'Type=Psychometabolism ' +
+    'Discipline=Psychometabolism ' +
     'Level=Warrior1 ' +
-    'Points=1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Body Adjustment':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion3,Warrior2 ' +
+    'Cost=5,3 ' +
+    'Description="FILL"',
+  'Body Equilibrium':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion2,Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Body Purification':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion3,Warrior2 ' +
+    'Cost=5,3 ' +
+    'Description="FILL"',
+  'Bolt':
+    'Discipline=Metacreativity ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Brain Lock':
+    'Discipline=Telepathy ' +
+    'Level=Telepath2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Breath Of The Black Dragon':
+    'Discipline=Psychometabolism ' +
+    'Level=Psion6,Warrior6 ' +
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Burst':
+    'Discipline=Psychoportation ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Call To Mind':
+    'Discipline=Telepathy ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Call Weaponry':
+    'Discipline=Psychoportation ' +
+    'Level=Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Catapsi':
+    'Discipline=Telepathy ' +
+    'Level=Psion5,Warrior5 ' +
+    'Cost=9 ' +
+    'Description="FILL"',
+  'Catfall':
+    'Discipline=Psychoportation ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Chameleon':
+    'Discipline=Psychometabolism ' +
+    'Level=Egoist2,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Clairtangent Hand':
+    'Discipline=Clairsentience ' +
+    'Level=Seer5 ' +
+    'Cost=9 ' +
+    'Description="FILL"',
+  'Clairvoyant Sense':
+    'Discipline=Clairsentience ' +
+    'Level=Seer2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Claw Of Energy':
+    'Discipline=Psychokinesis ' +
+    'Level=Warrior4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Claws Of The Beast':
+    'Discipline=Psychometabolism ' +
+    'Level=Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Claws Of The Vampire':
+    'Discipline=Psychometabolism ' +
+    'Level=Warrior3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Cloud Mind':
+    'Discipline=Telepathy ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Compression':
+    'Discipline=Psychometabolism ' +
+    'Level=Warror1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Conceal Thoughts':
+    'Discipline=Telepathy ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Concealing Amorpha':
+    'Discipline=Metacreativity ' +
+    'Level=Psion2,Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Concussion Blast':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Control Air':
+    'Discipline=Psychokinesis ' +
+    'Level=Kineticist2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Control Body':
+    'Discipline=Psychokinesis ' +
+    'Level=Kineticist4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Control Flames':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Control Light':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Control Object':
+    'Discipline=Psychokinesis ' +
+    'Level=Kineticist1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Control Sound':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Co-Opt Concentration':
+    'Discipline=Telepathy ' +
+    'Level=Psion6 ' +
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Correspond':
+    'Discipline=Telepathy ' +
+    'Level=Psion4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Create Sound':
+    'Discipline=Metacreativity ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Crisis Of Breath':
+    'Discipline=Telepathy ' +
+    'Level=Telepath3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Crisis Of Life':
+    'Discipline=Telepathy ' +
+    'Level=Telepath7 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Crystal Shard':
+    'Discipline=Metacreativity ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Crystalize':
+    'Discipline=Metacreativity ' +
+    'Level=Shaper6 ' +
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Danger Sense':
+    'Discipline=Clairsentience ' +
+    'Level=Psion3,Warrior3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Death Urge':
+    'Discipline=Telepathy ' +
+    'Level=Psion4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Deceleration':
+    'Discipline=Psychoportation ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Decerebrate':
+    'Discipline=Psychoportation ' +
+    'Level=Psion7 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Deja Vu':
+    'Discipline=Telepathy ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Demoralize':
+    'Discipline=Telepathy ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Destiny Dissonance':
+    'Discipline=Clairsentience ' +
+    'Level=Seer1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Detect Hostile Intent':
+    'Discipline=Telepathy ' +
+    'Level=Psion2,Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Detect Psionics':
+    'Discipline=Clairsentience ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Detect Remote Viewing':
+    'Discipline=Clairsentience ' +
+    'Level=Psion4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Detect Teleportation':
+    'Discipline=Clairsentience ' +
+    'Level=Nomad1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Dimension Slide':
+    'Discipline=Psychoportation ' +
+    'Level=Warrior3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Dimension Swap':
+    'Discipline=Psychoportation ' +
+    'Level=Nomad2,Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Disable':
+    'Discipline=Telepathy ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Dismiss Ectoplasm':
+    'Discipline=Metacreativity ' +
+    'Level=Psion3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Dispel Psionics':
+    'Discipline=Psychokinesis ' +
+    'Level=Psion3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Dispelling Buffer':
+    'Discipline=Psychokinesis ' +
+    'Level=Kineticist6,Warrior6 ' +
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Dissipating Touch':
+    'Discipline=Psychoportation ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Dissolving Touch':
+    'Discipline=Psychometabolism ' +
+    'Level=Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Dissolving Weapon':
+    'Discipline=Psychometabolism ' +
+    'Level=Warrior2 ' +
+    'Cost=3 ' +
+    'Description="FILL"',
+  'Distract':
+    'Discipline=Telepathy ' +
+    'Level=Psion1,Warrior1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Divert Teleport':
+    'Discipline=Psychoportation ' +
+    'Level=Psion7 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Dream Travel':
+    'Discipline=Psychoportation ' +
+    'Level=Nomad7 ' +
+    'Cost=13 ' +
+    'Description="FILL"',
+  'Duodimensional Claw':
+    'Discipline=Psychometabolism ' +
+    'Level=Warrior3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Greater Concealing Amorpha':
+    'Discipline=Metacreativity ' +
+    'Level=Shaper3,Warrior3 ' +
+    'Cost=5 ' +
+    'Description="FILL"',
+  'Mass Cloud Mind':
+    'Discipline=Telepathy ' +
+    'Level=Psion6 ' +
+    'Cost=11 ' +
     'Description="FILL"',
   'Psionic Banishment':
-    'Type=Psychoportation ' +
+    'Discipline=Psychoportation ' +
     'Level=Nomad6 ' +
-    'Points=11 ' +
-    'Description="FILL"'
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Psionic Charm':
+    'Discipline=Telepathy ' +
+    'Level=Telepath1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Psionic Contingency':
+    'Discipline=Clairsentience ' +
+    'Level=Psion6 ' +
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Psionic Darkvision':
+    'Discipline=Clairsentience ' +
+    'Level=Psion3,Warrior2 ' +
+    'Cost=5,3 ' +
+    'Description="FILL"',
+  'Psionic Daze':
+    'Discipline=Telepathy ' +
+    'Level=Psion1 ' +
+    'Cost=1 ' +
+    'Description="FILL"',
+  'Psionic Dimension Door':
+    'Discipline=Psychoportation ' +
+    'Level=Psion4,Warrior4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Psionic Dimensional Anchor':
+    'Discipline=Psychoportation ' +
+    'Level=Nomad4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Psionic Disintegrate':
+    'Discipline=Psychoportation ' +
+    'Level=Psion6 ' +
+    'Cost=11 ' +
+    'Description="FILL"',
+  'Psionic Dismissal':
+    'Discipline=Psychoportation ' +
+    'Level=Nomad4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Psionic Divination':
+    'Discipline=Clairsentience ' +
+    'Level=Psion4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
+  'Psionic Dominate':
+    'Discipline=Telepathy ' +
+    'Level=Telepath4 ' +
+    'Cost=7 ' +
+    'Description="FILL"',
 };
 DarkSun3E.RACES = {
   'Aarakocra':
@@ -3302,6 +3723,19 @@ DarkSun3E.magicRules = function(rules, schools, spells) {
   // No changes needed to the rules defined by base method
 };
 
+/* Defines rules related to psionics use. */
+DarkSun3E.psionicsRules = function(rules, disciplines, powers) {
+  QuilvynUtils.checkAttrTable(disciplines, []);
+  QuilvynUtils.checkAttrTable
+    (powers, ['Discipline', 'Level', 'Cost', 'Description']);
+  for(var d in disciplines) {
+    rules.choiceRules(rules, 'Discipline', d, disciplines[d]);
+  }
+  for(var p in powers) {
+    rules.choiceRules(rules, 'Power', p, powers[p]);
+  }
+};
+
 /* Defines rules related to character aptitudes. */
 DarkSun3E.talentRules = function(
   rules, feats, features, goodies, languages, skills
@@ -3366,6 +3800,8 @@ DarkSun3E.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Domain'),
       QuilvynUtils.getAttrValueArray(attrs, 'Weapon')
     );
+  else if(type == 'Discipline')
+    DarkSun3E.disciplineRules(rules, name);
   else if(type == 'Familiar')
     DarkSun3E.familiarRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Str'),
@@ -3414,6 +3850,19 @@ DarkSun3E.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
     DarkSun3E.pathRulesExtra(rules, name);
+  } else if(type == 'Power') {
+    var powerCosts = QuilvynUtils.getAttrValueArray(attrs, 'Cost');
+    var powerDesc = QuilvynUtils.getAttrValue(attrs, 'Description');
+    var powerDiscipline = QuilvynUtils.getAttrValue(attrs, 'Discipline');
+    var powerLevels = QuilvynUtils.getAttrValueArray(attrs, 'Level');
+    for(var i = 0; i < powerLevels.length; i++) {
+      var powerLevel = powerLevels[i];
+      var powerCost = powerCosts[powerCosts.length == 1 ? 0 : i];
+      var powerName = name + '(' + powerLevels[i] + ' ' + powerCost + ' PP)';
+      DarkSun3E.powerRules
+        (rules, powerName, powerDiscipline, powerLevel, powerCost, powerDesc);
+      rules.addChoice('powers', powerName, attrs);
+    }
   } else if(type == 'Race') {
     DarkSun3E.raceRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
@@ -3480,7 +3929,7 @@ DarkSun3E.choiceRules = function(rules, type, name, attrs) {
     console.log('Unknown choice type "' + type + '"');
     return;
   }
-  if(type != 'Feature' && type != 'Path' && type != 'Spell') {
+  if(type!='Feature' && type!='Path' && type!='Power' && type!='Spell') {
     type = type == 'Class' ? 'levels' :
     type = type == 'Deity' ? 'deities' :
     (type.substring(0,1).toLowerCase() + type.substring(1).replaceAll(' ', '') + 's');
@@ -3932,6 +4381,15 @@ DarkSun3E.deityRules = function(rules, name, alignment, domains, weapons) {
   // No changes needed to the rules defined by base method
 };
 
+/* Defines in #rules# the rules associated with discipline #name#. */
+DarkSun3E.disciplineRules = function(rules, name) {
+  if(!name) {
+    console.log('Empty discipline name');
+    return;
+  }
+  // No rules pertain to discipline
+};
+
 /*
  * Defines in #rules# the rules associated with familiar #name#, which has
  * abilities #str#, #dex#, #con#, #intel#, #wis#, and #cha#, hit dice #hd#,
@@ -4055,6 +4513,34 @@ DarkSun3E.pathRules = function(
  * derived directly from the abilities passed to pathRules.
  */
 DarkSun3E.pathRulesExtra = function(rules, name) {
+};
+
+/*
+ * Defines in #rules# the rules associated with psionic power #name# from
+ * discipline #discipline#, which has level #level# and cost #cost#.
+ * #description# is a brief description of the power's effects.
+ */
+DarkSun3E.powerRules = function(
+  rules, name, discipline, level, cost, description
+) {
+  if(!name) {
+    console.log('Empty power name');
+    return;
+  }
+  if(!((discipline + '') in rules.getChoices('disciplines'))) {
+    console.log('Bad discipline "' + discipline + '" for power ' + name);
+    return;
+  }
+  if(!level.match(/^\w+\d$/)) {
+    console.log('Bad level "' + level + '" for power ' + name);
+    return;
+  }
+  if(typeof(cost) != 'number') {
+    console.log('Bad cost "' + cost + '" for power ' + name);
+    return;
+  }
+  rules.defineChoice
+    ('notes', 'powers.' + name + ':(' + level + ' ' + cost + ' PP) ' + description);
 };
 
 /*
