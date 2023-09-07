@@ -468,11 +468,11 @@ DarkSun2E.SPELLS =
 delete DarkSun2E.SPELLS['Conjure Earth Elemental'];
 delete DarkSun2E.SPELLS['Conjure Fire Elemental'];
 DarkSun2E.WEAPONS_ADDED = {
-  'Chatkcha':'Category=R Damage=d6+2 Range=90',
-  'Gythka':'Category=2h Damage=2d4',
-  'Impaler':'Category=2h Damage=d8',
-  'Quabone':'Category=Li Damage=d4',
-  'Wrist Razor':'Category=Li Damage=d6+1'
+  'Chatkcha':'Category=Ranged Damage=d6+2 Range=90',
+  'Gythka':'Category=Two-Handed Damage=2d4',
+  'Impaler':'Category=Two-Handed Damage=d8',
+  'Quabone':'Category=Light Damage=d4',
+  'Wrist Razor':'Category=Light Damage=d6+1'
 };
 DarkSun2E.WEAPONS =
   Object.assign(OldSchool.editedRules('Second Edition', OldSchool.WEAPONS, 'Weapon'), DarkSun2E.WEAPONS_ADDED);
@@ -895,8 +895,8 @@ DarkSun2E.raceRulesExtra = function(rules, name) {
         '"+5% Climb Walls/-5% Open Locks/+5% Move Silently/-5% Read Languages"'
       );
   } else if(name == 'Thri-kreen') {
-    DarkSun2E.weaponRules(rules, 'Bite', 'Un', 'd4+1', null);
-    DarkSun2E.weaponRules(rules, 'Claws', 'Un', 'd4', null);
+    DarkSun2E.weaponRules(rules, 'Bite', 'Unarmed', 'd4+1', null);
+    DarkSun2E.weaponRules(rules, 'Claws', 'Unarmed', 'd4', null);
     rules.defineRule('weaponProficiencyCount',
       raceLevel, '+', '2',
       'combatNotes.chatkchaFighter', '+', '1'
